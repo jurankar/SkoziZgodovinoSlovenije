@@ -27,7 +27,7 @@ Spletna aplikacija za interaktivne kvize in učenje zgodovine Slovenije na zabav
 - [ ] Podajanje parametra med viewsi (preko templateov)
 - [ ] Leaflet na urejanje, dodajanje in brisanje
 - [ ] Združevanje `add_question` in `add_question_type`: reactive glede na to, katero vrsto vprašanja izberemo
+- [ ] Kviz 
 - [ ] Logično redirectanje
 - [ ] Uporabniki in piškotki?
 - [ ] Bootstrap  
-- [ ] Kviz 
