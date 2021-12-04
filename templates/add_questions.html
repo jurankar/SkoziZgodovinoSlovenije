@@ -1,0 +1,11 @@
+<html>
+    <title>nov kviz</title>
+    <body>
+        <h1>Nov kviz</h1>
+        <form action="/your-name/" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Submit">
+        </form>
+    </body>
+</html>
