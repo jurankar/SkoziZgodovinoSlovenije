@@ -1,6 +1,23 @@
 <html>
     <title>urejevalnik vprašanj</title>
     <body>
-        Tukaj se bo urejalo in brisalo že obstoječe kvize
+        <h1>Seznam kvizov:</h1>
+        <table>
+
+            {% for i in kvizi %}
+            <tr><td>
+            {{i.name}}
+            </td>
+            <td>
+            {{i.id}}
+            </td>
+
+            <td>
+            {{i.author}}
+            </td>
+            </tr>
+
+            {%endfor%}
+        </table>
     </body>
 </html>
