@@ -1,0 +1,11 @@
+<html>
+    <title>novo vprašanje</title>
+    <body>
+        <h1>Novo vprašanje</h1>
+        <form action="/add_question_type" method="get">
+            {% csrf_token %}
+            {{form|linebreaks}}
+            <input type="submit" value="Nadaljuj">
+        </form>
+    </body>
+</html>

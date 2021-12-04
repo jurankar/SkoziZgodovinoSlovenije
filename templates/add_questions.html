@@ -1,11 +1,10 @@
 <html>
-    <title>nov kviz</title>
+    <title>nova vprašanja</title>
     <body>
-        <h1>Nov kviz</h1>
-        <form action="/your-name/" method="post">
+        <h1>Novo vprašanje</h1>
+        <form>
             {% csrf_token %}
-            {{ form }}
-            <input type="submit" value="Submit">
+            {{ basic }}
         </form>
     </body>
 </html>
