@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class dbKviz(models.Model):
+class dbQuiz(models.Model):
     id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=30, default="Kviz 1")
     author = models.CharField(max_length=200)
@@ -11,7 +11,8 @@ class dbKviz(models.Model):
 
 class dbQuestion(models.Model):
     id = models.BigAutoField(primary_key=True)
-    kviz = models.ForeignKey(dbKviz, on_delete=models.CASCADE)
+    #kviz = models.ForeignKey(dbQuiz, to_field='id', on_delete=models.CASCADE) # foreign key
+    kviz = models.CharField(max_length=100)
     number = models.IntegerField() # številka vprašanja znotraj kviza
     ime = models.CharField(max_length=100) # ime artefakta
     opis = models.CharField(max_length=1000)
@@ -24,5 +25,6 @@ class dbQuestion(models.Model):
 
 class dbAnswer(models.Model):
     id = models.BigAutoField(primary_key=True)
-    vprasanje = models.ForeignKey(dbQuestion, on_delete=models.CASCADE)
+    #vprasanje = models.ForeignKey(dbQuestion, to_field='id', on_delete=models.CASCADE)
+    vprasanje = models.CharField(max_length=100)
     odgovori = models.CharField(max_length=1000)
