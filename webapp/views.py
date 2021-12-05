@@ -46,63 +46,45 @@ def add_question(request):
         tip = '3'
         form = request.POST
 
+        # skupni parametri vprašanj
+        kviz = 1  # Tukaj je treba popraviti, ko ustvarimo povezavo med kvizom in vprašanjem
+        number = 1  # Dodaj številčenje vprašanj v bazi
+        ime = naslov_vprasanja
+        opis = form['opis']
+        slika = form['slika']  # Treba še implementirati
+        longitude = form['longitude']
+        latitude = form['latitude']
+
         #opisno vprašanje
         if tip == '1':
-            kviz = '1' # Tukaj je treba popraviti, ko ustvarimo povezavo med kvizom in vprašanjem
-            number = 1 # Dodaj številčenje vprašanj v bazi
-            ime = naslov_vprasanja
-            opis = form['opis']
-            slika = form['slika'] # Treba še implementirati
-            longitude = form['longitude']
-            latitude = form['latitude']
             tip = 'opisno'
             vprasanja = form['vprasanje']
             pravilni_odgovori = ''
-
-            dbQuestion.objects.create(kviz=kviz, number=number, ime=ime,
-                opis=opis, slika=slika, longitude=float(longitude), latitude=float(latitude),
-                type=tip, vprasanja=vprasanja,pravilni_odgovori=pravilni_odgovori)
-            return HttpResponseRedirect('/')
         
         #p/n vprašanje
         elif tip == '2':
-            kviz = 1 # Tukaj je treba popraviti, ko ustvarimo povezavo med kvizom in vprašanjem
-            number = 1 # Dodaj številčenje vprašanj v bazi
-            ime = naslov_vprasanja
-            opis = form['opis']
-            slika = form['slika'] # Treba še implementirati
-            longitude = form['longitude']
-            latitude = form['latitude']
             tip = 'pravilno-nepravilno'
             vprasanja = [form['trditev1'], form['trditev2'],
                 form['trditev3'], form['trditev4'], form['trditev5']]
             pravilni_odgovori = [form['p1'], form['p2'],
                 form['p3'], form['p4'], form['p5']]
 
-            dbQuestion.objects.create(kviz=kviz, number=number, ime=ime,
-                opis=opis, slika=slika, longitude=float(longitude), latitude=float(latitude),
-                type=tip, vprasanja=vprasanja,pravilni_odgovori=pravilni_odgovori)
-            return HttpResponseRedirect('/')
-
         #izbirno vprašanje
         elif tip == '3':
-            kviz = 1 # Tukaj je treba popraviti, ko ustvarimo povezavo med kvizom in vprašanjem
-            number = 1 # Dodaj številčenje vprašanj v bazi
-            ime = naslov_vprasanja
-            opis = form['opis']
-            slika = form['slika'] # Treba še implementirati
-            longitude = form['longitude']
-            latitude = form['latitude']
             tip = 'izbirno'
             vprasanja = [form['vprasanje'], form['odgovor1'], 
                 form['odgovor2'], form['odgovor3'], 
                 form['odgovor4'], form['odgovor5']]
-            pravilni_odgovor = form['pravilni_odgovor']
-            dbQuestion.objects.create(kviz=kviz, number=number, ime=ime,
-                opis=opis, slika=slika, longitude=float(longitude), latitude=float(latitude),
-                type=tip, vprasanja=vprasanja,pravilni_odgovori=int(pravilni_odgovor))
-            return HttpResponseRedirect('/')
-        else: return Exception("Nepravilen tip")
+            pravilni_odgovori = form['pravilni_odgovor']
+
+        else:
+            pravilni_odgovori = []
+            return Exception("Nepravilen tip")
+
+        dbQuestion.objects.create(kviz=kviz, number=number, ime=ime,
+                                  opis=opis, slika=slika, longitude=float(longitude), latitude=float(latitude),
+                                  type=tip, vprasanja=vprasanja, pravilni_odgovori=int(pravilni_odgovori))      # tip za pravilni odgovori mogoce ni ok
+        return HttpResponseRedirect('/')
     else:
         form=BasicQuestion()
         return render(request, "question_basic.html", {'form': form, 'title': 'nova vprašanja'})
