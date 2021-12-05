@@ -31,3 +31,5 @@ Spletna aplikacija za interaktivne kvize in učenje zgodovine Slovenije na zabav
 - [ ] Logično redirectanje
 - [ ] Uporabniki in piškotki?
 - [ ] Bootstrap  
+- [ ] Login System (učenci ne smejo imeti dostopa do urejanja vprašanj)
+- [ ] Styling
