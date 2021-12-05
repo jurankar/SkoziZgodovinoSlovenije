@@ -105,7 +105,7 @@ def add_question(request):
         else: return Exception("Nepravilen tip")
     else:
         form=BasicQuestion()
-        return render(request, "question_basic.html", {'form': form})
+        return render(request, "question_basic.html", {'form': form, 'title': 'nova vprašanja'})
 
 def add_question_type(request):
     form = request.GET

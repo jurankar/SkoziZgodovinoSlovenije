@@ -1,10 +1,13 @@
-<html>
-    <title>nova vprašanja</title>
-    <body>
-        <h1>Novo vprašanje</h1>
-        <form>
-            {% csrf_token %}
-            {{ basic }}
-        </form>
-    </body>
-</html>
+{% extends "skeleton.html" %}
+
+{% block head %}
+    <title>Nova vprašanja</title>
+{% endblock head %}
+
+{% block content %}
+    <h1>Novo vprašanje</h1>
+    <form>
+        {% csrf_token %}
+        {{ basic }}
+    </form>
+{% endblock %}

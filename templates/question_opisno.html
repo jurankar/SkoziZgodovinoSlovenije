@@ -1,6 +1,10 @@
-<html>
-    <title>nov kviz</title>
-    <body>
+{% extends "skeleton.html" %}
+
+{% block head %}
+    <title>Novo vprašanje</title>
+{% endblock head %}
+
+{% block content %}
         <h1>Novo vprašanje: {{ naslov_vprasanja }}</h1>
         <form action="/add_question/?naslov={{naslov_vprasanja}}&type={{type}}" method="post"> <!-- Takšno podajanje parametrov ne deluje -->
             {% csrf_token %}
@@ -9,5 +13,4 @@
             {{request.POST.naslov_vprasanja}}
             {{request.POST.type}}
         </form>
-    </body>
-</html>
+{% endblock content %}

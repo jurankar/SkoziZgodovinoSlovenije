@@ -1,43 +1,40 @@
-<html>
-    <title>urejevalnik vprašanj</title>
-    <body>
-        <h1>Seznam kvizov:</h1>
-        <table style="border: 1px solid black;">
+{% extends "skeleton.html" %}
+
+{% block head %}
+    <title>Urejevalnik vprašanj</title>
+{% endblock head %}
+
+{% block content %}
+    <h1>Seznam kvizov:</h1>
+    <table style="border: 1px solid black;">
+        <tr>
+            <th>Ime</th>
+            <th>id</th>
+            <th>Avtor</th>
+        </tr>
+        {% for i in kvizi %}
             <tr>
-            <th>Ime</th><th>id</th><th>Avtor</th></tr>
-            {% for i in kvizi %}
-            <tr><td>
-            {{i.name}}
-            </td>
-            <td>
-            {{i.id}}
-            </td>
-            <td>
-            {{i.author}}
-            </td>
+                <td>{{i.name}}</td>
+                <td>{{i.id}}</td>
+                <td>{{i.author}}</td>
             </tr>
-            {%endfor%}
-        </table>
-        <table style="border: 1px solid black;">
-        <h1>Seznam vprašanj:</h1>
-            <tr>
-                <th>Ime</th><th>Vprašanja</th><th>Tip</th><th>Pravilni odgovori</th>
-            </tr>
+        {%endfor%}
+    </table>
+    <table style="border: 1px solid black;">
+    <h1>Seznam vprašanj:</h1>
+        <tr>
+            <th>Ime</th>
+            <th>Vprašanja</th>
+            <th>Tip</th>
+            <th>Pravilni odgovori</th>
+        </tr>
             {% for j in vprasanja %}
-            <tr><td>
-            {{j.opis}}
-            </td>
-            <td>
-            {{j.vprasanja}}
-            </td>
-            <td>
-            {{j.type}}
-            </td>
-            <td>
-            {{j.pravilni_odgovori}}
-            </td>
+            <tr>
+                <td>{{j.opis}}</td>
+                <td>{{j.vprasanja}}</td>
+                <td>{{j.type}}</td>
+                <td>{{j.pravilni_odgovori}}</td>
             </tr>
-            {%endfor%}
-        </table>
-    </body>
-</html>
+        {%endfor%}
+    </table>
+{% endblock content %}

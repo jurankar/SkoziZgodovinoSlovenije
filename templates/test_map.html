@@ -1,7 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
+{% extends "skeleton.html" %}
+
+{% block head %}
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />
     <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
     <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.4/mapbox.js'></script>
@@ -13,8 +12,9 @@
         height: 800px;
     }
     </style>
-</head>
-<body>
+{% endblock head %}
+
+{% block content %}
     <h2>Leaflet django</h2>
     <div id="map"></div>
 
@@ -31,5 +31,4 @@
     var marker = L.marker([46.1195, 14.8379]).addTo(map);
     marker.bindPopup("<b>Vače</b><br>Vaška situla.");
     </script>
-</body>
-</html>
+{% endblock content %}
