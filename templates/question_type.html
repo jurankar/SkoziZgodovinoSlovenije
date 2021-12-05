@@ -4,11 +4,12 @@
     <title>Novo vprašanje</title>
 {% endblock head %}
 
+
 {% block content %}
-        <h1>Novo vprašanje: {{ naslov_vprasanja }}</h1>
+        <h1>Novo vprašanje</h1>
         <form action="/add_question" method="post">
             {% csrf_token %}
-            {{ form|linebreaks }}
-            <input type="submit" value="Dodaj vprašanja">
+            {{form|linebreaks}}
+            <input type="submit" value="Nadaljuj">
         </form>
 {% endblock content %}

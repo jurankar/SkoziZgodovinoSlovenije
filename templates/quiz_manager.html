@@ -21,19 +21,33 @@
         {%endfor%}
     </table>
     <table style="border: 1px solid black;">
-    <h1>Seznam vprašanj:</h1>
+        <h1>Seznam vprašanj staro:</h1>
         <tr>
             <th>Ime</th>
             <th>Vprašanja</th>
             <th>Tip</th>
             <th>Pravilni odgovori</th>
         </tr>
-            {% for j in vprasanja %}
+            {% for j in vprasanja_old %}
             <tr>
                 <td>{{j.opis}}</td>
                 <td>{{j.vprasanja}}</td>
                 <td>{{j.type}}</td>
                 <td>{{j.pravilni_odgovori}}</td>
+            </tr>
+        {%endfor%}
+    </table>
+
+    <table style="border: 1px solid black;">
+        <h1>Seznam vprašanj:</h1>
+        <tr>
+            <th>opis</th>
+            <th>opis</th>
+        </tr>
+            {% for j in vprasanja %}
+            <tr>
+                <td>{{j.opis}}</td>
+                <td>{{j.vprasanje}}</td>
             </tr>
         {%endfor%}
     </table>

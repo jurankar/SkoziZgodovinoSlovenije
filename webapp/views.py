@@ -2,9 +2,12 @@ from typing import NoReturn
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+import logging
 
-from webapp.forms import Quiz, BasicQuestion, Opisno, PravilnoNepravilno, IzberiOdgovor
-from webapp.models import dbQuiz, dbQuestion, dbAnswer
+from webapp.forms import Quiz, QuestionType, Opisno, PravilnoNepravilno, IzberiOdgovor
+from webapp.models import dbQuiz, dbQuestion, OpisnoModel, dbAnswer, PravilnoNepravilnoModel, IzberiOdgovorModel
+
+logger = logging.getLogger(__name__)
 
 def index(request):
     return render(request, "index.html", {})
@@ -18,10 +21,15 @@ def quiz_manager(request):
     except:
         kvizi = []
     try:
-        vprasanja = dbQuestion.objects.all()
+        vprasanja_old = dbQuestion.objects.all()
     except:
-        vprasanja = []
-    return render(request, "quiz_manager.html", {'kvizi': kvizi, 'vprasanja': vprasanja})
+        vprasanja_old = []
+
+    vprasanja = []
+    vprasanja += OpisnoModel.objects.all()
+    vprasanja += PravilnoNepravilnoModel.objects.all()
+    vprasanja += IzberiOdgovorModel.objects.all()
+    return render(request, "quiz_manager.html", {'kvizi': kvizi, 'vprasanja_old': vprasanja_old, 'vprasanja': vprasanja})
 
 def add_quiz(request):
     if request.method == 'POST':
@@ -40,70 +48,74 @@ def add_quiz(request):
 
 def add_question(request):
     if request.method == 'POST':
-
-        # Nekako je treba dobiti naslov in tip iz templata
-        naslov_vprasanja = 'poskus'
-        tip = '3'
         form = request.POST
+        form_type = form['form_type']
+        logger.error(form_type)
 
-        # skupni parametri vprašanj
+
+        # GENERIRAMO VPRAŠALNIK GLEDE NA TIP VPRAŠANJA
+        if form_type == '1':
+            tip_vprasanja = form['type']
+            if tip_vprasanja == '1':
+                form = Opisno()
+            elif tip_vprasanja == '2':
+                form = PravilnoNepravilno()
+            elif tip_vprasanja == '3':
+                form = IzberiOdgovor()
+            else:
+                form = "error"
+
+            return render(request, "question.html", {'form': form, 'title': 'nova vprašanja'})
+
+
+
+        # PROCESIRAMO ODGOVORJEN VPRAŠALNIK
         kviz = 1  # Tukaj je treba popraviti, ko ustvarimo povezavo med kvizom in vprašanjem
         number = 1  # Dodaj številčenje vprašanj v bazi
-        ime = naslov_vprasanja
         opis = form['opis']
         slika = form['slika']  # Treba še implementirati
         longitude = form['longitude']
         latitude = form['latitude']
 
         #opisno vprašanje
-        if tip == '1':
-            tip = 'opisno'
-            vprasanja = form['vprasanje']
+        if form_type == '2':
+            tip_vprasanja = 'opisno'
+            vprasanje = form['vprasanje']
             pravilni_odgovori = ''
-        
+            OpisnoModel.objects.create(opis=opis, slika=slika, longitude=longitude, latitude=latitude,
+                                       vprasanje=vprasanje)
+
         #p/n vprašanje
-        elif tip == '2':
-            tip = 'pravilno-nepravilno'
-            vprasanja = [form['trditev1'], form['trditev2'],
+        elif form_type == '3':
+            tip_vprasanja = 'pravilno-nepravilno'
+            vprasanje = [form['trditev1'], form['trditev2'],
                 form['trditev3'], form['trditev4'], form['trditev5']]
             pravilni_odgovori = [form['p1'], form['p2'],
                 form['p3'], form['p4'], form['p5']]
+            IzberiOdgovorModel.objects.create(opis=opis, slika=slika, longitude=longitude, latitude=latitude,
+                                       vprasanje=vprasanje, pravilni_odgovori = 5)
 
         #izbirno vprašanje
-        elif tip == '3':
-            tip = 'izbirno'
-            vprasanja = [form['vprasanje'], form['odgovor1'], 
+        elif form_type == '4':
+            tip_vprasanja = 'izbirno'
+            vprasanje = [form['vprasanje'], form['odgovor1'],
                 form['odgovor2'], form['odgovor3'], 
                 form['odgovor4'], form['odgovor5']]
             pravilni_odgovori = form['pravilni_odgovor']
+            PravilnoNepravilnoModel.objects.create(opis=opis, slika=slika, longitude=longitude, latitude=latitude,
+                                       )
 
         else:
             pravilni_odgovori = []
             return Exception("Nepravilen tip")
 
-        dbQuestion.objects.create(kviz=kviz, number=number, ime=ime,
-                                  opis=opis, slika=slika, longitude=float(longitude), latitude=float(latitude),
-                                  type=tip, vprasanja=vprasanja, pravilni_odgovori=int(pravilni_odgovori))      # tip za pravilni odgovori mogoce ni ok
         return HttpResponseRedirect('/')
-    else:
-        form=BasicQuestion()
-        return render(request, "question_basic.html", {'form': form, 'title': 'nova vprašanja'})
 
-def add_question_type(request):
-    form = request.GET
-    naslov_vprasanja = form['ime']
-    # opisno vprašanje
-    if form['type'][0]=='1':
-        return render(request, "question_opisno.html", {'form': Opisno(), 'type': 1, 'naslov_vprasanja': naslov_vprasanja})
 
-    # pravilno/nepravilno
-    elif form['type'][0]=='2':
-        return render(request, "question_pn.html", {'form': PravilnoNepravilno(), 'type': 2, 'naslov_vprasanja': naslov_vprasanja})
-    
-    # izbirno 
-    elif form['type'][0]=='3':
-        return render(request, "question_izbirno.html", {'form': IzberiOdgovor(), 'type': 3, 'naslov_vprasanja': naslov_vprasanja})
+
     else:
-        return Exception("Napačen tip")
+        # VPRAŠAMO UPORABNIKA KAKŠEN TIP VPRAŠANJA ŽELI
+        form = QuestionType()
+        return render(request, "question_type.html", {'form': form, 'title': 'nova vprašanja'})
 
 
