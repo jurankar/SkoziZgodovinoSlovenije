@@ -11,29 +11,22 @@
             <th>Ime</th>
             <th>id</th>
             <th>Avtor</th>
+            <th>Akcije</th>
         </tr>
         {% for i in kvizi %}
             <tr>
                 <td>{{i.name}}</td>
                 <td>{{i.id}}</td>
                 <td>{{i.author}}</td>
-            </tr>
-        {%endfor%}
-    </table>
-    <table style="border: 1px solid black;">
-        <h1>Seznam vprašanj staro:</h1>
-        <tr>
-            <th>Ime</th>
-            <th>Vprašanja</th>
-            <th>Tip</th>
-            <th>Pravilni odgovori</th>
-        </tr>
-            {% for j in vprasanja_old %}
-            <tr>
-                <td>{{j.opis}}</td>
-                <td>{{j.vprasanja}}</td>
-                <td>{{j.type}}</td>
-                <td>{{j.pravilni_odgovori}}</td>
+                <td>
+                    <form action="/edit_quiz/{{i.id}}/" method="get">
+                        <input type="submit" value="Uredi ta kviz">
+                    </form>
+                    <form action="/delete_quiz/{{i.id}}/" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="Izbriši">
+                    </form>
+                </td>
             </tr>
         {%endfor%}
     </table>
@@ -41,11 +34,13 @@
     <table style="border: 1px solid black;">
         <h1>Seznam vprašanj:</h1>
         <tr>
+            <th>id</th>
             <th>opis</th>
-            <th>opis</th>
+            <th>vprašanje</th>
         </tr>
             {% for j in vprasanja %}
             <tr>
+                <td>{{j.id}}</td>
                 <td>{{j.opis}}</td>
                 <td>{{j.vprasanje}}</td>
             </tr>
