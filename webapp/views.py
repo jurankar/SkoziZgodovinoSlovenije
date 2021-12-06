@@ -44,7 +44,7 @@ def add_quiz(request):
             # ...
             # redirect to a new URL:
             kviz = dbQuiz.objects.create(name=form.cleaned_data['ime'], author=form.cleaned_data['avtor'], password=form.cleaned_data['geslo'])
-            return redirect('/edit_quiz/' + str(kviz.id) + '/')
+            return redirect('/quiz_manager/' + str(kviz.id) + '/')
     else:
         form=Quiz()
         return render(request, "add_quiz.html", {'form': form})
@@ -111,7 +111,7 @@ def add_question(request, kviz):
             pravilni_odgovori = []
             return Exception("Nepravilen tip")
 
-        return redirect('/edit_quiz/' + str(kviz) + '/')
+        return redirect('/quiz_manager/' + str(kviz) + '/')
 
     else:
         # VPRAŠAMO UPORABNIKA KAKŠEN TIP VPRAŠANJA ŽELI
@@ -125,4 +125,4 @@ def delete_question(request, kviz, vprasanje, vrsta):
         PravilnoNepravilnoModel.objects.filter(id=vprasanje).delete()
     elif vrsta == 'izbirno':
         IzberiOdgovorModel.objects.filter(id=vprasanje).delete()
-    return redirect('/edit_quiz/' + str(kviz) + '/')
+    return redirect('/quiz_manager/' + str(kviz) + '/')
