@@ -4,7 +4,9 @@ Spletna aplikacija za interaktivne kvize in učenje zgodovine Slovenije na zabav
 
 ## Tabele:
 - `dbQuiz`: podatki o kvizu
-- `dbQuestion`: celotna vsebina vprašalne strani
+- `OpisnoModel`: vprašanja "opisnega" tipa
+- `PravilnoNepravilnoModel`: vprašanja tipa "P/N"
+- `IzberiOdgovorModel`: vprašanja tipa "izberi pravilno možnost"
 - `dbAnswers`: odgovori na vprašanja
 
 ## Url:
