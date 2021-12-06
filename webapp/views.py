@@ -53,6 +53,16 @@ def delete_quiz(request, kviz):
     dbQuiz.objects.filter(id=int(kviz)).delete()
     return redirect('/quiz_manager')
 
+def list_quizes(request):
+    kvizi = dbQuiz.objects.all()
+    return render(request, "quiz_list.html", {'kvizi': kvizi})
+
+# TODO CONTINUE
+def solve_quiz(request, kviz):
+    kviz = dbQuiz.objects.filter(id=int(kviz))
+    return render(request, "quiz_list.html", {'kvizi': kviz})
+
+
 def add_question(request, kviz):
     if request.method == 'POST':
         form = request.POST

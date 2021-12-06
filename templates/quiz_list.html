@@ -1,0 +1,27 @@
+{% extends "skeleton.html" %}
+
+{% block head %}
+    <title>Urejevalnik vprašanj</title>
+{% endblock head %}
+
+{% block content %}
+    <h1>Seznam kvizov:</h1>
+    <table style="border: 1px solid black;">
+        <tr>
+            <th>Ime</th>
+            <th>id</th>
+            <th>Avtor</th>
+            <th>Akcije</th>
+        </tr>
+        {% for i in kvizi %}
+            <tr>
+                <td>{{i.name}}</td>
+                <td>{{i.id}}</td>
+                <td>{{i.author}}</td>
+                <td>
+                    <a href="solve_quiz/{{i.id}}/">Rešimo kviz</a>
+                </td>
+            </tr>
+        {%endfor%}
+    </table>
+{% endblock content %}
