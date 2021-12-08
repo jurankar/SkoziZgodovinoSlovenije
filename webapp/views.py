@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 import logging
+import json
 
 from webapp.forms import Quiz, QuestionType, Opisno, PravilnoNepravilno, IzberiOdgovor
 from webapp.models import dbQuiz, OpisnoModel, dbAnswer, PravilnoNepravilnoModel, IzberiOdgovorModel
@@ -57,17 +58,32 @@ def list_quizes(request):
     kvizi = dbQuiz.objects.all()
     return render(request, "quiz_list.html", {'kvizi': kvizi})
 
-# TODO CONTINUE
-def solve_quiz(request, kviz):
+def solve_quiz(request, kviz, vprasanje_index):
     kviz = dbQuiz.objects.filter(id=int(kviz))
-    return render(request, "quiz_list.html", {'kvizi': kviz})
+    # logger.error(kviz[0].id)
+
+    # vprasanja
+    vprasanja = []
+    vprasanja += OpisnoModel.objects.filter(kviz__id=kviz[0].id)
+    vprasanja += PravilnoNepravilnoModel.objects.filter(kviz__id=kviz[0].id)
+    vprasanja += IzberiOdgovorModel.objects.filter(kviz__id=kviz[0].id)
+    vprasanje = vprasanja[vprasanje_index]
+
+    # pozicije za vprašanja na časovnem traku (enakomerno razporejene po časovnem traku)
+    st_vprasanj = len(vprasanja)
+    razmak = 100/st_vprasanj
+    pozicijeOznak = []
+    for i in range(st_vprasanj):
+        pozicijeOznak.append(i*razmak)
+
+    return render(request, "solve_quiz.html", {'kviz': kviz[0], 'width':70, 'height':100, 'marginLeft':15, 'st_vprasanj':range(st_vprasanj), 'pozicijeOznak':pozicijeOznak, 'vprasanje': vprasanje})
 
 
 def add_question(request, kviz):
     if request.method == 'POST':
         form = request.POST
         form_type = form['form_type']
-        logger.error(form_type)
+        # logger.error(form_type)
 
         # GENERIRAMO VPRAŠALNIK GLEDE NA TIP VPRAŠANJA
         if form_type == '1':

@@ -1,0 +1,62 @@
+{% extends "skeleton.html" %}
+
+{% block head %}
+
+
+
+    <title>Novo vprašanje</title>
+    <style type="text/css">
+    #map {
+        margin-top: 20px;
+        margin-left: {{marginLeft}}%;
+        margin-right: {{marginLeft}}%;
+        width: {{width}}%;
+        height: 800px;
+    }
+    #rectangle {
+        margin-left:{{marginLeft}}%;
+        margin-right: {{marginLeft}}%;
+        width:{{width}}%;
+        height:{{height}}px;
+        border:1px solid #000;
+        float: left;
+    }
+    #oznakaCasTrak{
+        width:10px;
+        height:{{height}}px;
+        border:1px solid #000;
+        position:absolute;
+    }
+
+    </style>
+{% endblock head %}
+
+{% block content %}
+
+    <div id="rectangle">
+        {% for i in pozicijeOznak %}
+            <a href="/solve_quiz/{{kviz.id}}/{{ forloop.counter0 }}/">
+                <div id="oznakaCasTrak" style="margin-left:{{i}}%"></div>
+            </a>
+        {%endfor%}
+    </div>
+
+    <div id="map"></div>
+
+        <script type="text/javascript">
+        var googleTerrain = L.tileLayer('http://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',{
+            maxZoom: 20,
+            subdomains:['mt0','mt1','mt2','mt3']
+        });
+
+        var map = L.map('map')
+            .addLayer(googleTerrain)
+            .setView([46.1195, 14.8379], 9);
+
+
+        var marker = L.marker([{{vprasanje.latitude}}, {{vprasanje.longitude}}]).addTo(map);
+        marker.bindPopup("<b>Vaše vprašanje</b><br>Link do vprašanja <a href='https://www.w3schools.com/jsref/event_onload.asp'> Link </a>");
+        </script>
+
+
+{% endblock content %}
