@@ -49,5 +49,15 @@ class IzberiOdgovor(forms.Form):
     pravilni_odgovor = forms.IntegerField(max_value=5, min_value=1,initial=1) # številka pravilnega odgovora
     form_type = forms.IntegerField(label='form type', initial=4)
 
+class OdgovorIzberiOdgovor(forms.Form):
+    p = forms.ChoiceField(choices=[(1,1),(2,2),(3,3),(4,4),(5,5)], widget=forms.RadioSelect)
 
+class OdgovorPravilnoNepravilno(forms.Form):
+    p1 = forms.ChoiceField(choices=[("P","P"),("N","N")], widget=forms.RadioSelect)
+    p2 = forms.ChoiceField(choices=[("P","P"),("N","N")], widget=forms.RadioSelect)
+    p3 = forms.ChoiceField(choices=[("P","P"),("N","N")], widget=forms.RadioSelect)
+    p4 = forms.ChoiceField(choices=[("P","P"),("N","N")], widget=forms.RadioSelect)
+    p5 = forms.ChoiceField(choices=[("P","P"),("N","N")], widget=forms.RadioSelect)
 
+class OdgovorOpisno(forms.Form):
+    p = forms.CharField(max_length=1000, label= '')
