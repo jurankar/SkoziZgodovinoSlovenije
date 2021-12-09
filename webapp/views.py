@@ -76,13 +76,16 @@ def solve_quiz(request, kviz, vprasanje_index):
     vprasanje = vprasanja[vprasanje_index]
 
     # pozicije za vprašanja na časovnem traku (enakomerno razporejene po časovnem traku)
+    width = 70
+    marginLeft = 15
+
     st_vprasanj = len(vprasanja)
     razmak = 100/st_vprasanj
     pozicijeOznak = []
     for i in range(st_vprasanj):
-        pozicijeOznak.append(i*razmak)
+        pozicijeOznak.append(marginLeft*(2/st_vprasanj) + ((i*razmak) * (width/100)))
 
-    return render(request, "solve_quiz.html", {'kviz': kviz[0], 'width':70, 'height':100, 'marginLeft':15, 'st_vprasanj':range(st_vprasanj), 'pozicijeOznak':pozicijeOznak, 'vprasanje': vprasanje, 'vprasanje_index': vprasanje_index})
+    return render(request, "solve_quiz.html", {'kviz': kviz[0], 'width': width, 'height': 100, 'marginLeft': marginLeft, 'stVprasanjRange': range(st_vprasanj), 'pozicijeOznak': pozicijeOznak, 'vprasanje': vprasanje, 'vprasanje_index': vprasanje_index})
 
 def solve_question(request, kviz, vprasanje_id, vprasanje_index):
     if request.method == 'POST':

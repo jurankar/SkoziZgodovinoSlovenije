@@ -21,7 +21,7 @@
         border:1px solid #000;
         float: left;
     }
-    #oznakaCasTrak{
+    .oznakaCasTrak{
         width:10px;
         height:{{height}}px;
         border:1px solid #000;
@@ -36,7 +36,11 @@
     <div id="rectangle">
         {% for i in pozicijeOznak %}
             <a href="/solve_quiz/{{kviz.id}}/{{ forloop.counter0 }}/">
-                <div id="oznakaCasTrak" style="margin-left:{{i}}%"></div>
+                {% if forloop.counter0 == vprasanje_index %}
+                    <div class="oznakaCasTrak" style="margin-left:{{i}}%; background:powderblue"></div>
+                {% else %}
+                    <div class="oznakaCasTrak" style="margin-left:{{i}}%"></div>
+                {% endif %}
             </a>
         {%endfor%}
     </div>
