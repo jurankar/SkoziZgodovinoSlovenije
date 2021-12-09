@@ -31,11 +31,21 @@
     </style>
 {% endblock head %}
 
+
+
+
 {% block content %}
+
+    <div style="text-align: right ">
+            <form action="/rezulati/{{kviz.id}}/{{username}}/" method="get">
+                {% csrf_token %}
+                <input type="submit" value="Končaj poskus">
+            </form>
+    </div>
 
     <div id="rectangle">
         {% for i in pozicijeOznak %}
-            <a href="/solve_quiz/{{kviz.id}}/{{ forloop.counter0 }}/">
+            <a href="/solve_quiz/{{kviz.id}}/{{ forloop.counter0 }}/{{username}}/">
                 {% if forloop.counter0 == vprasanje_index %}
                     <div class="oznakaCasTrak" style="margin-left:{{i}}%; background:powderblue"></div>
                 {% else %}
@@ -59,8 +69,9 @@
 
 
         var marker = L.marker([{{vprasanje.latitude}}, {{vprasanje.longitude}}]).addTo(map);
-        marker.bindPopup("<b>Vaše vprašanje</b><br>Link do vprašanja <a href='/solve_question/{{kviz.id}}/{{vprasanje.id}}/{{vprasanje_index}}/'> Link </a>");
+        marker.bindPopup("<b>Vaše vprašanje</b><br>Link do vprašanja <a href='/solve_question/{{kviz.id}}/{{vprasanje.id}}/{{vprasanje_index}}/{{username}}'> Link </a>");
         </script>
+
 
 
 {% endblock content %}
