@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models.deletion import CASCADE
+import uuid
 
 # Create your models here.
 class dbQuiz(models.Model):
@@ -11,6 +12,7 @@ class dbQuiz(models.Model):
     password = models.CharField(max_length=50) # geslo za kviz (da ni vsak kviz dostopen vsakomur)
 
 class OpisnoModel(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     kviz = models.ForeignKey(dbQuiz, on_delete=CASCADE, null=True)
     opis = models.CharField(max_length=1000)
     slika = models.CharField(max_length=200) # upload jpg-ja
@@ -19,6 +21,7 @@ class OpisnoModel(models.Model):
     vprasanje = models.CharField(max_length=1000) # seznam vprašanj, odvisno od tipa
     
 class PravilnoNepravilnoModel(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     kviz = models.ForeignKey(dbQuiz, on_delete=CASCADE, null=True)   
     opis = models.CharField(max_length=1000)
     slika = models.CharField(max_length=200) # upload jpg-ja
@@ -28,6 +31,7 @@ class PravilnoNepravilnoModel(models.Model):
     pravilni_odgovor = models.CharField(max_length=1000, default="nan") # seznam pravilnegih odgovorov
     
 class IzberiOdgovorModel(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     kviz = models.ForeignKey(dbQuiz, on_delete=CASCADE, null=True)
     opis = models.CharField(max_length=1000)
     slika = models.CharField(max_length=200) # upload jpg-ja
@@ -42,19 +46,19 @@ class IzberiOdgovorModel(models.Model):
     pravilni_odgovor = models.IntegerField() # številka pravilnega odgovora
 
 class OdgovorPravilnoNepravilnoModel(models.Model):
-    id = models.BigAutoField(primary_key=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.CharField(max_length=30)
     vprasanje = models.ForeignKey(PravilnoNepravilnoModel, on_delete=CASCADE)
     odgovori = models.CharField(max_length=1000)
 
 class OdgovorIzberiOdgovorModel(models.Model):
-    id = models.BigAutoField(primary_key=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.CharField(max_length=30)
     vprasanje = models.ForeignKey(IzberiOdgovorModel, on_delete=CASCADE)
     odgovori = models.CharField(max_length=1000)
 
 class OdgovorOpisnoModel(models.Model):
-    id = models.BigAutoField(primary_key=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.CharField(max_length=30)
     vprasanje = models.ForeignKey(OpisnoModel, on_delete=CASCADE)
     odgovori = models.CharField(max_length=1000)
