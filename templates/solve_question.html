@@ -1,0 +1,42 @@
+{% extends "skeleton.html" %}
+
+{% block head %}
+
+{% endblock head %}
+
+{% block content %}
+
+<h1>Vprašanje iz kviza {{kviz}}</h1>
+
+<h3>Opis: </h3>
+<p>{{vprasanje.opis}}</p>
+
+<h3>Odgovori: </h3>
+{% if tip == 'opisno' %}
+<form action="/solve_question/{{kviz}}/{{vprasanje.id}}/{{vprasanje_index}}/" method="post">
+    {{vprasanje.vprasanje}}<br>
+    {% csrf_token %}
+    {{formopisno|linebreaks}}
+    <input type="submit" value="Odgovori">
+</form>
+{%endif%}
+
+
+{% if tip == 'pn' %}
+<form action="/solve_question/{{kviz}}/{{vprasanje.id}}/{{vprasanje_index}}/" method="post">
+    {% csrf_token %}
+    {{formpn|linebreaks}}
+    <input type="submit" value="Odgovori">
+</form>
+{%endif%}
+
+
+{% if tip == 'izbirno' %}
+<form action="/solve_question/{{kviz}}/{{vprasanje.id}}/{{vprasanje_index}}/" method="post">
+    {% csrf_token %}
+    {{formizbirno|linebreaks}}
+    <input type="submit" value="Odgovori">
+</form>
+{%endif%}
+
+{% endblock content %}

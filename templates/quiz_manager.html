@@ -46,4 +46,21 @@
             </tr>
         {%endfor%}
     </table>
+
+    <table style="border: 1px solid black;">
+        <h1>Seznam odgovorov:</h1>
+        <tr>
+            <th>naziv uporabnika</th>
+            <th>vprašanje</th>
+            <th>odgovor</th>
+        </tr>
+            {% for j in odgovori %}
+            <tr>
+                <td>{{j.user}}</td>
+                <td>{{j.vprasanje.vprasanje}}</td>
+                <td>{{j.odgovori}}</td>
+            </tr>
+            {%endfor%}
+    </table>
+
 {% endblock content %}

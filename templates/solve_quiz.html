@@ -55,7 +55,7 @@
 
 
         var marker = L.marker([{{vprasanje.latitude}}, {{vprasanje.longitude}}]).addTo(map);
-        marker.bindPopup("<b>Vaše vprašanje</b><br>Link do vprašanja <a href='https://www.w3schools.com/jsref/event_onload.asp'> Link </a>");
+        marker.bindPopup("<b>Vaše vprašanje</b><br>Link do vprašanja <a href='/solve_question/{{kviz.id}}/{{vprasanje.id}}/{{vprasanje_index}}/'> Link </a>");
         </script>
 
 
