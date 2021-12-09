@@ -9,7 +9,7 @@
         <h1>Novo vprašanje</h1>
         <form action="/add_question/{{kviz}}" method="post">
             {% csrf_token %}
-            {{form|linebreaks}}
+            {{form}}
             <input type="submit" value="Nadaljuj">
         </form>
 {% endblock content %}
