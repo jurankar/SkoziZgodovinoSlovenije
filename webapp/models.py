@@ -41,8 +41,20 @@ class IzberiOdgovorModel(models.Model):
     odgovor5 = models.CharField(max_length=100, default="nan")
     pravilni_odgovor = models.IntegerField() # številka pravilnega odgovora
 
-class dbAnswer(models.Model):
+class OdgovorPravilnoNepravilnoModel(models.Model):
     id = models.BigAutoField(primary_key=True)
-    #vprasanje = models.ForeignKey(dbQuestion, to_field='id', on_delete=models.CASCADE) # kako foreign key na več kot eno tabelo
-    vprasanje = models.CharField(max_length=100)
+    user = models.CharField(max_length=30)
+    vprasanje = models.ForeignKey(PravilnoNepravilnoModel, on_delete=CASCADE)
+    odgovori = models.CharField(max_length=1000)
+
+class OdgovorIzberiOdgovorModel(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    user = models.CharField(max_length=30)
+    vprasanje = models.ForeignKey(IzberiOdgovorModel, on_delete=CASCADE)
+    odgovori = models.CharField(max_length=1000)
+
+class OdgovorOpisnoModel(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    user = models.CharField(max_length=30)
+    vprasanje = models.ForeignKey(OpisnoModel, on_delete=CASCADE)
     odgovori = models.CharField(max_length=1000)
