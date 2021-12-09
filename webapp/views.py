@@ -5,8 +5,8 @@ from django.shortcuts import redirect, render
 import logging
 import json
 
-from webapp.forms import Quiz, QuestionType, Opisno, PravilnoNepravilno, IzberiOdgovor
-from webapp.models import dbQuiz, OpisnoModel, dbAnswer, PravilnoNepravilnoModel, IzberiOdgovorModel
+from webapp.forms import Quiz, QuestionType, Opisno, PravilnoNepravilno, IzberiOdgovor, OdgovorIzberiOdgovor, OdgovorPravilnoNepravilno, OdgovorOpisno
+from webapp.models import dbQuiz, OpisnoModel, PravilnoNepravilnoModel, IzberiOdgovorModel, OdgovorIzberiOdgovorModel, OdgovorOpisnoModel, OdgovorPravilnoNepravilnoModel
 
 logger = logging.getLogger(__name__)
 
@@ -25,7 +25,13 @@ def quiz_manager(request,kviz=None):
     vprasanja += OpisnoModel.objects.all()
     vprasanja += PravilnoNepravilnoModel.objects.all()
     vprasanja += IzberiOdgovorModel.objects.all()
-    return render(request, "quiz_manager.html", {'kvizi': kvizi, 'vprasanja': vprasanja})
+
+    odgovori = []
+    odgovori += OdgovorOpisnoModel.objects.all()
+    odgovori += OdgovorPravilnoNepravilnoModel.objects.all()
+    odgovori += OdgovorIzberiOdgovorModel.objects.all()
+
+    return render(request, "quiz_manager.html", {'kvizi': kvizi, 'vprasanja': vprasanja, 'odgovori': odgovori})
 
 def edit_quiz(request, kviz):
     ime_kviza = dbQuiz.objects.filter(id=kviz)
@@ -76,7 +82,61 @@ def solve_quiz(request, kviz, vprasanje_index):
     for i in range(st_vprasanj):
         pozicijeOznak.append(i*razmak)
 
-    return render(request, "solve_quiz.html", {'kviz': kviz[0], 'width':70, 'height':100, 'marginLeft':15, 'st_vprasanj':range(st_vprasanj), 'pozicijeOznak':pozicijeOznak, 'vprasanje': vprasanje})
+    return render(request, "solve_quiz.html", {'kviz': kviz[0], 'width':70, 'height':100, 'marginLeft':15, 'st_vprasanj':range(st_vprasanj), 'pozicijeOznak':pozicijeOznak, 'vprasanje': vprasanje, 'vprasanje_index': vprasanje_index})
+
+def solve_question(request, kviz, vprasanje_id, vprasanje_index):
+    if request.method == 'POST':
+        form = request.POST
+        kviz = dbQuiz.objects.filter(id=int(kviz))
+
+        vprasanja = []
+        tipi = []
+
+        vprasanja += OpisnoModel.objects.filter(id = vprasanje_id)
+        if len(vprasanja) > 0:
+            tipi.append('opisno')
+        vprasanja += PravilnoNepravilnoModel.objects.filter(id = vprasanje_id)
+        if len(vprasanja) > 0:
+            tipi.append('pravilno-nepravilno')
+        vprasanja += IzberiOdgovorModel.objects.filter(id = vprasanje_id)
+        if len(vprasanja) > 0:
+            tipi.append('izbirno')
+        vprasanje = vprasanja[0]
+        tip = tipi[0]
+        if tip == 'opisno':
+            OdgovorOpisnoModel.objects.create(user="Implementiraj", vprasanje=vprasanje, odgovori = form['p'])
+
+        elif tip == 'pravilno-nepravilno':
+            OdgovorPravilnoNepravilnoModel.objects.create(user="Implementiraj", vprasanje=vprasanje, 
+                                                odgovori = [form['p1'], form['p2'], form['p3'], form['p4'], form['p5']])
+
+        elif tip == 'izbirno':
+            OdgovorIzberiOdgovorModel.objects.create(user="Implementiraj", vprasanje=vprasanje, odgovori = form['p'])
+
+        else: 
+            raise Exception("Ni vprašanja")
+
+        return redirect('/solve_quiz/' + str(kviz[0].id) + '/' + str(vprasanje_index) + '/')
+    else:
+        kviz = dbQuiz.objects.filter(id=int(kviz))
+        # logger.error(kviz[0].id)
+        # vprasanja
+        tip = []
+        vprasanja = []
+        vprasanja += OpisnoModel.objects.filter(kviz__id=kviz[0].id, id=vprasanje_id)
+        if len(vprasanja) > 0: 
+            tip.append('opisno')
+        formopisno = OdgovorOpisno()
+
+        vprasanja += PravilnoNepravilnoModel.objects.filter(kviz__id=kviz[0].id, id=vprasanje_id)
+        if len(vprasanja) > 0: tip.append('pn')
+        formpn = OdgovorPravilnoNepravilno()
+
+        vprasanja += IzberiOdgovorModel.objects.filter(kviz__id=kviz[0].id, id=vprasanje_id)
+        if len(vprasanja) > 0: tip.append('izbirno')
+        formizbirno = OdgovorIzberiOdgovor()
+
+        return render(request, "solve_question.html", {'kviz': int(kviz[0].id), 'vprasanje': vprasanja[0], 'tip': tip[0], 'formopisno': formopisno, 'formizbirno': formizbirno, 'formpn': formpn, 'vprasanje_index': vprasanje_index})
 
 
 def add_question(request, kviz):
