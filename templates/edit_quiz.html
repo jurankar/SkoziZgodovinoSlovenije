@@ -32,15 +32,15 @@
             </td>
         </tr>
         {%endfor%}
-        {% for j in vprasanja_izbirna %}
+        {% for k in vprasanja_izbirna %}
         <tr>
-            <td>{{j.opis}}</td>
-            <td>{{j.vprasanje}}</td>
-            <td>{{j.longitude}}</td>
-            <td>{{j.latitude}}</td>
+            <td>{{k.opis}}</td>
+            <td>{{k.vprasanje}}</td>
+            <td>{{k.longitude}}</td>
+            <td>{{k.latitude}}</td>
             <td> izbirno </td>
             <td>
-                <form action="/delete_question/{{kviz}}/{{j.id}}/izbirno" method="post">
+                <form action="/delete_question/{{kviz}}/{{k.id}}/pn" method="post">
                     {% csrf_token %}
                     <input type="submit" value="Izbriši">
                 </form>
@@ -48,15 +48,15 @@
             </td>
         </tr>
         {%endfor%}
-        {% for j in vprasanja_pn %}
+        {% for k in vprasanja_pn %}
         <tr>
-            <td>{{j.opis}}</td>
-            <td>{{j.vprasanje}}</td>
-            <td>{{j.longitude}}</td>
-            <td>{{j.latitude}}</td>
-            <td> opisno </td>
+            <td>{{k.opis}}</td>
+            <td>{{k.vprasanje}}</td>
+            <td>{{k.longitude}}</td>
+            <td>{{k.latitude}}</td>
+            <td> pravilno-nepravilno </td>
             <td>
-                <form action="/delete_question/{{kviz}}/{{j.id}}/pn" method="post">
+                <form action="/delete_question/{{kviz}}/{{k.id}}/izbirno" method="post">
                     {% csrf_token %}
                     <input type="submit" value="Izbriši">
                 </form>
