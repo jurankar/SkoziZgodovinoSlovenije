@@ -28,7 +28,9 @@ Spletna aplikacija za interaktivne kvize in učenje zgodovine Slovenije na zabav
 - [x] Podajanje parametra med viewsi (preko templateov) -> Maj
 - [X] Leaflet na urejanje, dodajanje in brisanje -> Jan
 - [x] Združevanje `add_question` in `add_question_type`: reactive glede na to, katero vrsto vprašanja izberemo -> Jan
-- [ ] Kviz 
+- [X] Kviz 
+- [] Opisno vprašanje ne preverja pravilnosti
+- [] Ko izpolnjuješ vprašanja na kvizu mora avtomatsko na naslednje vprašanje
 
 
 
