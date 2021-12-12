@@ -31,6 +31,7 @@ Spletna aplikacija za interaktivne kvize in učenje zgodovine Slovenije na zabav
 - [X] Kviz 
 - [] Opisno vprašanje ne preverja pravilnosti
 - [] Ko izpolnjuješ vprašanja na kvizu mora avtomatsko na naslednje vprašanje
+- [] Dobimo ime mesta po imenu
 
 
 
