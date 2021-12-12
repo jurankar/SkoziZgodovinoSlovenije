@@ -243,3 +243,9 @@ def rezultati(request, kviz, username):
     odgovori += OdgovorIzberiOdgovorModel.objects.filter(user=username)
 
     return render(request, "rezultati.html", {'odgovori': odgovori, 'username': username})
+
+
+
+def testTemplate(request):
+    kvizi = dbQuiz.objects.all()
+    return render(request, "index2.html", {'kvizi': kvizi})
