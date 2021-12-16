@@ -30,8 +30,9 @@ Spletna aplikacija za interaktivne kvize in učenje zgodovine Slovenije na zabav
 - [x] Združevanje `add_question` in `add_question_type`: reactive glede na to, katero vrsto vprašanja izberemo -> Jan
 - [X] Kviz 
 - [] Opisno vprašanje ne preverja pravilnosti
+- [] Točkovanje
 - [] Ko izpolnjuješ vprašanja na kvizu mora avtomatsko na naslednje vprašanje
-- [] Dobimo ime mesta po imenu
+- [] Dobimo ime mesta po imenu v leafletu
 
 
 
