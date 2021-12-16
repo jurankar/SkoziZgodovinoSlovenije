@@ -50,7 +50,7 @@ def add_quiz(request):
             # process the data in form.cleaned_data as required
             # ...
             # redirect to a new URL:
-            kviz = dbQuiz.objects.create(name=form.cleaned_data['ime'], author=form.cleaned_data['avtor'], password=form.cleaned_data['geslo'])
+            kviz = dbQuiz.objects.create(name=form.cleaned_data['ime'], author=form.cleaned_data['avtor'], password=form.cleaned_data['geslo'], pictureUrl=form.cleaned_data['slikaUrl'])
             return redirect('/quiz_manager/' + str(kviz.id) + '/')
     else:
         form=Quiz()

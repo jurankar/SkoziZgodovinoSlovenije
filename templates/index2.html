@@ -49,8 +49,11 @@
   <div class="row">
     <div class="col-sm-8">
       <h2>O projektu</h2><br>
-      <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h4><br>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      <h4>Spletna aplikacija skozi katero poteka zabavno poučevanje zgodovine v osnovnih šolah.</h4><br>
+      <p>Učenci se skozi interaktivne kvize učijo o zgodovini Slovenije. Dodajanje in urejanje kvizov
+          ter vprašanj, ki kvize sestavljajo je enostavno in intuitivno. Vprašanja so sestavljena iz
+          podvprašanj in pa interaktivnega zemljevida, ki pokaže kje v Sloveniji se artefakt ali dogodek,
+           ki ga predstavljamo nahaja.</p>
       <br><button class="btn btn-default btn-lg">Get in Touch</button>
     </div>
     <div class="col-sm-4">
@@ -59,7 +62,7 @@
   </div>
 </div>
 
-<div class="container-fluid bg-grey">
+<!--div class="container-fluid bg-grey">
   <div class="row">
     <div class="col-sm-4">
       <span class="glyphicon glyphicon-globe logo slideanim"></span>
@@ -71,9 +74,8 @@
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
     </div>
   </div>
-</div>
+</div-->
 
-<!-- Container (Portfolio Section) -->
 <div id="portfolio" class="container-fluid text-center bg-grey">
   <h2>Kvizi</h2><br>
   <h4>Kvizi, ki jih lahko rešite</h4>
@@ -81,7 +83,7 @@
     {% for i in kvizi %}
         <div class="col-sm-4">
           <div class="thumbnail">
-            <img src="paris.jpg" alt="Paris" width="400" height="300">
+            <img src="{{ i.pictureUrl }}" alt="Paris" width="400" height="300">
             <p><strong>{{i.name}}</strong></p>
             <p>{{i.author}}</p>
           </div>
@@ -89,7 +91,7 @@
     {%endfor%}
   </div><br>
 
-  <h2>What our customers say</h2>
+  <h2>Mnenja o naši aplikaciji</h2>
   <div id="myCarousel" class="carousel slide text-center" data-ride="carousel">
     <!-- Indicators -->
     <ol class="carousel-indicators">
@@ -101,13 +103,13 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
       <div class="item active">
-        <h4>"This quiz is the best. I am so happy with the result!"<br><span>Michael Roe, Vice President, Comment Box</span></h4>
+        <h4>"Kvizi so super. Res sem zadovoljen z rezultatom."<br><span>Mitja Poljanšek, 8b, osnovna šola Prežihovega Voranca</span></h4>
       </div>
       <div class="item">
-        <h4>"One word... WOW!! Solving this quiz changed my life"<br><span>John Doe, Salesman, Rep Inc</span></h4>
+        <h4>"Stran je zanimiva in intuitivna"<br><span>Franc Ferdo Kukec, Profesor na osnovni šoli Trnovo</span></h4>
       </div>
       <div class="item">
-        <h4>"Could I... BE any more happy with this skozi zgodovino Slovenije quizes??"<br><span>Chandler Bing, Actor, FriendsAlot</span></h4>
+        <h4>"Ta način učenja je res spodbudil moje zanimanje za zgodovino v Sloveniji"<br><span>Špela Vrhovc, 6a, osnovna šola Grosuplje</span></h4>
       </div>
     </div>
 
@@ -134,7 +136,6 @@
 </div>
 
 <!-- Image of location/map -->
-<img src="/w3images/map.jpg" class="w3-image w3-greyscale-min" style="width:100%">
 
 <footer class="container-fluid text-center">
   <a href="#myPage" title="To Top">

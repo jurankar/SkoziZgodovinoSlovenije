@@ -5,11 +5,12 @@ import uuid
 # Create your models here.
 class dbQuiz(models.Model):
     id = models.BigAutoField(primary_key=True)
-    name = models.CharField(max_length=30, default="Kviz 1")
+    name = models.CharField(max_length=200, default="Kviz 1")
     author = models.CharField(max_length=200)
+    password = models.CharField(max_length=200) # geslo za kviz (da ni vsak kviz dostopen vsakomur)
+    pictureUrl = models.CharField(max_length=200)   # url can be local or online
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    password = models.CharField(max_length=50) # geslo za kviz (da ni vsak kviz dostopen vsakomur)
 
 class OpisnoModel(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
