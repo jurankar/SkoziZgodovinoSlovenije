@@ -56,9 +56,6 @@
            ki ga predstavljamo nahaja.</p>
       <br><button class="btn btn-default btn-lg">Get in Touch</button>
     </div>
-    <div class="col-sm-4">
-      <span class="glyphicon glyphicon-signal logo"></span>
-    </div>
   </div>
 </div>
 
@@ -82,11 +79,13 @@
   <div class="row text-center slideanim">
     {% for i in kvizi %}
         <div class="col-sm-4">
-          <div class="thumbnail">
-            <img src="{{ i.pictureUrl }}" alt="Paris" width="400" height="300">
-            <p><strong>{{i.name}}</strong></p>
-            <p>{{i.author}}</p>
-          </div>
+          <a href="/select_username/{{ i.id }}">
+            <div class="thumbnail">
+              <img src="{{ i.pictureUrl }}" alt="Paris" width="400" height="300">
+              <p><strong>{{i.name}}</strong></p>
+              <p>{{i.author}}</p>
+            </div>
+          </a>
         </div>
     {%endfor%}
   </div><br>
@@ -125,14 +124,29 @@
   </div>
 </div>
 
-<!-- Container (Pricing Section) -->
+<!-- Container (Uredimo kvize) -->
 <div id="pricing" class="container-fluid">
   <h1>Uredimo kvize</h1>
+  <div class="row text-center slideanim">
+      {% for i in kvizi %}
+          <div class="col-sm-4">
+            <div class="thumbnail">
+              <img src="{{ i.pictureUrl }}" alt="Paris" width="400" height="300">
+              <p><strong>{{i.name}}</strong></p>
+              <p>{{i.author}}</p>
+            </div>
+            <button  onclick="location.href='/quiz_manager/{{ i.id }}/'" type="button" class="btn btn-secondary pull-left" style="margin-left:20%">Uredi kviz</button>
+            <button onclick="location.href='/delete_quiz/{{ i.id }}/'" type="button" class="btn btn-danger pull-right" style="margin-right:20%">Izbriši kviz</button>
+          </div>
+      {%endfor%}
+  </div><br>
 </div>
 
-<!-- Container (Contact Section) -->
+<!-- Container (Dodajmo kvize) -->
 <div id="contact" class="container-fluid bg-grey">
   <h1>Dodajmo kvize</h1>
+  <a href="/add_quiz">Povezava do obrazca</a>
+
 </div>
 
 <!-- Image of location/map -->
