@@ -13,7 +13,9 @@ class QuestionType(forms.Form):
 
 class Opisno(forms.Form):
     opis = forms.CharField(max_length=1000)
-    slika = forms.CharField(max_length=200) # upload jpg-ja
+    slika = forms.FileField(
+        label='Select a file',
+    )
     longitude = forms.FloatField() # koordinate za leaflet (bomo spremenili na koncu)
     latitude = forms.FloatField()
     vprasanje = forms.CharField(max_length=1000) # seznam vprašanj, odvisno od tipa
@@ -21,7 +23,9 @@ class Opisno(forms.Form):
 
 class PravilnoNepravilno(forms.Form):
     opis = forms.CharField(max_length=1000)
-    slika = forms.CharField(max_length=200) # upload jpg-ja
+    slika = forms.FileField(
+        label='Select a file',
+    )
     longitude = forms.FloatField() # koordinate za leaflet (bomo spremenili na koncu)
     latitude = forms.FloatField()
     trditev1 = forms.CharField(max_length=100)
@@ -38,7 +42,9 @@ class PravilnoNepravilno(forms.Form):
 
 class IzberiOdgovor(forms.Form):
     opis = forms.CharField(max_length=1000)
-    slika = forms.CharField(max_length=200) # upload jpg-ja
+    slika = forms.FileField(
+        label='Select a file',
+    )
     longitude = forms.FloatField() # koordinate za leaflet (bomo spremenili na koncu)
     latitude = forms.FloatField()
     vprasanje = forms.CharField(max_length=100)

@@ -6,7 +6,8 @@ import logging
 import json
 
 from webapp.forms import Quiz, QuestionType, Opisno, PravilnoNepravilno, IzberiOdgovor, OdgovorIzberiOdgovor, OdgovorPravilnoNepravilno, OdgovorOpisno, UporabniskoIme
-from webapp.models import dbQuiz, OpisnoModel, PravilnoNepravilnoModel, IzberiOdgovorModel, OdgovorIzberiOdgovorModel, OdgovorOpisnoModel, OdgovorPravilnoNepravilnoModel
+from webapp.models import dbQuiz, OpisnoModel, PravilnoNepravilnoModel
+from webapp.models import IzberiOdgovorModel, OdgovorIzberiOdgovorModel, OdgovorOpisnoModel, OdgovorPravilnoNepravilnoModel, DatotekaIzberiOdgovorModel, DatotekaOpisnoModel, DatotekaPravilnoNepravilnoModel
 
 logger = logging.getLogger(__name__)
 
@@ -132,13 +133,17 @@ def solve_question(request, kviz, vprasanje_id, vprasanje_index, username):
         formpn = OdgovorPravilnoNepravilno()
         
         vprasanja = []
+        slike = []
         vprasanja += OpisnoModel.objects.filter(kviz__id=kviz[0].id, id=vprasanje_id)
+        slike += DatotekaOpisnoModel.objects.filter(vprasanje=vprasanje_id)
         if len(vprasanja) > 0: 
             tip = 'opisno'
-            return render(request, "solve_question.html", {'kviz': int(kviz[0].id), 'vprasanje': vprasanja[0], 'tip': tip, 'formopisno': formopisno, 'formizbirno': formizbirno, 'formpn': formpn, 'vprasanje_index': vprasanje_index, 'seznam_vprasanj': None, 'username': username})
+            return render(request, "solve_question.html", {'kviz': int(kviz[0].id), 'vprasanje': vprasanja[0], 'tip': tip, 'formopisno': formopisno, 'formizbirno': formizbirno, 'formpn': formpn, 'vprasanje_index': vprasanje_index, 'seznam_vprasanj': None, 'username': username, 'slika': slike[0].datoteka})
 
         vprasanja = []
+        slike = []
         vprasanja += PravilnoNepravilnoModel.objects.filter(kviz__id=kviz[0].id, id=vprasanje_id)
+        slike += DatotekaPravilnoNepravilnoModel.objects.filter(vprasanje=vprasanje_id)
         if len(vprasanja) > 0: 
             tip = 'pn'
             import ast
@@ -146,13 +151,15 @@ def solve_question(request, kviz, vprasanje_id, vprasanje_index, username):
             return render(request, "solve_question.html", {'kviz': int(kviz[0].id), 
                 'vprasanje': vprasanja[0], 'tip': tip, 'formopisno': formopisno, 'formizbirno': formizbirno, 
                 'formpn': formpn, 'vprasanje_index': vprasanje_index, 
-                'v1': seznam_vprasanj[0], 'v2': seznam_vprasanj[1], 'v3': seznam_vprasanj[2], 'v4': seznam_vprasanj[3], 'v5': seznam_vprasanj[4], 'username':username})
+                'v1': seznam_vprasanj[0], 'v2': seznam_vprasanj[1], 'v3': seznam_vprasanj[2], 'v4': seznam_vprasanj[3], 'v5': seznam_vprasanj[4], 'username':username, 'slika': slike[0].datoteka})
         
         vprasanja = []
+        slike = []
         vprasanja += IzberiOdgovorModel.objects.filter(kviz__id=kviz[0].id, id=vprasanje_id)
+        slike += DatotekaIzberiOdgovorModel.objects.filter(vprasanje=vprasanje_id)
         if len(vprasanja) > 0:
             tip = 'izbirno'
-            return render(request, "solve_question.html", {'kviz': int(kviz[0].id), 'vprasanje': vprasanja[0], 'tip': tip, 'formopisno': formopisno, 'formizbirno': formizbirno, 'formpn': formpn, 'vprasanje_index': vprasanje_index, 'seznam_vprasanj': None, 'username': username})
+            return render(request, "solve_question.html", {'kviz': int(kviz[0].id), 'vprasanje': vprasanja[0], 'tip': tip, 'formopisno': formopisno, 'formizbirno': formizbirno, 'formpn': formpn, 'vprasanje_index': vprasanje_index, 'seznam_vprasanj': None, 'username': username, 'slika': slike[0].datoteka})
 
 def add_question(request, kviz):
     if request.method == 'POST':
@@ -175,9 +182,8 @@ def add_question(request, kviz):
             return render(request, "question.html", {'form': form, 'title': 'nova vprašanja', 'kviz': kviz})
 
         # PROCESIRAMO ODGOVORJEN VPRAŠALNIK
-        number = 1  # Dodaj številčenje vprašanj v bazi
         opis = form['opis']
-        slika = form['slika']  # Treba še implementirati
+        slika = form['slika']
         longitude = form['longitude']
         latitude = form['latitude']
 
@@ -185,8 +191,11 @@ def add_question(request, kviz):
         if form_type == '2':
             tip_vprasanja = 'opisno'
             vprasanje = form['vprasanje']
-            OpisnoModel.objects.create(opis=opis, slika=slika, kviz=dbQuiz.objects.get(id=kviz), longitude=longitude, latitude=latitude,
+            el = OpisnoModel.objects.create(opis=opis, slika='slika', kviz=dbQuiz.objects.get(id=kviz), longitude=longitude, latitude=latitude,
                                        vprasanje=vprasanje)
+            el.save()
+            DatotekaOpisnoModel.objects.create(datoteka=slika, vprasanje=el)
+
 
         #p/n vprašanje
         elif form_type == '3':
@@ -195,18 +204,23 @@ def add_question(request, kviz):
                 form['trditev3'], form['trditev4'], form['trditev5']]
             pravilni_odgovor = [form['p1'], form['p2'],
                 form['p3'], form['p4'], form['p5']]
-            PravilnoNepravilnoModel.objects.create(opis=opis, slika=slika, kviz=dbQuiz.objects.get(id=kviz), longitude=longitude, latitude=latitude,
+            el = PravilnoNepravilnoModel.objects.create(opis=opis, slika='slika', kviz=dbQuiz.objects.get(id=kviz), longitude=longitude, latitude=latitude,
                                        vprasanje=vprasanje, pravilni_odgovor = pravilni_odgovor)
+            el.save()
+            DatotekaPravilnoNepravilnoModel.objects.create(datoteka=slika, vprasanje=el)
+
 
         #izbirno vprašanje
         elif form_type == '4':
             tip_vprasanja = 'izbirno'
             vprasanje = [form['vprasanje']]
             pravilni_odgovor = form['pravilni_odgovor']
-            IzberiOdgovorModel.objects.create(opis=opis, slika=slika, kviz=dbQuiz.objects.get(id=kviz), longitude=longitude, latitude=latitude,
+            el = IzberiOdgovorModel.objects.create(opis=opis, slika='slika', kviz=dbQuiz.objects.get(id=kviz), longitude=longitude, latitude=latitude,
                                         pravilni_odgovor=pravilni_odgovor, vprasanje=vprasanje, odgovor1 = form['odgovor1'], 
                                         odgovor2 = form['odgovor2'], odgovor3 = form['odgovor3'], odgovor4 = form['odgovor4'], odgovor5 = form['odgovor5'])
-
+            el.save()
+            DatotekaIzberiOdgovorModel.objects.create(datoteka=slika, vprasanje=el)
+            
         else:
             pravilni_odgovori = []
             return Exception("Nepravilen tip")
@@ -243,8 +257,6 @@ def rezultati(request, kviz, username):
     odgovori += OdgovorIzberiOdgovorModel.objects.filter(user=username)
 
     return render(request, "rezultati.html", {'odgovori': odgovori, 'username': username})
-
-
 
 def testTemplate(request):
     kvizi = dbQuiz.objects.all()

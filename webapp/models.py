@@ -63,3 +63,15 @@ class OdgovorOpisnoModel(models.Model):
     user = models.CharField(max_length=30)
     vprasanje = models.ForeignKey(OpisnoModel, on_delete=CASCADE)
     odgovori = models.CharField(max_length=1000)
+
+class DatotekaOpisnoModel(models.Model):
+    datoteka = models.FileField(upload_to='media/')
+    vprasanje = models.ForeignKey(OpisnoModel, on_delete=CASCADE)
+
+class DatotekaPravilnoNepravilnoModel(models.Model):
+    datoteka = models.FileField(upload_to='media/')
+    vprasanje = models.ForeignKey(PravilnoNepravilnoModel, on_delete=CASCADE)
+
+class DatotekaIzberiOdgovorModel(models.Model):
+    datoteka = models.FileField(upload_to='media/')
+    vprasanje = models.ForeignKey(IzberiOdgovorModel, on_delete=CASCADE)
