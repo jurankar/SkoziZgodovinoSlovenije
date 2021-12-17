@@ -41,6 +41,6 @@ Po prototipu
 - [ ] Številčenje vprašanj v kvizu (želimo po vrsti)
 - [ ] Brisanje in urejanje že obstoječih kvizov oz. vprašanj
 - [ ] Uporabniki in piškotki?
-- [ ] Login System (učenci ne smejo imeti dostopa do urejanja vprašanj)
+- [ ] Login System (učenci ne smejo imeti dostopa do urejanja vprašanj --- učenec mora imet opcijo da naredi kviz in ga potem tudi ureja (ureja lahko samo ta kviz ki ga je on kreiral)
 - [ ] Bootstrap  
 - [ ] Styling
