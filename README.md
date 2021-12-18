@@ -24,15 +24,15 @@ Spletna aplikacija za interaktivne kvize in učenje zgodovine Slovenije na zabav
 - [x] Dodajanje kvizov in vprašanj (osnovno)
 - [x] Foreign key ne deluje v formsih (zaenkrat samo Char) ->  Maj
 - [x] Povezava kviz <-> vprašanje: torej, po kliku na kviz dodamo vprašanje tistemu kvizu + ko ustvarimo kviz nas preusmeri direkt na dodajanje novega vprašanja ->  Maj
-- [ ] Upload slik (rešitev) + implementacija v forme -> Maj
+- [x] Upload slik (rešitev) + implementacija v forme -> Maj
 - [x] Podajanje parametra med viewsi (preko templateov) -> Maj
-- [X] Leaflet na urejanje, dodajanje in brisanje -> Jan
+- [x] Leaflet na urejanje, dodajanje in brisanje -> Jan
 - [x] Združevanje `add_question` in `add_question_type`: reactive glede na to, katero vrsto vprašanja izberemo -> Jan
-- [X] Kviz 
-- [] Opisno vprašanje ne preverja pravilnosti
-- [] Točkovanje
-- [] Ko izpolnjuješ vprašanja na kvizu mora avtomatsko na naslednje vprašanje
-- [] Dobimo ime mesta po imenu v leafletu
+- [x] Kviz 
+    - [ ] Opisno vprašanje ne preverja pravilnosti (ali sploh rabimo glede na to da je opisno vprašanje lahko oblike *Opiši dogodek z lastnimi besedami*)
+    - [ ] Točkovanje
+    - [ ] Ko izpolnjuješ vprašanja na kvizu mora avtomatsko na naslednje vprašanje
+    - [ ] Dobimo ime mesta po imenu v leafletu
 
 
 
