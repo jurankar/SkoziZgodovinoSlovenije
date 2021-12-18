@@ -7,7 +7,11 @@
 {% block content %}
 
 <h1>Vprašanje iz kviza {{kviz}}</h1>
-{{slika}}
+
+{% if slika %}
+<img src="/media/{{slika}}" />
+{% endif %}
+
 <h3>Opis: </h3>
 <p>{{vprasanje.opis}}</p>
 

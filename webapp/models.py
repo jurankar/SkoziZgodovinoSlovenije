@@ -16,7 +16,6 @@ class OpisnoModel(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     kviz = models.ForeignKey(dbQuiz, on_delete=CASCADE, null=True)
     opis = models.CharField(max_length=1000)
-    slika = models.CharField(max_length=200) # upload jpg-ja
     longitude = models.FloatField() # koordinate za leaflet (bomo spremenili na koncu)
     latitude = models.FloatField()
     vprasanje = models.CharField(max_length=1000) # seznam vprašanj, odvisno od tipa
@@ -25,7 +24,6 @@ class PravilnoNepravilnoModel(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     kviz = models.ForeignKey(dbQuiz, on_delete=CASCADE, null=True)   
     opis = models.CharField(max_length=1000)
-    slika = models.CharField(max_length=200) # upload jpg-ja
     longitude = models.FloatField() # koordinate za leaflet (bomo spremenili na koncu)
     latitude = models.FloatField()
     vprasanje = models.CharField(max_length=1000, default="nan") # seznam vprašanj
@@ -35,7 +33,6 @@ class IzberiOdgovorModel(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     kviz = models.ForeignKey(dbQuiz, on_delete=CASCADE, null=True)
     opis = models.CharField(max_length=1000)
-    slika = models.CharField(max_length=200) # upload jpg-ja
     longitude = models.FloatField() # koordinate za leaflet (bomo spremenili na koncu)
     latitude = models.FloatField()
     vprasanje = models.CharField(max_length=100)
