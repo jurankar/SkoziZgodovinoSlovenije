@@ -9,16 +9,20 @@
     <table style="border: 1px solid black; text-align: center; width:100%">
         <tr>
             <th>ID odgovora</th>
+            <th>Opis</th>
             <th>Vprašanje</th>
             <th>Pravilni odgovor</th>
             <th>Vaš odgovor</th>
+            <th>Točke</th>
         </tr>
-        {% for i in odgovori %}
+        {% for i,j in odgovori %}
             <tr>
                 <td>{{i.id}}</td>
+                <td>{{i.vprasanje.opis}}</td>
                 <td>{{i.vprasanje.vprasanje}}</td>
                 <td>{{i.vprasanje.pravilni_odgovor}}</td>
                 <td>{{i.odgovori}}</td>
+                <td>{{j}}</td>
             </tr>
         {%endfor%}
     </table>

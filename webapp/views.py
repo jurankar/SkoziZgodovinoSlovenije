@@ -212,7 +212,7 @@ def add_question(request, kviz):
             tip_vprasanja = 'opisno'
             #forma = Opisno(request.POST, request.FILES)
             vprasanje = form['vprasanje']
-            el = OpisnoModel.objects.create(opis=opis, slika='slika', kviz=dbQuiz.objects.get(id=kviz), longitude=longitude, latitude=latitude,
+            el = OpisnoModel.objects.create(opis=opis, kviz=dbQuiz.objects.get(id=kviz), longitude=longitude, latitude=latitude,
                                        vprasanje=vprasanje)
             el.save()
             DatotekaOpisnoModel.objects.create(datoteka=request.FILES['slika'], vprasanje=el)
@@ -225,7 +225,7 @@ def add_question(request, kviz):
                 form['trditev3'], form['trditev4'], form['trditev5']]
             pravilni_odgovor = [form['p1'], form['p2'],
                 form['p3'], form['p4'], form['p5']]
-            el = PravilnoNepravilnoModel.objects.create(opis=opis, slika='slika', kviz=dbQuiz.objects.get(id=kviz), longitude=longitude, latitude=latitude,
+            el = PravilnoNepravilnoModel.objects.create(opis=opis, kviz=dbQuiz.objects.get(id=kviz), longitude=longitude, latitude=latitude,
                                        vprasanje=vprasanje, pravilni_odgovor = pravilni_odgovor)
             el.save()
             DatotekaPravilnoNepravilnoModel.objects.create(datoteka=request.FILES['slika'], vprasanje=el)
@@ -237,7 +237,7 @@ def add_question(request, kviz):
             tip_vprasanja = 'izbirno'
             vprasanje = [form['vprasanje']]
             pravilni_odgovor = form['pravilni_odgovor']
-            el = IzberiOdgovorModel.objects.create(opis=opis, slika='slika', kviz=dbQuiz.objects.get(id=kviz), longitude=longitude, latitude=latitude,
+            el = IzberiOdgovorModel.objects.create(opis=opis, kviz=dbQuiz.objects.get(id=kviz), longitude=longitude, latitude=latitude,
                                         pravilni_odgovor=pravilni_odgovor, vprasanje=vprasanje, odgovor1 = form['odgovor1'], 
                                         odgovor2 = form['odgovor2'], odgovor3 = form['odgovor3'], odgovor4 = form['odgovor4'], odgovor5 = form['odgovor5'])
             el.save()
@@ -273,22 +273,55 @@ def select_username(request, kviz):
         return render(request, "select_username.html", {'kviz': kviz, 'form': form})
 
 def rezultati(request, kviz, username):
+
+    # Pomožne funkcije
+    import ast
+    def eval_pn(vprasanje, odgovor):
+        vprasanje = getattr(vprasanje, 'pravilni_odgovor')
+        odgovor = getattr(odgovor, 'odgovori')
+        vprasanje = ast.literal_eval(vprasanje)
+        odgovor = ast.literal_eval(odgovor)
+        t = 0
+        for i in range(len(vprasanje)):
+            if vprasanje[i] == odgovor[i]:
+                t += 1
+        return(str(t) + '/5')
+
+    def eval_izbirno(vprasanje, odgovor):
+        if getattr(vprasanje, 'pravilni_odgovor') == getattr(odgovor, 'odgovori'):
+            return '3/3'
+        else: return '0/3'
+
     vsa_vprasanja = []
     odgovori = []
+    tocke = []
 
     vsa_vprasanja += OpisnoModel.objects.filter(kviz__id=kviz)
     odgovori += OdgovorOpisnoModel.objects.filter(user=username, vprasanje__in=vsa_vprasanja)
+    tocke.append('/')
     vsa_vprasanja = []
+    trenutni = []
 
     vsa_vprasanja += PravilnoNepravilnoModel.objects.filter(kviz__id=kviz)
     odgovori += OdgovorPravilnoNepravilnoModel.objects.filter(user=username, vprasanje__in=vsa_vprasanja)
+    trenutni += OdgovorPravilnoNepravilnoModel.objects.filter(user=username, vprasanje__in=vsa_vprasanja)
+    for i in trenutni:
+        tocke.append(eval_pn(i.vprasanje, i))
     vsa_vprasanja = []
+    trenutni = []
 
     vsa_vprasanja += IzberiOdgovorModel.objects.filter(kviz__id=kviz)
     odgovori += OdgovorIzberiOdgovorModel.objects.filter(user=username, vprasanje__in=vsa_vprasanja)
+    trenutni += OdgovorIzberiOdgovorModel.objects.filter(user=username, vprasanje__in=vsa_vprasanja)
+    for i in trenutni:
+        tocke.append(eval_izbirno(i.vprasanje, i))
 
-    return render(request, "rezultati.html", {'odgovori': odgovori, 'username': username})
+    rezul = zip(odgovori, tocke)
+
+    return render(request, "rezultati.html", {'odgovori': rezul, 'username': username})
 
 def testTemplate(request):
     kvizi = dbQuiz.objects.all()
     return render(request, "index2.html", {'kvizi': kvizi})
+
+# Pomožne funkcije
