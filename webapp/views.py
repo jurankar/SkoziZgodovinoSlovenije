@@ -123,7 +123,15 @@ def solve_question(request, kviz, vprasanje_id, vprasanje_index, username):
         else: 
             raise Exception("Ni vprašanja")
 
-        return redirect('/solve_quiz/' + str(kviz[0].id) + '/' + str(vprasanje_index) + '/' + username + '/')
+        sez_vprasanj = []
+        sez_vprasanj += OpisnoModel.objects.filter(kviz__id = kviz[0].id)
+        sez_vprasanj += PravilnoNepravilnoModel.objects.filter(kviz__id = kviz[0].id)
+        sez_vprasanj += IzberiOdgovorModel.objects.filter(kviz__id = kviz[0].id)
+
+        if vprasanje_index + 2 <= len(sez_vprasanj):
+            return redirect('/solve_quiz/' + str(kviz[0].id) + '/' + str(vprasanje_index + 1) + '/' + username + '/')
+        else:
+            return redirect('/solve_quiz/' + str(kviz[0].id) + '/' + str(0) + '/' + username + '/')
     else:
         kviz = dbQuiz.objects.filter(id=int(kviz))
         # logger.error(kviz[0].id)
