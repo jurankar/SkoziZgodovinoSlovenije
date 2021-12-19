@@ -31,7 +31,7 @@ Spletna aplikacija za interaktivne kvize in učenje zgodovine Slovenije na zabav
 - [x] Kviz 
     - [ ] Opisno vprašanje ne preverja pravilnosti (ali sploh rabimo glede na to da je opisno vprašanje lahko oblike *Opiši dogodek z lastnimi besedami*)
     - [ ] Točkovanje
-    - [ ] Ko izpolnjuješ vprašanja na kvizu mora avtomatsko na naslednje vprašanje
+    - [x] Ko izpolnjuješ vprašanja na kvizu mora avtomatsko na naslednje vprašanje
     - [ ] Dobimo ime mesta po imenu v leafletu
 
 
