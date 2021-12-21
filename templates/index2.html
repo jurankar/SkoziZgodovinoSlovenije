@@ -134,8 +134,11 @@
   <!-- Container (Dodajmo kvize) -->
   <div id="contact" class="container-fluid bg-grey">
     <h1>Dodajmo kvize</h1>
-    <a href="/add_quiz">Povezava do obrazca</a>
-
+    <form action="/add_quiz" method="post">
+      {% csrf_token %}
+      {{form|linebreaks}}
+      <input type="submit" value="Dodaj vprašanja">
+    </form>
   </div>
 
   <!-- Image of location/map -->

@@ -321,7 +321,17 @@ def rezultati(request, kviz, username):
     return render(request, "rezultati.html", {'odgovori': rezul, 'username': username})
 
 def testTemplate(request):
+    # List quizes
     kvizi = dbQuiz.objects.all()
-    return render(request, "index2.html", {'kvizi': kvizi})
+
+    # Add quiz form
+    if request.method == 'POST':
+        form = Quiz(request.POST)
+        if form.is_valid():
+            kviz = dbQuiz.objects.create(name=form.cleaned_data['ime'], author=form.cleaned_data['avtor'], password=form.cleaned_data['geslo'], pictureUrl=form.cleaned_data['slikaUrl'])
+            return redirect('/quiz_manager/' + str(kviz.id) + '/')
+    else:
+        form=Quiz()
+        return render(request, "index2.html", {'kvizi': kvizi, 'form': form})
 
 # Pomožne funkcije
