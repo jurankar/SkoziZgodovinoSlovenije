@@ -1,72 +1,68 @@
-{% extends "old_skeleton.html" %}
+{% extends "skeleton.html" %}
 
 {% block head %}
     <title>urejevalnik kviza</title>
 {% endblock head %}
 
 {% block content %}
-<h1>Urejevalnik kviza: {{naslov}}</h1>
-<h2>Seznam aktivnih vprašanj:</h2>
-<table style="border: 1px solid rgb(0, 0, 0);">
-    <tr>
-        <th>Opis</th>
-        <th>Vprašanje</th>
-        <th>Lon</th>
-        <th>Lat</th>
-        <th>Tip</th>
-        <th>Akcije</th>
-    </tr>
-        {% for j in vprasanja_opisna %}
+    <h1>Urejevalnik kviza: {{naslov}}</h1>
+    <h2>Seznam aktivnih vprašanj:</h2>
+    <table style="border: 1px solid rgb(0, 0, 0);">
         <tr>
-            <td>{{j.opis}}</td>
-            <td>{{j.vprasanje}}</td>
-            <td>{{j.longitude}}</td>
-            <td>{{j.latitude}}</td>
-            <td> opisno </td>
-            <td>
-                <form action="/delete_question/{{kviz}}/{{j.id}}/opisno" method="post">
-                    {% csrf_token %}
-                    <input type="submit" value="Izbriši">
-                </form>
-
-            </td>
+            <th>Opis</th>
+            <th>Vprašanje</th>
+            <th>Tip</th>
+            <th>Akcije</th>
         </tr>
+        {% for j in vprasanja_opisna %}
+            <tr>
+                <td>{{j.opis}}</td>
+                <td>{{j.vprasanje}}</td>
+                <td> opisno </td>
+                <td>
+                    <form action="/delete_question/{{kviz}}/{{j.id}}/opisno" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="Izbriši">
+                    </form>
+
+                </td>
+            </tr>
         {%endfor%}
         {% for k in vprasanja_izbirna %}
-        <tr>
-            <td>{{k.opis}}</td>
-            <td>{{k.vprasanje}}</td>
-            <td>{{k.longitude}}</td>
-            <td>{{k.latitude}}</td>
-            <td> izbirno </td>
-            <td>
-                <form action="/delete_question/{{kviz}}/{{k.id}}/pn" method="post">
-                    {% csrf_token %}
-                    <input type="submit" value="Izbriši">
-                </form>
+            <tr>
+                <td>{{k.opis}}</td>
+                <td>{{k.vprasanje}}</td>
+                <td>{{k.longitude}}</td>
+                <td>{{k.latitude}}</td>
+                <td> izbirno </td>
+                <td>
+                    <form action="/delete_question/{{kviz}}/{{k.id}}/pn" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="Izbriši">
+                    </form>
 
-            </td>
-        </tr>
+                </td>
+            </tr>
         {%endfor%}
         {% for k in vprasanja_pn %}
-        <tr>
-            <td>{{k.opis}}</td>
-            <td>{{k.vprasanje}}</td>
-            <td>{{k.longitude}}</td>
-            <td>{{k.latitude}}</td>
-            <td> pravilno-nepravilno </td>
-            <td>
-                <form action="/delete_question/{{kviz}}/{{k.id}}/izbirno" method="post">
-                    {% csrf_token %}
-                    <input type="submit" value="Izbriši">
-                </form>
+            <tr>
+                <td>{{k.opis}}</td>
+                <td>{{k.vprasanje}}</td>
+                <td>{{k.longitude}}</td>
+                <td>{{k.latitude}}</td>
+                <td> pravilno-nepravilno </td>
+                <td>
+                    <form action="/delete_question/{{kviz}}/{{k.id}}/izbirno" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="Izbriši">
+                    </form>
 
-            </td>
-        </tr>
+                </td>
+            </tr>
         {%endfor%}
-</table>
-<form action="/add_question/{{kviz}}" method="get">
-    {% csrf_token %}
-    <input type="submit" value="Dodaj novo vprašanje">
-</form>
+    </table>
+    <form action="/add_question/{{kviz}}" method="get">
+        {% csrf_token %}
+        <input type="submit" value="Dodaj novo vprašanje">
+    </form>
 {% endblock content %}

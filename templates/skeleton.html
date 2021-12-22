@@ -11,11 +11,19 @@
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+      <!-- Leaflet -->
+      <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />
+      <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+      <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.4/mapbox.js'></script>
+
       <!-- Added -->
       <link rel="stylesheet" href="{% static 'webapp/style.css' %}">
       {% block head %} {% endblock head %}
     </head>
 
-    {% block content %} {% endblock content %}
-
+    <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+        <div style="text-align:center">
+            {% block content %} {% endblock content %}
+        </div>
+    </body>
 </html>

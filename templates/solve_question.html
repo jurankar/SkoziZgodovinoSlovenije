@@ -1,4 +1,4 @@
-{% extends "old_skeleton.html" %}
+{% extends "skeleton.html" %}
 
 {% block head %}
 
@@ -6,56 +6,56 @@
 
 {% block content %}
 
-<h1>Vprašanje iz kviza {{kviz}}</h1>
+    <h1>Vprašanje iz kviza {{kviz}}</h1>
 
-{% if slika %}
-<img src="/media/{{slika}}" />
-{% endif %}
+    {% if slika %}
+        <img src="/media/{{slika}}" />
+    {% endif %}
 
-<h3>Opis: </h3>
-<p>{{vprasanje.opis}}</p>
+    <h3>Opis: </h3>
+    <p>{{vprasanje.opis}}</p>
 
-<h3>Odgovori: </h3>
-{% if tip == 'opisno' %}
-<form action="/solve_question/{{kviz}}/{{vprasanje.id}}/{{vprasanje_index}}/{{username}}/" method="post">
-    {{vprasanje.vprasanje}}<br>
-    {% csrf_token %}
-    {{formopisno|linebreaks}}
-    <input type="submit" value="Odgovori">
-</form>
-{%endif%}
+    <h3>Odgovori: </h3>
+    {% if tip == 'opisno' %}
+        <form action="/solve_question/{{kviz}}/{{vprasanje.id}}/{{vprasanje_index}}/{{username}}/" method="post">
+            {{vprasanje.vprasanje}}<br>
+            {% csrf_token %}
+            {{formopisno|linebreaks}}
+            <input type="submit" value="Odgovori">
+        </form>
+    {%endif%}
 
 
-{% if tip == 'pn' %}
-<form action="/solve_question/{{kviz}}/{{vprasanje.id}}/{{vprasanje_index}}/{{username}}/" method="post">
-    {% csrf_token %}
-    {{v1}}
-    {{formpn.p1}}
-    {{v2}}
-    {{formpn.p2}}
-    {{v3}}
-    {{formpn.p3}}
-    {{v4}}
-    {{formpn.p4}}
-    {{v5}}
-    {{formpn.p5}}
-    <input type="submit" value="Odgovori">
-</form>
-{%endif%}
+    {% if tip == 'pn' %}
+        <form action="/solve_question/{{kviz}}/{{vprasanje.id}}/{{vprasanje_index}}/{{username}}/" method="post">
+            {% csrf_token %}
+            {{v1}}
+            {{formpn.p1}}
+            {{v2}}
+            {{formpn.p2}}
+            {{v3}}
+            {{formpn.p3}}
+            {{v4}}
+            {{formpn.p4}}
+            {{v5}}
+            {{formpn.p5}}
+            <input type="submit" value="Odgovori">
+        </form>
+    {%endif%}
 
-{% if tip == 'izbirno' %}
-<form action="/solve_question/{{kviz}}/{{vprasanje.id}}/{{vprasanje_index}}/{{username}}/" method="post">
-    
-    {% csrf_token %}
-    1. {{vprasanje.odgovor1}}<br>
-    2. {{vprasanje.odgovor2}}<br>
-    3. {{vprasanje.odgovor3}}<br>
-    4. {{vprasanje.odgovor4}}<br>
-    5. {{vprasanje.odgovor5}}<br>
-    
-    {{formizbirno}}
-    <input type="submit" value="Odgovori">
-</form>
-{%endif%}
+    {% if tip == 'izbirno' %}
+        <form action="/solve_question/{{kviz}}/{{vprasanje.id}}/{{vprasanje_index}}/{{username}}/" method="post">
+
+            {% csrf_token %}
+            1. {{vprasanje.odgovor1}}<br>
+            2. {{vprasanje.odgovor2}}<br>
+            3. {{vprasanje.odgovor3}}<br>
+            4. {{vprasanje.odgovor4}}<br>
+            5. {{vprasanje.odgovor5}}<br>
+
+            {{formizbirno}}
+            <input type="submit" value="Odgovori">
+        </form>
+    {%endif%}
 
 {% endblock content %}
