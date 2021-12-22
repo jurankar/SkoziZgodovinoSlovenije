@@ -28,17 +28,15 @@ Spletna aplikacija za interaktivne kvize in učenje zgodovine Slovenije na zabav
 - [x] Podajanje parametra med viewsi (preko templateov) -> Maj
 - [x] Leaflet na urejanje, dodajanje in brisanje -> Jan
 - [x] Združevanje `add_question` in `add_question_type`: reactive glede na to, katero vrsto vprašanja izberemo -> Jan
-- [x] Kviz 
+- [x] Kviz
     - [ ] Opisno vprašanje ne preverja pravilnosti (ali sploh rabimo glede na to da je opisno vprašanje lahko oblike *Opiši dogodek z lastnimi besedami*)
     - [x] Točkovanje
     - [x] Ko izpolnjuješ vprašanja na kvizu mora avtomatsko na naslednje vprašanje
-    - [ ] Dobimo ime mesta po imenu v leafletu
+    - [ ] Dobimo ime mesta po imenu v leafletu --> Jan
+    - [ ] Vprašanja se soltirajo po času (OBA)
 
 Po prototipu
 - [ ] Logično redirectanje
-- [ ] Številčenje vprašanj v kvizu (želimo po vrsti)
-- [ ] Brisanje in urejanje že obstoječih kvizov oz. vprašanj
-- [ ] Uporabniki in piškotki?
-- [ ] Login System (učenci ne smejo imeti dostopa do urejanja vprašanj --- učenec mora imet opcijo da naredi kviz in ga potem tudi ureja (ureja lahko samo ta kviz ki ga je on kreiral)
-- [ ] Bootstrap  
-- [ ] Styling
+- [ ] Brisanje in urejanje že obstoječih kvizov oz. vprašanj --> Maj
+- [ ] Login System (učenci ne smejo imeti dostopa do urejanja vprašanj --- učenec mora imet opcijo da naredi kviz in ga potem tudi ureja (ureja lahko samo ta kviz ki ga je on kreiral) --> Maj
+- [ ] Styling  --> Jan
