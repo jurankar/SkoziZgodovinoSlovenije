@@ -320,6 +320,200 @@ def rezultati(request, kviz, username):
 
     return render(request, "rezultati.html", {'odgovori': rezul, 'username': username})
 
+def edit_question(request, kviz, vprasanje_id):
+    if request.method == 'POST':
+        form = request.POST
+        form_type = form['form_type']
+
+        # GENERIRAMO VPRAŠALNIK GLEDE NA TIP VPRAŠANJA
+        if form_type == '1':
+            tip_vprasanja = form['type']
+            if tip_vprasanja == '1':
+                form = Opisno()
+                
+            elif tip_vprasanja == '2':
+                form = PravilnoNepravilno()
+                
+            elif tip_vprasanja == '3':
+                form = IzberiOdgovor()
+                
+            else:
+                form = "error"
+
+            return render(request, "question.html", {'form': form, 'title': 'nova vprašanja', 'kviz': kviz})
+
+        # PROCESIRAMO ODGOVORJEN VPRAŠALNIK
+        opis = form['opis']
+        longitude = form['longitude']
+        latitude = form['latitude']
+
+        #opisno vprašanje
+        if form_type == '2':
+            tip_vprasanja = 'opisno'
+            #forma = Opisno(request.POST, request.FILES)
+            vprasanje = form['vprasanje']
+            el = OpisnoModel.objects.create(opis=opis, kviz=dbQuiz.objects.get(id=kviz), longitude=longitude, latitude=latitude,
+                                       vprasanje=vprasanje)
+            el.save()
+            try:
+                if form['slika'] == '':
+                    dat = DatotekaOpisnoModel.objects.get(vprasanje = OpisnoModel.objects.get(id=vprasanje_id))
+                    dat.vprasanje = el
+                    dat.save()
+            except:
+                DatotekaOpisnoModel.objects.create(datoteka=request.FILES['slika'], vprasanje=el)
+            OpisnoModel.objects.filter(id=str(vprasanje_id)).delete()
+
+        #p/n vprašanje
+        elif form_type == '3':
+            #forma = PravilnoNepravilno(request.POST, request.FILES)
+            tip_vprasanja = 'pravilno-nepravilno'
+            vprasanje = [form['trditev1'], form['trditev2'],
+                form['trditev3'], form['trditev4'], form['trditev5']]
+            pravilni_odgovor = [form['p1'], form['p2'],
+                form['p3'], form['p4'], form['p5']]
+            el = PravilnoNepravilnoModel.objects.create(opis=opis, kviz=dbQuiz.objects.get(id=kviz), longitude=longitude, latitude=latitude,
+                                       vprasanje=vprasanje, pravilni_odgovor = pravilni_odgovor)
+            el.save()
+            try:
+                if form['slika'] == '':
+                    dat = DatotekaPravilnoNepravilnoModel.objects.get(vprasanje = PravilnoNepravilnoModel.objects.get(id=vprasanje_id))
+                    dat.vprasanje = el
+                    dat.save()
+            except:
+                DatotekaPravilnoNepravilnoModel.objects.create(datoteka=request.FILES['slika'], vprasanje=el)
+            PravilnoNepravilnoModel.objects.filter(id=str(vprasanje_id)).delete()
+
+        #izbirno vprašanje
+        elif form_type == '4':
+            #forma = IzberiOdgovor(request.POST, request.FILES)
+            tip_vprasanja = 'izbirno'
+            vprasanje = [form['vprasanje']]
+            pravilni_odgovor = form['pravilni_odgovor']
+            el = IzberiOdgovorModel.objects.create(opis=opis, kviz=dbQuiz.objects.get(id=kviz), longitude=longitude, latitude=latitude,
+                                        pravilni_odgovor=pravilni_odgovor, vprasanje=vprasanje, odgovor1 = form['odgovor1'], 
+                                        odgovor2 = form['odgovor2'], odgovor3 = form['odgovor3'], odgovor4 = form['odgovor4'], odgovor5 = form['odgovor5'])
+            el.save()
+            try:
+                if form['slika'] == '':
+                    dat = DatotekaIzberiOdgovorModel.objects.get(vprasanje = IzberiOdgovorModel.objects.get(id=vprasanje_id))
+                    dat.vprasanje = el
+                    dat.save()
+            except:
+                DatotekaIzberiOdgovorModel.objects.create(datoteka=request.FILES['slika'], vprasanje=el)
+            IzberiOdgovorModel.objects.filter(id=str(vprasanje_id)).delete()
+        else:
+            return Exception("Nepravilen tip")
+
+        return redirect('/quiz_manager/' + str(kviz) + '/')
+        
+    else:    
+        kviz = dbQuiz.objects.filter(id=kviz)[0]
+        vprasanja = []
+
+        vprasanja += OpisnoModel.objects.filter(id = vprasanje_id)
+        if len(OpisnoModel.objects.filter(id = vprasanje_id)) > 0:
+            tip = 'opisno'
+            try:
+                slika = DatotekaOpisnoModel.objects.filter(vprasanje=vprasanje_id)[0]
+            except: slika = None
+
+        vprasanja += PravilnoNepravilnoModel.objects.filter(id = vprasanje_id)
+        if len(PravilnoNepravilnoModel.objects.filter(id = vprasanje_id)) > 0:
+            tip = 'pn'
+            try:
+                slika = DatotekaPravilnoNepravilnoModel.objects.filter(vprasanje=vprasanje_id)[0]
+            except:
+                slika = None
+
+        vprasanja += IzberiOdgovorModel.objects.filter(id = vprasanje_id)
+        if len(IzberiOdgovorModel.objects.filter(id = vprasanje_id)) > 0:
+            tip = 'izbirno'
+            try:
+                slika = DatotekaIzberiOdgovorModel.objects.filter(vprasanje=vprasanje_id)[0]
+            except: 
+                slika = None
+
+        vprasanje = vprasanja[0]
+
+        if tip == 'opisno':
+            if slika != None:
+                form = Opisno(initial={'opis': vprasanje.opis,
+                    'longitude': vprasanje.longitude, 'latitude': vprasanje.latitude, 
+                    'vprasanje': vprasanje.vprasanje, 'form_type': 2, 'slika': slika.datoteka})
+            else:
+                form = Opisno(initial={'opis': vprasanje.opis,
+                    'longitude': vprasanje.longitude, 'latitude': vprasanje.latitude, 
+                    'vprasanje': vprasanje.vprasanje, 'form_type': 2})                
+
+        elif tip == 'pn':
+            import ast
+            vsa_vprasanja = getattr(vprasanje, 'vprasanje')
+            vsi_odgovori = getattr(vprasanje, 'pravilni_odgovor')
+            vsa_vprasanja = ast.literal_eval(vsa_vprasanja)
+            vsi_odgovori = ast.literal_eval(vsi_odgovori)
+
+            if slika != None:
+                form = PravilnoNepravilno(initial={'opis': vprasanje.opis,
+                    'longitude': vprasanje.longitude, 'latitude': vprasanje.latitude, 
+                    'trditev1': vsa_vprasanja[0], 
+                    'trditev2': vsa_vprasanja[1], 
+                    'trditev3': vsa_vprasanja[2], 
+                    'trditev4': vsa_vprasanja[3], 
+                    'trditev5': vsa_vprasanja[4], 
+                    'p1': vsi_odgovori[0], 
+                    'p2': vsi_odgovori[1], 
+                    'p3': vsi_odgovori[2], 
+                    'p4': vsi_odgovori[3], 
+                    'p5': vsi_odgovori[4],
+                    'form_type': 3, 'slika': slika.datoteka})
+            else:
+                form = PravilnoNepravilno(initial={'opis': vprasanje.opis,
+                    'longitude': vprasanje.longitude, 'latitude': vprasanje.latitude, 
+                    'trditev1': vsa_vprasanja[0], 
+                    'trditev2': vsa_vprasanja[1], 
+                    'trditev3': vsa_vprasanja[2], 
+                    'trditev4': vsa_vprasanja[3], 
+                    'trditev5': vsa_vprasanja[4], 
+                    'p1': vsi_odgovori[0], 
+                    'p2': vsi_odgovori[1], 
+                    'p3': vsi_odgovori[2], 
+                    'p4': vsi_odgovori[3], 
+                    'p5': vsi_odgovori[4],
+                    'form_type': 3})
+
+
+        elif tip == 'izbirno':
+            import ast
+            vsa_vprasanja = getattr(vprasanje, 'vprasanje')
+            vsa_vprasanja = ast.literal_eval(vsa_vprasanja)[0]
+            if slika != None:
+                form = IzberiOdgovor(initial={'opis': vprasanje.opis,
+                    'longitude': vprasanje.longitude, 'latitude': vprasanje.latitude, 
+                    'vprasanje': vsa_vprasanja, 
+                    'odgovor1': vprasanje.odgovor1, 
+                    'odgovor2': vprasanje.odgovor2, 
+                    'odgovor3': vprasanje.odgovor3, 
+                    'odgovor4': vprasanje.odgovor4, 
+                    'odgovor5': vprasanje.odgovor5,            
+                    'pravilni_odgovor': vprasanje.pravilni_odgovor,
+                    'form_type': 4, 'slika': slika.datoteka})
+            else:
+                    form = IzberiOdgovor(initial={'opis': vprasanje.opis,
+                    'longitude': vprasanje.longitude, 'latitude': vprasanje.latitude, 
+                    'vprasanje': vsa_vprasanja, 
+                    'odgovor1': vprasanje.odgovor1, 
+                    'odgovor2': vprasanje.odgovor2, 
+                    'odgovor3': vprasanje.odgovor3, 
+                    'odgovor4': vprasanje.odgovor4, 
+                    'odgovor5': vprasanje.odgovor5,            
+                    'pravilni_odgovor': vprasanje.pravilni_odgovor,
+                    'form_type': 4})
+
+        else: raise NotImplementedError
+
+        return render(request, "edit_question.html", {'kviz': kviz, 'form': form, 'vprasanje': vprasanje})
+
 def testTemplate(request):
     # List quizes
     kvizi = dbQuiz.objects.all()
@@ -333,5 +527,7 @@ def testTemplate(request):
     else:
         form=Quiz()
         return render(request, "index2.html", {'kvizi': kvizi, 'form': form})
+
+
 
 # Pomožne funkcije

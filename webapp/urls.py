@@ -15,6 +15,6 @@ urlpatterns = [
     path('solve_quiz/<int:kviz>/<int:vprasanje_index>/<str:username>/', views.solve_quiz, name='solve_quiz'),
     path('solve_question/<int:kviz>/<str:vprasanje_id>/<int:vprasanje_index>/<str:username>/', views.solve_question, name='solve_question'),
     path('rezulati/<int:kviz>/<str:username>/', views.rezultati, name='rezulati'),
-
+    path('edit_question/<int:kviz>/<str:vprasanje_id>/', views.edit_question, name='edit_question'),
     path('testTemplate', views.testTemplate, name='testTemplate')
 ]

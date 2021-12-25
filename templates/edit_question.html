@@ -1,0 +1,14 @@
+{% extends "old_skeleton.html" %}
+
+{% block head %}
+    <title>Uredi vprašanje</title>
+{% endblock head %}
+
+{% block content %}
+        <h1>Uredi vprašanje</h1>
+        <form action="/edit_question/{{kviz.id}}/{{vprasanje.id}}/" method="post"  enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form | linebreaks}}
+            <input type="submit" value="Shrani">
+        </form>
+{% endblock content %}
