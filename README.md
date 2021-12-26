@@ -29,11 +29,13 @@ Spletna aplikacija za interaktivne kvize in učenje zgodovine Slovenije na zabav
 - [x] Leaflet na urejanje, dodajanje in brisanje -> Jan
 - [x] Združevanje `add_question` in `add_question_type`: reactive glede na to, katero vrsto vprašanja izberemo -> Jan
 - [x] Kviz
-    - [ ] Opisno vprašanje ne preverja pravilnosti (ali sploh rabimo glede na to da je opisno vprašanje lahko oblike *Opiši dogodek z lastnimi besedami*)
+    - [x] Opisno vprašanje ne preverja pravilnosti (ali sploh rabimo glede na to da je opisno vprašanje lahko oblike *Opiši dogodek z lastnimi besedami*)
     - [x] Točkovanje
     - [x] Ko izpolnjuješ vprašanja na kvizu mora avtomatsko na naslednje vprašanje
     - [ ] Dobimo ime mesta po imenu v leafletu --> Jan
-    - [ ] Vprašanja se soltirajo po času (OBA)
+    - [x] Vprašanja se soltirajo po času --> Maj
+    - [ ] Letnice na časovni trak --> Jan
+    - [ ] Na točkovanje vsa vprašanja, ne samo tistih, ki jih je uporabnik rešil --> Maj
 
 Po prototipu
 - [ ] Logično redirectanje
