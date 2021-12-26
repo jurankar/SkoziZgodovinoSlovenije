@@ -35,7 +35,7 @@ Spletna aplikacija za interaktivne kvize in učenje zgodovine Slovenije na zabav
     - [ ] Dobimo ime mesta po imenu v leafletu --> Jan
     - [x] Vprašanja se soltirajo po času --> Maj
     - [ ] Letnice na časovni trak --> Jan
-    - [ ] Na točkovanje vsa vprašanja, ne samo tistih, ki jih je uporabnik rešil --> Maj
+    - [x] Na točkovanje vsa vprašanja, ne samo tistih, ki jih je uporabnik rešil --> Maj
 
 Po prototipu
 - [ ] Logično redirectanje
