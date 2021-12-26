@@ -74,6 +74,7 @@ def solve_quiz(request, kviz, vprasanje_index, username):
     vprasanja += OpisnoModel.objects.filter(kviz__id=kviz[0].id)
     vprasanja += PravilnoNepravilnoModel.objects.filter(kviz__id=kviz[0].id)
     vprasanja += IzberiOdgovorModel.objects.filter(kviz__id=kviz[0].id)
+    vprasanja = sorted(vprasanja, key=lambda x: x.leto, reverse=True)
     vprasanje = vprasanja[vprasanje_index]
 
     # pozicije za vprašanja na časovnem traku (enakomerno razporejene po časovnem traku)
@@ -132,6 +133,7 @@ def solve_question(request, kviz, vprasanje_id, vprasanje_index, username):
             return redirect('/solve_quiz/' + str(kviz[0].id) + '/' + str(vprasanje_index + 1) + '/' + username + '/')
         else:
             return redirect('/solve_quiz/' + str(kviz[0].id) + '/' + str(0) + '/' + username + '/')
+    
     else:
         kviz = dbQuiz.objects.filter(id=int(kviz))
         # logger.error(kviz[0].id)
@@ -140,6 +142,12 @@ def solve_question(request, kviz, vprasanje_id, vprasanje_index, username):
         formopisno = OdgovorOpisno()
         formpn = OdgovorPravilnoNepravilno()
         
+        def v_leto(leto):
+            if leto < 0:
+                return str(- leto) + ' pr. n. št.'
+            else:
+                return str(leto)
+
         vprasanja = []
         slike = []
         vprasanja += OpisnoModel.objects.filter(kviz__id=kviz[0].id, id=vprasanje_id)
@@ -147,9 +155,9 @@ def solve_question(request, kviz, vprasanje_id, vprasanje_index, username):
         if len(vprasanja) > 0: 
             tip = 'opisno'
             if len(slike) > 0:
-                return render(request, "solve_question.html", {'kviz': int(kviz[0].id), 'vprasanje': vprasanja[0], 'tip': tip, 'formopisno': formopisno, 'formizbirno': formizbirno, 'formpn': formpn, 'vprasanje_index': vprasanje_index, 'seznam_vprasanj': None, 'username': username, 'slika': slike[0].datoteka})
+                return render(request, "solve_question.html", {'leto': v_leto(vprasanja[0].leto), 'kviz': int(kviz[0].id), 'vprasanje': vprasanja[0], 'tip': tip, 'formopisno': formopisno, 'formizbirno': formizbirno, 'formpn': formpn, 'vprasanje_index': vprasanje_index, 'seznam_vprasanj': None, 'username': username, 'slika': slike[0].datoteka})
             else:
-                return render(request, "solve_question.html", {'kviz': int(kviz[0].id), 'vprasanje': vprasanja[0], 'tip': tip, 'formopisno': formopisno, 'formizbirno': formizbirno, 'formpn': formpn, 'vprasanje_index': vprasanje_index, 'seznam_vprasanj': None, 'username': username, 'slika': None})
+                return render(request, "solve_question.html", {'leto': v_leto(vprasanja[0].leto), 'kviz': int(kviz[0].id), 'vprasanje': vprasanja[0], 'tip': tip, 'formopisno': formopisno, 'formizbirno': formizbirno, 'formpn': formpn, 'vprasanje_index': vprasanje_index, 'seznam_vprasanj': None, 'username': username, 'slika': None})
 
         vprasanja = []
         slike = []
@@ -160,16 +168,15 @@ def solve_question(request, kviz, vprasanje_id, vprasanje_index, username):
             import ast
             seznam_vprasanj = ast.literal_eval(vprasanja[0].vprasanje)
             if len(slike) > 0:
-                return render(request, "solve_question.html", {'kviz': int(kviz[0].id), 
+                return render(request, "solve_question.html", {'leto': v_leto(vprasanja[0].leto), 'kviz': int(kviz[0].id), 
                     'vprasanje': vprasanja[0], 'tip': tip, 'formopisno': formopisno, 'formizbirno': formizbirno, 
                     'formpn': formpn, 'vprasanje_index': vprasanje_index, 
                     'v1': seznam_vprasanj[0], 'v2': seznam_vprasanj[1], 'v3': seznam_vprasanj[2], 'v4': seznam_vprasanj[3], 'v5': seznam_vprasanj[4], 'username':username, 'slika': slike[0].datoteka})
             else:
-                return render(request, "solve_question.html", {'kviz': int(kviz[0].id), 
+                return render(request, "solve_question.html", {'leto': v_leto(vprasanja[0].leto), 'kviz': int(kviz[0].id), 
                     'vprasanje': vprasanja[0], 'tip': tip, 'formopisno': formopisno, 'formizbirno': formizbirno, 
                     'formpn': formpn, 'vprasanje_index': vprasanje_index, 
                     'v1': seznam_vprasanj[0], 'v2': seznam_vprasanj[1], 'v3': seznam_vprasanj[2], 'v4': seznam_vprasanj[3], 'v5': seznam_vprasanj[4], 'username':username, 'slika': None})
-
 
         vprasanja = []
         slike = []
@@ -178,9 +185,9 @@ def solve_question(request, kviz, vprasanje_id, vprasanje_index, username):
         if len(vprasanja) > 0:
             tip = 'izbirno'
             if len(slike) > 0:
-                return render(request, "solve_question.html", {'kviz': int(kviz[0].id), 'vprasanje': vprasanja[0], 'tip': tip, 'formopisno': formopisno, 'formizbirno': formizbirno, 'formpn': formpn, 'vprasanje_index': vprasanje_index, 'seznam_vprasanj': None, 'username': username, 'slika': slike[0].datoteka})
+                return render(request, "solve_question.html", {'leto': v_leto(vprasanja[0].leto), 'kviz': int(kviz[0].id), 'vprasanje': vprasanja[0], 'tip': tip, 'formopisno': formopisno, 'formizbirno': formizbirno, 'formpn': formpn, 'vprasanje_index': vprasanje_index, 'seznam_vprasanj': None, 'username': username, 'slika': slike[0].datoteka})
             else:
-                return render(request, "solve_question.html", {'kviz': int(kviz[0].id), 'vprasanje': vprasanja[0], 'tip': tip, 'formopisno': formopisno, 'formizbirno': formizbirno, 'formpn': formpn, 'vprasanje_index': vprasanje_index, 'seznam_vprasanj': None, 'username': username, 'slika': None})
+                return render(request, "solve_question.html", {'leto': v_leto(vprasanja[0].leto), 'kviz': int(kviz[0].id), 'vprasanje': vprasanja[0], 'tip': tip, 'formopisno': formopisno, 'formizbirno': formizbirno, 'formpn': formpn, 'vprasanje_index': vprasanje_index, 'seznam_vprasanj': None, 'username': username, 'slika': None})
 
 def add_question(request, kviz):
     if request.method == 'POST':
@@ -206,6 +213,7 @@ def add_question(request, kviz):
         opis = form['opis']
         longitude = form['longitude']
         latitude = form['latitude']
+        leto = form['leto']
 
         #opisno vprašanje
         if form_type == '2':
@@ -213,9 +221,12 @@ def add_question(request, kviz):
             #forma = Opisno(request.POST, request.FILES)
             vprasanje = form['vprasanje']
             el = OpisnoModel.objects.create(opis=opis, kviz=dbQuiz.objects.get(id=kviz), longitude=longitude, latitude=latitude,
-                                       vprasanje=vprasanje)
+                                       vprasanje=vprasanje, leto=leto)
             el.save()
-            DatotekaOpisnoModel.objects.create(datoteka=request.FILES['slika'], vprasanje=el)
+            try:
+                DatotekaOpisnoModel.objects.create(datoteka=request.FILES['slika'], vprasanje=el)
+            except:
+                pass
 
         #p/n vprašanje
         elif form_type == '3':
@@ -226,9 +237,12 @@ def add_question(request, kviz):
             pravilni_odgovor = [form['p1'], form['p2'],
                 form['p3'], form['p4'], form['p5']]
             el = PravilnoNepravilnoModel.objects.create(opis=opis, kviz=dbQuiz.objects.get(id=kviz), longitude=longitude, latitude=latitude,
-                                       vprasanje=vprasanje, pravilni_odgovor = pravilni_odgovor)
+                                       vprasanje=vprasanje, pravilni_odgovor = pravilni_odgovor, leto=leto)
             el.save()
-            DatotekaPravilnoNepravilnoModel.objects.create(datoteka=request.FILES['slika'], vprasanje=el)
+            try:
+                DatotekaPravilnoNepravilnoModel.objects.create(datoteka=request.FILES['slika'], vprasanje=el)
+            except:
+                pass
 
 
         #izbirno vprašanje
@@ -239,9 +253,12 @@ def add_question(request, kviz):
             pravilni_odgovor = form['pravilni_odgovor']
             el = IzberiOdgovorModel.objects.create(opis=opis, kviz=dbQuiz.objects.get(id=kviz), longitude=longitude, latitude=latitude,
                                         pravilni_odgovor=pravilni_odgovor, vprasanje=vprasanje, odgovor1 = form['odgovor1'], 
-                                        odgovor2 = form['odgovor2'], odgovor3 = form['odgovor3'], odgovor4 = form['odgovor4'], odgovor5 = form['odgovor5'])
+                                        odgovor2 = form['odgovor2'], odgovor3 = form['odgovor3'], odgovor4 = form['odgovor4'], odgovor5 = form['odgovor5'], leto=leto)
             el.save()
-            DatotekaIzberiOdgovorModel.objects.create(datoteka=request.FILES['slika'], vprasanje=el)
+            try:
+                DatotekaIzberiOdgovorModel.objects.create(datoteka=request.FILES['slika'], vprasanje=el)
+            except:
+                pass
             
         else:
             pravilni_odgovori = []
@@ -274,8 +291,12 @@ def select_username(request, kviz):
 
 def rezultati(request, kviz, username):
 
+    vse_tocke = 0
+    zasluzene_tocke = 0
+
     # Pomožne funkcije
     import ast
+
     def eval_pn(vprasanje, odgovor):
         vprasanje = getattr(vprasanje, 'pravilni_odgovor')
         odgovor = getattr(odgovor, 'odgovori')
@@ -285,40 +306,55 @@ def rezultati(request, kviz, username):
         for i in range(len(vprasanje)):
             if vprasanje[i] == odgovor[i]:
                 t += 1
-        return(str(t) + '/5')
+        return(t)
 
     def eval_izbirno(vprasanje, odgovor):
         if getattr(vprasanje, 'pravilni_odgovor') == getattr(odgovor, 'odgovori'):
-            return '3/3'
-        else: return '0/3'
+            return(3)
+        else: return(0)
 
     vsa_vprasanja = []
     odgovori = []
     tocke = []
-
+    trenutni = []
     vsa_vprasanja += OpisnoModel.objects.filter(kviz__id=kviz)
     odgovori += OdgovorOpisnoModel.objects.filter(user=username, vprasanje__in=vsa_vprasanja)
-    tocke.append('/')
+    trenutni += OdgovorOpisnoModel.objects.filter(user=username, vprasanje__in=vsa_vprasanja)
+
+    for i in odgovori:
+        tocke.append('/')
+
     vsa_vprasanja = []
     trenutni = []
-
     vsa_vprasanja += PravilnoNepravilnoModel.objects.filter(kviz__id=kviz)
     odgovori += OdgovorPravilnoNepravilnoModel.objects.filter(user=username, vprasanje__in=vsa_vprasanja)
     trenutni += OdgovorPravilnoNepravilnoModel.objects.filter(user=username, vprasanje__in=vsa_vprasanja)
+
     for i in trenutni:
-        tocke.append(eval_pn(i.vprasanje, i))
+        tocke.append(str(eval_pn(i.vprasanje, i)) + '/5')
+        zasluzene_tocke += eval_pn(i.vprasanje, i)
+
+    for i in vsa_vprasanja:
+        vse_tocke += 5
+
     vsa_vprasanja = []
     trenutni = []
-
     vsa_vprasanja += IzberiOdgovorModel.objects.filter(kviz__id=kviz)
     odgovori += OdgovorIzberiOdgovorModel.objects.filter(user=username, vprasanje__in=vsa_vprasanja)
     trenutni += OdgovorIzberiOdgovorModel.objects.filter(user=username, vprasanje__in=vsa_vprasanja)
+
     for i in trenutni:
-        tocke.append(eval_izbirno(i.vprasanje, i))
+        tocke.append(str(eval_izbirno(i.vprasanje, i)) + '/3')
+        zasluzene_tocke += eval_izbirno(i.vprasanje, i)
+
+    for i in vsa_vprasanja:
+        vse_tocke += 3
 
     rezul = zip(odgovori, tocke)
+    rez = str(zasluzene_tocke) + '/' + str(vse_tocke) + ' točk, ' + str(round(100 * zasluzene_tocke/vse_tocke, 2)) + '%'
 
-    return render(request, "rezultati.html", {'odgovori': rezul, 'username': username})
+
+    return render(request, "rezultati.html", {'rezultat': rez, 'odgovori': rezul, 'username': username})
 
 def edit_question(request, kviz, vprasanje_id):
     if request.method == 'POST':
@@ -346,6 +382,7 @@ def edit_question(request, kviz, vprasanje_id):
         opis = form['opis']
         longitude = form['longitude']
         latitude = form['latitude']
+        leto = form['leto']
 
         #opisno vprašanje
         if form_type == '2':
@@ -353,7 +390,7 @@ def edit_question(request, kviz, vprasanje_id):
             #forma = Opisno(request.POST, request.FILES)
             vprasanje = form['vprasanje']
             el = OpisnoModel.objects.create(opis=opis, kviz=dbQuiz.objects.get(id=kviz), longitude=longitude, latitude=latitude,
-                                       vprasanje=vprasanje)
+                                       vprasanje=vprasanje, leto=leto)
             el.save()
             try:
                 if form['slika'] == '':
@@ -373,7 +410,7 @@ def edit_question(request, kviz, vprasanje_id):
             pravilni_odgovor = [form['p1'], form['p2'],
                 form['p3'], form['p4'], form['p5']]
             el = PravilnoNepravilnoModel.objects.create(opis=opis, kviz=dbQuiz.objects.get(id=kviz), longitude=longitude, latitude=latitude,
-                                       vprasanje=vprasanje, pravilni_odgovor = pravilni_odgovor)
+                                       vprasanje=vprasanje, pravilni_odgovor = pravilni_odgovor, leto=leto)
             el.save()
             try:
                 if form['slika'] == '':
@@ -392,7 +429,7 @@ def edit_question(request, kviz, vprasanje_id):
             pravilni_odgovor = form['pravilni_odgovor']
             el = IzberiOdgovorModel.objects.create(opis=opis, kviz=dbQuiz.objects.get(id=kviz), longitude=longitude, latitude=latitude,
                                         pravilni_odgovor=pravilni_odgovor, vprasanje=vprasanje, odgovor1 = form['odgovor1'], 
-                                        odgovor2 = form['odgovor2'], odgovor3 = form['odgovor3'], odgovor4 = form['odgovor4'], odgovor5 = form['odgovor5'])
+                                        odgovor2 = form['odgovor2'], odgovor3 = form['odgovor3'], odgovor4 = form['odgovor4'], odgovor5 = form['odgovor5'], leto=leto)
             el.save()
             try:
                 if form['slika'] == '':

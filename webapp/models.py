@@ -14,6 +14,7 @@ class dbQuiz(models.Model):
 
 class OpisnoModel(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    leto = models.IntegerField(default=0)
     kviz = models.ForeignKey(dbQuiz, on_delete=CASCADE, null=True)
     opis = models.CharField(max_length=1000)
     longitude = models.FloatField() # koordinate za leaflet (bomo spremenili na koncu)
@@ -22,15 +23,17 @@ class OpisnoModel(models.Model):
     
 class PravilnoNepravilnoModel(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    leto = models.IntegerField(default=0)
     kviz = models.ForeignKey(dbQuiz, on_delete=CASCADE, null=True)   
     opis = models.CharField(max_length=1000)
     longitude = models.FloatField() # koordinate za leaflet (bomo spremenili na koncu)
     latitude = models.FloatField()
     vprasanje = models.CharField(max_length=1000, default="nan") # seznam vprašanj
-    pravilni_odgovor = models.CharField(max_length=1000, default="nan") # seznam pravilnegih odgovorov
+    pravilni_odgovor = models.CharField(max_length=1000, default="nan") # seznam pravilnih odgovorov
     
 class IzberiOdgovorModel(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    leto = models.IntegerField(default=0)
     kviz = models.ForeignKey(dbQuiz, on_delete=CASCADE, null=True)
     opis = models.CharField(max_length=1000)
     longitude = models.FloatField() # koordinate za leaflet (bomo spremenili na koncu)
