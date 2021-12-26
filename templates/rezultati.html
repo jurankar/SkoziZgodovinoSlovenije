@@ -5,7 +5,7 @@
 {% endblock head %}
 
 {% block content %}
-    <h1>Rezultati kviza uporabnika: {{username}}</h1>
+    <h1>Rezultati kviza osebe: {{username}}</h1>
     <table style="border: 1px solid black; text-align: center; width:100%">
         <tr>
             <th>ID odgovora</th>
@@ -26,4 +26,6 @@
             </tr>
         {%endfor%}
     </table>
+
+    Končni rezultat: {{rezultat}}
 {% endblock content %}

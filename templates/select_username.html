@@ -1,12 +1,12 @@
 {% extends "skeleton.html" %}
 
 {% block head %}
-    <title>Izberi uporabniško ime</title>
+    <title>Izberi svoj nadimek</title>
 {% endblock head %}
 
 
 {% block content %}
-        <h1>Izberi uporabniško ime</h1>
+        <h1>Izberi svoj nadimek</h1>
         <form action="/select_username/{{kviz}}" method="post">
             {% csrf_token %}
             {{form}}
