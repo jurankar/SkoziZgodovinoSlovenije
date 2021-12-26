@@ -74,7 +74,7 @@ def solve_quiz(request, kviz, vprasanje_index, username):
     vprasanja += OpisnoModel.objects.filter(kviz__id=kviz[0].id)
     vprasanja += PravilnoNepravilnoModel.objects.filter(kviz__id=kviz[0].id)
     vprasanja += IzberiOdgovorModel.objects.filter(kviz__id=kviz[0].id)
-    vprasanja = sorted(vprasanja, key=lambda x: x.leto, reverse=True)
+    vprasanja = sorted(vprasanja, key=lambda x: x.leto)
     vprasanje = vprasanja[vprasanje_index]
 
     # pozicije za vprašanja na časovnem traku (enakomerno razporejene po časovnem traku)
@@ -350,9 +350,58 @@ def rezultati(request, kviz, username):
     for i in vsa_vprasanja:
         vse_tocke += 3
 
-    rezul = zip(odgovori, tocke)
+    #rezul = zip(odgovori, tocke)
     rez = str(zasluzene_tocke) + '/' + str(vse_tocke) + ' točk, ' + str(round(100 * zasluzene_tocke/vse_tocke, 2)) + '%'
 
+    vsa_vprasanja = []
+    vsa_vprasanja += OpisnoModel.objects.filter(kviz__id=kviz)
+    vsa_vprasanja += PravilnoNepravilnoModel.objects.filter(kviz__id=kviz)
+    vsa_vprasanja += IzberiOdgovorModel.objects.filter(kviz__id=kviz)
+    vsa_vprasanja = sorted(vsa_vprasanja, key=lambda x: x.leto)
+
+    a = []
+    b = []
+    c = []
+    d = []
+    e = []
+
+    def v_leto(leto):
+        if leto < 0:
+            return str(- leto) + ' pr. n. št.'
+        else:
+            return str(leto)
+
+    for i in vsa_vprasanja:
+        x = False
+        y = 0
+        for j in odgovori:
+            if i == j.vprasanje:
+                a.append(v_leto(i.leto))
+                c.append(i.vprasanje) 
+                b.append(j.odgovori) 
+                try:
+                    d.append(i.pravilni_odgovor)
+                except:
+                    d.append('')
+                e.append(tocke[y]) 
+                x = True
+            y += 1
+        if not x:
+            a.append(v_leto(i.leto))
+            b.append(i.vprasanje)
+            c.append('')
+            try:
+                d.append(i.pravilni_odgovor)
+            except:
+                d.append('')
+                e.append('0/0')
+            try:
+                z = i.odgovor1
+                e.append('0/3')
+            except:
+                e.append('0/5')
+            
+    rezul = zip(a,b,c,d,e)
 
     return render(request, "rezultati.html", {'rezultat': rez, 'odgovori': rezul, 'username': username})
 

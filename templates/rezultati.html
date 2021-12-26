@@ -5,24 +5,38 @@
 {% endblock head %}
 
 {% block content %}
+<style>
+    table, th, td, tr {
+        border: 1px solid black;
+
+    }
+    td, th {
+        text-align: center;
+        padding: 5px;
+
+    }
+    th {
+        background-color: rgb(208, 208, 208);
+    }
+</style>
+
+
     <h1>Rezultati kviza osebe: {{username}}</h1>
-    <table style="border: 1px solid black; text-align: center; width:100%">
+    <table style="border: 1px solid black;">
         <tr>
-            <th>ID odgovora</th>
-            <th>Opis</th>
             <th>Vprašanje</th>
-            <th>Pravilni odgovor</th>
+            <th>Leto</th>
             <th>Vaš odgovor</th>
+            <th>Pravilni odgovor</th>
             <th>Točke</th>
         </tr>
-        {% for i,j in odgovori %}
+        {% for a,b,c,d,e in odgovori %}
             <tr>
-                <td>{{i.id}}</td>
-                <td>{{i.vprasanje.opis}}</td>
-                <td>{{i.vprasanje.vprasanje}}</td>
-                <td>{{i.vprasanje.pravilni_odgovor}}</td>
-                <td>{{i.odgovori}}</td>
-                <td>{{j}}</td>
+                <td>{{b}}</td>
+                <td>{{a}}</td>
+                <td>{{c}}</td>
+                <td>{{d}}</td>
+                <td>{{e}}</td>
             </tr>
         {%endfor%}
     </table>
