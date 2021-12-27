@@ -23,7 +23,29 @@
 
     <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
         <div style="text-align:center">
-            {% block content %} {% endblock content %}
+              <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="container">
+                  <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#myPage">Logo</a>
+                  </div>
+                  <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav navbar-right">
+                      <li><a href="/homePage#kvizi">KVIZI</a></li>
+                      <li><a href="/homePage#uredi">UREJAJ KVIZE</a></li>
+                      <li><a href="/homePage#dodaj">DODAJ KVIZ</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </nav>
+
+            <div style="margin-top:80px">
+                {% block content %} {% endblock content %}
+            </div>
         </div>
     </body>
 </html>

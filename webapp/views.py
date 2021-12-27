@@ -600,7 +600,7 @@ def edit_question(request, kviz, vprasanje_id):
 
         return render(request, "edit_question.html", {'kviz': kviz, 'form': form, 'vprasanje': vprasanje})
 
-def testTemplate(request):
+def homePage(request):
     # List quizes
     kvizi = dbQuiz.objects.all()
 
