@@ -5,6 +5,22 @@
 {% endblock head %}
 
 {% block content %}
+<style>
+    table, th, td, tr {
+        border: 1px solid black;
+
+    }
+    td, th {
+        text-align: center;
+        padding: 5px;
+
+    }
+    th {
+        background-color: rgb(208, 208, 208);
+    }
+</style>
+
+
     <h1>Seznam kvizov:</h1>
     <table style="border: 1px solid black;">
         <tr>
@@ -19,7 +35,7 @@
                 <td>{{i.name}}</td>
                 <td>{{i.id}}</td>
                 <td>{{i.author}}</td>
-                <td>{{i.pictureUrl}}</td>
+                <td>{{i.datoteka}}</td>
                 <td>
                     <form action="/quiz_manager/{{i.id}}/" method="get">
                         <input type="submit" value="Uredi ta kviz">
@@ -33,7 +49,7 @@
         {%endfor%}
     </table>
 
-    <table style="border: 1px solid black;">
+    <table>
         <h1>Seznam vprašanj:</h1>
         <tr>
             <th>id</th>
@@ -49,7 +65,7 @@
         {%endfor%}
     </table>
 
-    <table style="border: 1px solid black;">
+    <table>
         <h1>Seznam odgovorov:</h1>
         <tr>
             <th>naziv uporabnika</th>

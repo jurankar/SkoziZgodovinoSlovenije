@@ -25,7 +25,6 @@
         </form>
     {%endif%}
 
-
     {% if tip == 'pn' %}
         <form action="/solve_question/{{kviz}}/{{vprasanje.id}}/{{vprasanje_index}}/{{username}}/" method="post">
             {% csrf_token %}

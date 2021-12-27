@@ -4,7 +4,10 @@ class Quiz(forms.Form):
     ime = forms.CharField(label='ime kviza', max_length=200)
     avtor = forms.CharField(label='avtor kviza', max_length=200)
     geslo = forms.CharField(widget=forms.PasswordInput(), max_length=200)
-    slikaUrl = forms.CharField(label='url slike', max_length=200)
+    slika = forms.FileField(
+        label='Izberi naslovno sliko kviza: ', required=True
+    )
+    #slikaUrl = forms.CharField(label='url slike', max_length=200)
     form_type = forms.IntegerField(label='form type', initial=0)
 
 class QuestionType(forms.Form):

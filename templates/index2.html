@@ -69,7 +69,7 @@
           <div class="col-sm-4">
             <a href="/select_username/{{ i.id }}">
               <div class="thumbnail">
-                <img src="{{ i.pictureUrl }}" alt="Paris" width="400" height="300">
+                <img src="/media/{{i.datoteka}}" alt="slika" width="400" height="300">
                 <p><strong>{{i.name}}</strong></p>
                 <p>{{i.author}}</p>
               </div>
@@ -119,7 +119,7 @@
         {% for i in kvizi %}
             <div class="col-sm-4">
               <div class="thumbnail">
-                <img src="{{ i.pictureUrl }}" alt="Paris" width="400" height="300">
+                <img src="/media/{{i.datoteka}}" alt="Paris" width="400" height="300">
                 <p><strong>{{i.name}}</strong></p>
                 <p>{{i.author}}</p>
               </div>
@@ -133,7 +133,7 @@
   <!-- Container (Dodajmo kvize) -->
   <div id="contact" class="container-fluid bg-grey">
     <h1>Dodajmo kvize</h1>
-    <form action="/add_quiz" method="post">
+    <form action="/add_quiz" method="post" enctype="multipart/form-data">
       {% csrf_token %}
       {{form|linebreaks}}
       <input type="submit" value="Dodaj vprašanja">

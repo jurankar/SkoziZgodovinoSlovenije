@@ -45,14 +45,14 @@ def edit_quiz(request, kviz):
 def add_quiz(request):
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
-        form = Quiz(request.POST)
+        form = request.POST
         # check whether it's valid:
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            kviz = dbQuiz.objects.create(name=form.cleaned_data['ime'], author=form.cleaned_data['avtor'], password=form.cleaned_data['geslo'], pictureUrl=form.cleaned_data['slikaUrl'])
-            return redirect('/quiz_manager/' + str(kviz.id) + '/')
+        #if form.is_valid():
+        #    # process the data in form.cleaned_data as required
+        #    # ...
+        #    # redirect to a new URL:
+        kviz = dbQuiz.objects.create(name=form['ime'], author=form['avtor'], password=form['geslo'], datoteka=request.FILES['slika'])
+        return redirect('/quiz_manager/' + str(kviz.id) + '/')
     else:
         form=Quiz()
         return render(request, "add_quiz.html", {'form': form})
@@ -351,7 +351,7 @@ def rezultati(request, kviz, username):
         vse_tocke += 3
 
     #rezul = zip(odgovori, tocke)
-    rez = str(zasluzene_tocke) + '/' + str(vse_tocke) + ' točk, ' + str(round(100 * zasluzene_tocke/vse_tocke, 2)) + '%'
+    rez = str(zasluzene_tocke) + '/' + str(vse_tocke) + ' točk, ' + str(round(100 * zasluzene_tocke/vse_tocke, 1)) + '%'
 
     vsa_vprasanja = []
     vsa_vprasanja += OpisnoModel.objects.filter(kviz__id=kviz)
@@ -388,8 +388,8 @@ def rezultati(request, kviz, username):
             y += 1
         if not x:
             a.append(v_leto(i.leto))
-            b.append(i.vprasanje)
-            c.append('')
+            c.append(i.vprasanje)
+            b.append('')
             try:
                 d.append(i.pravilni_odgovor)
             except:

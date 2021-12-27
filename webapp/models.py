@@ -8,7 +8,8 @@ class dbQuiz(models.Model):
     name = models.CharField(max_length=200, default="Kviz 1")
     author = models.CharField(max_length=200)
     password = models.CharField(max_length=200) # geslo za kviz (da ni vsak kviz dostopen vsakomur)
-    pictureUrl = models.CharField(max_length=200)   # url can be local or online
+    #pictureUrl = models.CharField(max_length=200)   # url can be local or online
+    datoteka = models.FileField(upload_to='media/')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
