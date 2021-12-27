@@ -32,7 +32,7 @@ Spletna aplikacija za interaktivne kvize in učenje zgodovine Slovenije na zabav
     - [x] Opisno vprašanje ne preverja pravilnosti (ali sploh rabimo glede na to da je opisno vprašanje lahko oblike *Opiši dogodek z lastnimi besedami*)
     - [x] Točkovanje
     - [x] Ko izpolnjuješ vprašanja na kvizu mora avtomatsko na naslednje vprašanje
-    - [ ] Dobimo ime mesta po imenu v leafletu --> Jan
+    - [x] Dobimo ime mesta po imenu v leafletu --> Jan
     - [x] Vprašanja se soltirajo po času --> Maj
     - [x] Letnice na časovni trak --> Jan
     - [x] Na točkovanje vsa vprašanja, ne samo tistih, ki jih je uporabnik rešil --> Maj
