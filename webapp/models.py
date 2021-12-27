@@ -7,7 +7,7 @@ class dbQuiz(models.Model):
     id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=200, default="Kviz 1")
     author = models.CharField(max_length=200)
-    password = models.CharField(max_length=200) # geslo za kviz (da ni vsak kviz dostopen vsakomur)
+    password = models.CharField(max_length=200, default="hec") # geslo za kviz (da ni vsak kviz dostopen vsakomur)   --> Can we remove this?
     #pictureUrl = models.CharField(max_length=200)   # url can be local or online
     datoteka = models.FileField(upload_to='media/')
     created_at = models.DateTimeField(auto_now_add=True)

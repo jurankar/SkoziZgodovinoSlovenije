@@ -209,6 +209,8 @@ def add_question(request, kviz):
 
             return render(request, "question.html", {'form': form, 'title': 'nova vprašanja', 'kviz': kviz})
 
+
+
         # PROCESIRAMO ODGOVORJEN VPRAŠALNIK
         opis = form['opis']
         longitude = form['longitude']
