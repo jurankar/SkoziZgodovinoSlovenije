@@ -41,4 +41,4 @@ Po prototipu
 - [ ] Logično redirectanje
 - [x] Brisanje in urejanje že obstoječih kvizov oz. vprašanj --> Maj
 - [ ] Login System (učenci ne smejo imeti dostopa do urejanja vprašanj --- učenec mora imet opcijo da naredi kviz in ga potem tudi ureja (ureja lahko samo ta kviz ki ga je on kreiral) --> Maj
-- [ ] Styling  --> Jan
+- [x] Styling  --> Jan
