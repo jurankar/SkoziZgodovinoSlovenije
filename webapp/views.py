@@ -311,7 +311,7 @@ def rezultati(request, kviz, username):
         return(t)
 
     def eval_izbirno(vprasanje, odgovor):
-        if getattr(vprasanje, 'pravilni_odgovor') == getattr(odgovor, 'odgovori'):
+        if str(getattr(vprasanje, 'pravilni_odgovor')) == str(getattr(odgovor, 'odgovori')):
             return(3)
         else: return(0)
 
@@ -353,7 +353,10 @@ def rezultati(request, kviz, username):
         vse_tocke += 3
 
     #rezul = zip(odgovori, tocke)
-    rez = str(zasluzene_tocke) + '/' + str(vse_tocke) + ' točk, ' + str(round(100 * zasluzene_tocke/vse_tocke, 1)) + '%'
+    if vse_tocke > 0:
+        rez = str(zasluzene_tocke) + '/' + str(vse_tocke) + ' točk, ' + str(round(100 * zasluzene_tocke/vse_tocke, 1)) + ' %'
+    else:
+        rez = '0/0 točk, 0.0 %'
 
     vsa_vprasanja = []
     vsa_vprasanja += OpisnoModel.objects.filter(kviz__id=kviz)
