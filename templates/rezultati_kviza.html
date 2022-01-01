@@ -1,0 +1,40 @@
+{% extends "skeleton.html" %}
+
+{% block head %}
+    <title>Lestvica kviza</title>
+{% endblock head %}
+
+{% block content %}
+<style>
+    table, th, td, tr {
+        border: 1px solid black;
+
+    }
+    td, th {
+        text-align: center;
+        padding: 5px;
+
+    }
+    th {
+        background-color: rgb(208, 208, 208);
+    }
+</style>
+
+
+    <h1>Rezultati kviza: {{naslov}}</h1>
+    <table style="border: 1px solid black;">
+        <tr>
+            <th>Naziv uporabnika</th>
+            <th>Vse možne točke</th>
+            <th>Točke</th>
+            <th>Odstotkov</th>
+        </tr>
+        {% for a in rezultat %}
+        <tr>
+            {% for b in a %}
+                <td>{{b}}</td>
+            {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock content %}
