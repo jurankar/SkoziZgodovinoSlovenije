@@ -40,6 +40,20 @@ Spletna aplikacija za interaktivne kvize in učenje zgodovine Slovenije na zabav
 Po prototipu
 - [x] Logično redirectanje
 - [x] Brisanje in urejanje že obstoječih kvizov oz. vprašanj --> Maj
-- [ ] Login System (učenci ne smejo imeti dostopa do urejanja vprašanj --- učenec mora imet opcijo da naredi kviz in ga potem tudi ureja (ureja lahko samo ta kviz ki ga je on kreiral) --> Maj
+- [x] Login System (učenci ne smejo imeti dostopa do urejanja vprašanj --- učenec mora imet opcijo da naredi kviz in ga potem tudi ureja (ureja lahko samo ta kviz ki ga je on kreiral) --> Maj
 - [x] Styling  --> Jan
-- [ ] Vprašanja z izberi odgovoro morjo met poljubno število možnosti
+- [x] Vprašanja z izberi odgovoro morjo met poljubno število možnosti (preveč dodatnega dela)
+- [ ] Ne gre izbrisati slike iz vprašanja -> Maj
+- [ ] Večji text fieldi za opise -> Maj
+- [ ] Uporabniki si ne smejo izbrati istega nadimka kot že nekdo prej na istem kvizu
+
+Styling:
+- [ ] pri obrazcih za vprašanja je treba skriti polji `longitude` in `latitude`, saj se samodejno izpoljenjo s pomočjo zemljevida
+- [ ] mapa in search bar na sredino pri obrazcih za dodajanje vprašanj
+- [ ] več prostora med labeli in formsi (skoraj povsod)
+- [ ] letnice vprašanj na vrh zaznamkov na časovnem traku (! POMEMBNO, je rekel Batagelj da je treba)
+- [ ] `Končaj poskus` gumb padding levo
+- [ ] poravnava krogcev in odgovorov pri izbirnih vprašanjih (! POMEMBNO)
+- [ ] poravnava formsov ob prijavi ali registraciji
+- [ ] velikost slik v vprašanjih naj bo fiksna (da prevelike slike ne zasedejo celega okna)
+- [ ] pravilno-nepravilno: ko generiramo vprašanje manjše razmike med P in N
