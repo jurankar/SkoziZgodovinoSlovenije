@@ -29,6 +29,7 @@
     <table>
         <tr>
             <th>Opis</th>
+            <th>Leto</th>
             <th>Vprašanje</th>
             <th>Tip</th>
             <th>Akcije</th>
@@ -36,6 +37,7 @@
         {% for j in vprasanja_opisna %}
             <tr>
                 <td>{{j.opis}}</td>
+                <td>{{j.leto}}</td>
                 <td>{{j.vprasanje}}</td>
                 <td> opisno </td>
                 <td>
@@ -53,8 +55,9 @@
         {% for k in vprasanja_izbirna %}
             <tr>
                 <td>{{k.opis}}</td>
+                <td>{{k.leto}}</td>
                 <td>{{k.vprasanje}}</td>
-                <td> izbirno </td>
+                <td> pravilno-nepravilno </td>
                 <td>
                     <form action="/delete_question/{{kviz}}/{{k.id}}/pn" method="post">
                         {% csrf_token %}
@@ -70,8 +73,9 @@
         {% for k in vprasanja_pn %}
             <tr>
                 <td>{{k.opis}}</td>
+                <td>{{k.leto}}</td>
                 <td>{{k.vprasanje}}</td>
-                <td> pravilno-nepravilno </td>
+                <td> izbirno </td>
                 <td>
                     <form action="/delete_question/{{kviz}}/{{k.id}}/izbirno" method="post">
                         {% csrf_token %}

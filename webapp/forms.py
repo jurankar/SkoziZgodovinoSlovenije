@@ -2,10 +2,10 @@ from django import forms
 
 class Quiz(forms.Form):
     ime = forms.CharField(label='ime kviza', max_length=200)
-    avtor = forms.CharField(label='avtor kviza', max_length=200)
+    #avtor = forms.CharField(label='avtor kviza', max_length=200)
     geslo = forms.CharField(widget=forms.HiddenInput(), max_length=200)   # removed widget=forms.PasswordInput()  --> Can we remove this?
     slika = forms.FileField(
-        label='Izberi naslovno sliko kviza: ', required=True
+        label='izberi naslovno sliko kviza', required=True
     )
     #slikaUrl = forms.CharField(label='url slike', max_length=200)
     form_type = forms.IntegerField(label='form type', initial=0, widget=forms.HiddenInput())
@@ -77,3 +77,12 @@ class OdgovorOpisno(forms.Form):
 
 class UporabniskoIme(forms.Form):
     p = forms.CharField(max_length=30, label='Uporabniško ime')
+
+class Prijava(forms.Form):
+    username = forms.CharField(max_length=30, label='Uporabniško ime')
+    password = forms.CharField(widget=forms.PasswordInput)
+
+class Registracija(forms.Form):
+    uime = forms.CharField(max_length=30, label='Uporabniško ime')
+    password1 = forms.CharField(widget=forms.PasswordInput)
+    password2 = forms.CharField(widget=forms.PasswordInput)

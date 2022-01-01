@@ -9,23 +9,10 @@
 
   <div style="margin-top:-80px" class="jumbotron text-center">
     <h1>Skozi Zgodovino Slovenije</h1>
-    <p>Enovstavna interaktivna platforma za pučevanje zgodovine na Slovenskem ozemlju</p>
+    <p>Enostavna interaktivna platforma za poučevanje zgodovine na Slovenskem ozemlju.</p>
+    <p>Če želite dodati nov kviz se lahko brezplačno <a href='/prijava/'>registrirajte</a>.</p>
   </div>
 
-  <!-- Container (About Section) -->
-  <div id="about" class="container-fluid">
-    <div class="row">
-      <div class="col-sm-8" style="text-align: initial;">
-        <h2>O projektu</h2><br>
-        <h4>Spletna aplikacija skozi katero poteka zabavno poučevanje zgodovine v osnovnih šolah.</h4><br>
-        <p>Učenci se skozi interaktivne kvize učijo o zgodovini Slovenije. Dodajanje in urejanje kvizov
-            ter vprašanj, ki kvize sestavljajo je enostavno in intuitivno. Vprašanja so sestavljena iz
-            podvprašanj in pa interaktivnega zemljevida, ki pokaže kje v Sloveniji se artefakt ali dogodek,
-             ki ga predstavljamo nahaja.</p>
-        <br><button class="btn btn-default btn-lg">Get in Touch</button>
-      </div>
-    </div>
-  </div>
 
   <!--div class="container-fluid bg-grey">
     <div class="row">
@@ -92,32 +79,50 @@
     </div>
   </div>
 
+  {% if not request.user.is_anonymous %}
   <!-- Container (Uredimo kvize) -->
-  <div id="uredi" class="container-fluid">
-    <h1>Uredimo kvize</h1>
+  <div id="uredi" class="container-fluid bg-grey">
+    <h1>Uredi svoje kvize</h1>
     <div class="row text-center slideanim">
-        {% for i in kvizi %}
+        {% for i in kvizi_edit %}
             <div class="col-sm-4">
               <div class="thumbnail">
                 <img src="/media/{{i.datoteka}}" alt="slika" width="400" height="300">
                 <p><strong>{{i.name}}</strong></p>
                 <p>{{i.author}}</p>
               </div>
-              <button  onclick="location.href='/quiz_manager/{{ i.id }}/'" type="button" class="btn btn-secondary pull-left" style="margin-left:20%">Uredi kviz</button>
-              <button onclick="location.href='/delete_quiz/{{ i.id }}/'" type="button" class="btn btn-danger pull-right" style="margin-right:20%">Izbriši kviz</button>
+              <button  onclick="location.href='/rezultati_kviza/{{ i.id }}/'" type="button" class="btn btn-primary pull-left" style="margin-left:10%">Lestvica</button>
+              <button  onclick="location.href='/quiz_manager/{{ i.id }}/'" type="button" class="btn btn-secondary pull-center">Uredi kviz</button>
+              <button onclick="location.href='/delete_quiz/{{ i.id }}/'" type="button" class="btn btn-danger pull-right" style="margin-right:10%">Izbriši kviz</button>
             </div>
         {%endfor%}
     </div><br>
   </div>
-
+  
   <!-- Container (Dodajmo kvize) -->
-  <div id="dodaj" class="container-fluid bg-grey">
-    <h1>Dodajmo kvize</h1>
+  <div id="dodaj" class="container-fluid">
+    <h1>Dodaj nov kviz</h1>
     <form action="/add_quiz" method="post" enctype="multipart/form-data">
       {% csrf_token %}
       {{form|linebreaks}}
       <input type="submit" value="Dodaj vprašanja">
     </form>
+  </div>
+  {% endif %}
+  
+  <!-- Container (About Section) -->
+  <div id="about" class="container-fluid">
+    <div class="row">
+      <div class="col-sm-8" style="text-align: initial;">
+        <h2>O projektu</h2><br>
+        <h4>Spletna aplikacija skozi katero poteka zabavno poučevanje zgodovine v osnovnih šolah.</h4><br>
+        <p>Učenci se skozi interaktivne kvize učijo o zgodovini Slovenije. Dodajanje in urejanje kvizov
+            ter vprašanj, ki kvize sestavljajo je enostavno in intuitivno. Vprašanja so sestavljena iz
+            podvprašanj in pa interaktivnega zemljevida, ki pokaže kje v Sloveniji se artefakt ali dogodek,
+             ki ga predstavljamo nahaja.</p>
+        <br><button class="btn btn-default btn-lg">Get in Touch</button>
+      </div>
+    </div>
   </div>
 
   <!-- Image of location/map -->

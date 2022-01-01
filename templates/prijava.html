@@ -1,0 +1,24 @@
+{% extends "skeleton.html" %}
+
+{% block head %}
+    <title>prijava</title>
+{% endblock head %}
+
+{% block content %}
+    {% if napaka %}
+        <p style="color: red;">{{napaka}}</p>
+    {% endif %}
+        <h3>Prijavite se:</h3>
+        <form action="/login/" method="post">
+            {% csrf_token %}
+            {{form_prijava | linebreaks}}
+            <input type="submit" value="Prijava">
+        </form>
+        <h3> Registriraj se:</h3>
+        <form action="/registracija" method="post">
+            {% csrf_token %}
+            {{form_reg | linebreaks}}
+            <input type="submit" value="Registracija">
+        </form>
+
+{% endblock content %}
