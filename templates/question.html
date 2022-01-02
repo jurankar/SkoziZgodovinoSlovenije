@@ -2,14 +2,6 @@
 
 {% block head %}
     <title>Novo vprašanje</title>
-    <style type="text/css">
-    #map {
-        margin-top: 20px;
-        margin-left: 5px;
-        width: 600px;
-        height: 400px;
-    }
-    </style>
 {% endblock head %}
 
 {% block content %}
@@ -20,7 +12,7 @@
         <input type="submit" value="Dodaj vprašanja">
     </form>
 
-    <div style="text-align:left">
+    <div style="margin-top:70px">
         <label>Ime lokacije: </label><input id="locationName" type="text"><button type="submit" id="locationSubmit">Poišči lokacijo</button>
         <div id="map"></div>
     </div>
@@ -33,7 +25,7 @@
 
     var map = L.map('map')
         .addLayer(googleTerrain)
-        .setView([46.1195, 14.8379], 9);
+        .setView([46.1195, 14.8379], 8);
 
 
 

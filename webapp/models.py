@@ -21,6 +21,7 @@ class OpisnoModel(models.Model):
     longitude = models.FloatField() # koordinate za leaflet (bomo spremenili na koncu)
     latitude = models.FloatField()
     vprasanje = models.CharField(max_length=1000) # seznam vprašanj, odvisno od tipa
+    pozicijaOznake = models.CharField(max_length=1000, default="err")
     
 class PravilnoNepravilnoModel(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -31,6 +32,7 @@ class PravilnoNepravilnoModel(models.Model):
     latitude = models.FloatField()
     vprasanje = models.CharField(max_length=1000, default="nan") # seznam vprašanj
     pravilni_odgovor = models.CharField(max_length=1000, default="nan") # seznam pravilnih odgovorov
+    pozicijaOznake = models.CharField(max_length=1000, default="err")
     
 class IzberiOdgovorModel(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -46,6 +48,7 @@ class IzberiOdgovorModel(models.Model):
     odgovor4 = models.CharField(max_length=100, default="nan")
     odgovor5 = models.CharField(max_length=100, default="nan")
     pravilni_odgovor = models.IntegerField() # številka pravilnega odgovora
+    pozicijaOznake = models.CharField(max_length=1000, default="err")
 
 class OdgovorPravilnoNepravilnoModel(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

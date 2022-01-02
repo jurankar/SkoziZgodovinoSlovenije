@@ -184,3 +184,14 @@
   #id_slika{
     margin-left: 45%;
   }
+
+  #map {
+    width: 35%;
+    height: 400px;
+    margin-left: 32.5%;
+    margin-top: 15px;
+  }
+
+  label{
+    margin-right:10px;
+  }

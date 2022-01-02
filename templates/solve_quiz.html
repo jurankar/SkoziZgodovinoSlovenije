@@ -36,11 +36,17 @@
 
 {% block content %}
 
-    <div style="text-align: right ">
+    <div style="margin-bottom:10px">
             <form action="/rezulati/{{kviz.id}}/{{username}}/" method="get">
                 {% csrf_token %}
                 <input type="submit" value="Končaj poskus">
             </form>
+    </div>
+
+    <div style="text-align:left; margin-left:{{marginLeft}}%; width:{{width}}%; margin-right: {{marginLeft}}%; float: left;%">
+        {% for vpr in vprasanja %}
+            <p style="display:inline-block; margin-left:{{ vpr.pozicijaOznake }}%">{{ vpr.leto }}</p>
+        {%endfor%}
     </div>
 
     <div id="rectangle">
