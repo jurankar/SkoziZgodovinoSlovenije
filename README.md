@@ -48,12 +48,12 @@ Po prototipu
 - [ ] Uporabniki si ne smejo izbrati istega nadimka kot že nekdo prej na istem kvizu
 
 Styling:
-- [ ] pri obrazcih za vprašanja je treba skriti polji `longitude` in `latitude`, saj se samodejno izpoljenjo s pomočjo zemljevida
-- [ ] mapa in search bar na sredino pri obrazcih za dodajanje vprašanj
-- [ ] več prostora med labeli in formsi (skoraj povsod)
-- [ ] letnice vprašanj na vrh zaznamkov na časovnem traku (! POMEMBNO, je rekel Batagelj da je treba)
-- [ ] `Končaj poskus` gumb padding levo
+- [x] pri obrazcih za vprašanja je treba skriti polji `longitude` in `latitude`, saj se samodejno izpoljenjo s pomočjo zemljevida
+- [x] mapa in search bar na sredino pri obrazcih za dodajanje vprašanj
+- [x] več prostora med labeli in formsi (skoraj povsod)
+- [x] letnice vprašanj na vrh zaznamkov na časovnem traku (! POMEMBNO, je rekel Batagelj da je treba)
+- [x] `Končaj poskus` gumb padding levo
 - [ ] poravnava krogcev in odgovorov pri izbirnih vprašanjih (! POMEMBNO)
-- [ ] poravnava formsov ob prijavi ali registraciji
-- [ ] velikost slik v vprašanjih naj bo fiksna (da prevelike slike ne zasedejo celega okna)
+- [x] poravnava formsov ob prijavi ali registraciji
+- [x] velikost slik v vprašanjih naj bo fiksna (da prevelike slike ne zasedejo celega okna)
 - [ ] pravilno-nepravilno: ko generiramo vprašanje manjše razmike med P in N
