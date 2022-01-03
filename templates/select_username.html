@@ -7,6 +7,10 @@
 
 {% block content %}
         <h1>Izberi svoj nadimek</h1>
+        {% if napaka != None %} 
+        <p style="color: red;">{{napaka}}</p>
+        {% endif %}
+        
         <form action="/select_username/{{kviz}}" method="post">
             {% csrf_token %}
             {{form}}

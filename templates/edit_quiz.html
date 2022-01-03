@@ -45,7 +45,7 @@
                         {% csrf_token %}
                         <input type="submit" value="Izbriši">
                     </form>
-                    <form action="/edit_question/{{kviz}}/{{j.id}}/" method="get">
+                    <form action="/edit_question/{{kviz}}/{{j.id}}/" method="get" style="margin-top: 5px">
                         {% csrf_token %}
                         <input type="submit" value="Uredi">
                     </form>     
@@ -63,7 +63,7 @@
                         {% csrf_token %}
                         <input type="submit" value="Izbriši">
                     </form>
-                    <form action="/edit_question/{{kviz}}/{{k.id}}/" method="get">
+                    <form action="/edit_question/{{kviz}}/{{k.id}}/" method="get" style="margin-top: 5px">
                         {% csrf_token %}
                         <input type="submit" value="Uredi">
                     </form>
@@ -81,7 +81,7 @@
                         {% csrf_token %}
                         <input type="submit" value="Izbriši">
                     </form>
-                    <form action="/edit_question/{{kviz}}/{{k.id}}/" method="get">
+                    <form action="/edit_question/{{kviz}}/{{k.id}}/" method="get" style="margin-top: 5px">
                         {% csrf_token %}
                         <input type="submit" value="Uredi">
                     </form>
@@ -89,7 +89,7 @@
             </tr>
         {%endfor%}
     </table>
-    <form action="/add_question/{{kviz}}" method="get">
+    <form action="/add_question/{{kviz}}" method="get" style="padding-top: 5px;">
         {% csrf_token %}
         <input type="submit" value="Dodaj novo vprašanje">
     </form>

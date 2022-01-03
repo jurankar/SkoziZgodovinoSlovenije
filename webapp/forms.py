@@ -11,13 +11,13 @@ class Quiz(forms.Form):
     form_type = forms.IntegerField(label='form type', initial=0, widget=forms.HiddenInput())
 
 class QuestionType(forms.Form):
-    type = forms.ChoiceField(choices=[(1, 'opisno'), (2, 'p/n'), (3, 'izbirno')])  # tip vprašanja (true-false, izberi pravilni odgovor, opisni tip odgovora, izberi vse pravile odgovore,...)
+    type = forms.ChoiceField(choices=[(1, 'opisno'), (2, 'p/n'), (3, 'izbirno')], label="Tip vprašanja")  # tip vprašanja (true-false, izberi pravilni odgovor, opisni tip odgovora, izberi vse pravile odgovore,...)
     form_type = forms.IntegerField(label='form type', initial=1, widget=forms.HiddenInput())
 
 class Opisno(forms.Form):
-    opis = forms.CharField(max_length=1000)
+    opis = forms.Field(widget=forms.TextInput(attrs={'size': '80'}))
     slika = forms.FileField(
-        label='Izberi datoteko', required=False
+        label='Izberi sliko', required=False
     )
     leto = forms.IntegerField(max_value=2021, label='Leto:')
     longitude = forms.FloatField(widget=forms.HiddenInput()) # koordinate za leaflet (bomo spremenili na koncu)
@@ -26,9 +26,9 @@ class Opisno(forms.Form):
     form_type = forms.IntegerField(label='form type', initial=2, widget=forms.HiddenInput())
 
 class PravilnoNepravilno(forms.Form):
-    opis = forms.CharField(max_length=1000)
+    opis = forms.CharField(widget=forms.TextInput(attrs={'size': '80'}))
     slika = forms.FileField(
-        label='Izberi datoteko', required=False
+        label='Izberi sliko', required=False
     )
     leto = forms.IntegerField(max_value=2021, label='Leto:')
     longitude = forms.FloatField(widget=forms.HiddenInput()) # koordinate za leaflet (bomo spremenili na koncu)
@@ -46,9 +46,9 @@ class PravilnoNepravilno(forms.Form):
     form_type = forms.IntegerField(label='form type', initial=3, widget=forms.HiddenInput())
 
 class IzberiOdgovor(forms.Form):
-    opis = forms.CharField(max_length=1000)
+    opis = forms.CharField(widget=forms.TextInput(attrs={'size': '80'}))
     slika = forms.FileField(
-        label='Izberi datoteko', required=False
+        label='Izberi sliko', required=False
     )
     leto = forms.IntegerField(max_value=2021, label='Leto:')
     longitude = forms.FloatField(widget=forms.HiddenInput()) # koordinate za leaflet (bomo spremenili na koncu)
@@ -76,7 +76,7 @@ class OdgovorOpisno(forms.Form):
     p = forms.CharField(max_length=1000, label= '')
 
 class UporabniskoIme(forms.Form):
-    p = forms.CharField(max_length=30, label='Uporabniško ime')
+    p = forms.CharField(max_length=30, label='Nadimek')
 
 class Prijava(forms.Form):
     username = forms.CharField(max_length=30, label='Uporabniško ime')

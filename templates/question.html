@@ -10,10 +10,11 @@
         {% csrf_token %}
         {{ form|linebreaks }}
         <input type="submit" value="Dodaj vprašanja">
-    </form>
+    </form> 
 
-    <div style="margin-top:70px">
-        <label>Ime lokacije: </label><input id="locationName" type="text"><button type="submit" id="locationSubmit">Poišči lokacijo</button>
+    <h3 style="margin-top:50px">Izberi lokacijo vprašanja na zemljevidu</h3>
+    <div style="margin-top:10px">
+        <input id="locationName" type="text"><button type="submit" id="locationSubmit">Poišči lokacijo</button>
         <div id="map"></div>
     </div>
 

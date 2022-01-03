@@ -10,7 +10,9 @@
   <div style="margin-top:-80px" class="jumbotron text-center">
     <h1>Skozi Zgodovino Slovenije</h1>
     <p>Enostavna interaktivna platforma za poučevanje zgodovine na Slovenskem ozemlju.</p>
+    {% if request.user.is_anonymous %}
     <p>Če želite dodati nov kviz se lahko brezplačno <a href='/prijava/'>registrirajte</a>.</p>
+    {% endif %}
   </div>
 
 

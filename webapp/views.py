@@ -239,6 +239,11 @@ def add_question(request, kviz):
     
             longitude = form['longitude']
             latitude = form['latitude']
+
+            if type(longitude)==str or type(latitude)==str: # Če ne izbere lokacije damo privzeto na Ljubljanski grad
+                longitude = 14.50837
+                latitude = 46.04901
+
             leto = form['leto']
             #opisno vprašanje
             if form_type == '2':
@@ -317,10 +322,41 @@ def select_username(request, kviz):
         if request.method == 'POST':
             form = request.POST
             uporabnisko_ime = form['p']
-            return redirect('/solve_quiz/' + str(kviz) + '/0/' + uporabnisko_ime + '/')
+
+            kviz_id = kviz
+            kviz = dbQuiz.objects.get(id=kviz)
+
+            vsa_vprasanja = []
+            vsa_vprasanja += OpisnoModel.objects.filter(kviz=kviz)
+            vsa_vprasanja += PravilnoNepravilnoModel.objects.filter(kviz=kviz)
+            vsa_vprasanja += IzberiOdgovorModel.objects.filter(kviz=kviz)
+
+            vsi_odgovori = []
+            
+            for i in vsa_vprasanja:
+                try:
+                    vsi_odgovori += OdgovorOpisnoModel.objects.filter(vprasanje=i)
+                except:
+                    pass
+                try:
+                    vsi_odgovori += OdgovorIzberiOdgovorModel.objects.filter(vprasanje=i)
+                except:
+                    pass
+                try:
+                    vsi_odgovori += OdgovorPravilnoNepravilnoModel.objects.filter(vprasanje=i)
+                except:
+                    pass
+
+            for odgovor in vsi_odgovori:
+                if str(odgovor.user) == uporabnisko_ime:
+                    napaka = "Ta nadimek je že v uporabi za izbrani kviz. Izberi si drugega."
+                    form = UporabniskoIme()
+                    return render(request, "select_username.html", {'kviz': kviz_id, 'form': form, 'napaka': napaka})
+
+            return redirect('/solve_quiz/' + str(kviz_id) + '/0/' + uporabnisko_ime + '/')
         else:
             form = UporabniskoIme()
-            return render(request, "select_username.html", {'kviz': kviz, 'form': form})
+            return render(request, "select_username.html", {'kviz': kviz, 'form': form, 'napaka': None})
 
 def rezultati(request, kviz, username):
 
@@ -484,11 +520,16 @@ def edit_question(request, kviz, vprasanje_id):
                 try:
                     if form['slika'] == '':
                         try:
-                            dat = DatotekaOpisnoModel.objects.get(vprasanje = OpisnoModel.objects.get(id=vprasanje_id))
-                            dat.vprasanje = el
-                            dat.save()
+                            if form['slika-clear'] == 'on':
+                                dat = DatotekaOpisnoModel.objects.get(vprasanje = OpisnoModel.objects.get(id=vprasanje_id))
+                                dat.delete()
                         except:
-                            pass
+                            try:
+                                dat = DatotekaOpisnoModel.objects.get(vprasanje = OpisnoModel.objects.get(id=vprasanje_id))
+                                dat.vprasanje = el
+                                dat.save()
+                            except:
+                                pass
                 except:
                     DatotekaOpisnoModel.objects.create(datoteka=request.FILES['slika'], vprasanje=el)
                 OpisnoModel.objects.filter(id=str(vprasanje_id)).delete()
@@ -507,11 +548,16 @@ def edit_question(request, kviz, vprasanje_id):
                 try:
                     if form['slika'] == '':
                         try:
-                            dat = DatotekaPravilnoNepravilnoModel.objects.get(vprasanje = PravilnoNepravilnoModel.objects.get(id=vprasanje_id))
-                            dat.vprasanje = el
-                            dat.save()
+                            if form['slika-clear'] == 'on':
+                                dat = DatotekaPravilnoNepravilnoModel.objects.get(vprasanje = PravilnoNepravilnoModel.objects.get(id=vprasanje_id))
+                                dat.delete()
                         except:
-                            pass
+                            try:
+                                dat = DatotekaPravilnoNepravilnoModel.objects.get(vprasanje = PravilnoNepravilnoModel.objects.get(id=vprasanje_id))
+                                dat.vprasanje = el
+                                dat.save()
+                            except:
+                                pass
                 except:
                     DatotekaPravilnoNepravilnoModel.objects.create(datoteka=request.FILES['slika'], vprasanje=el)
                 PravilnoNepravilnoModel.objects.filter(id=str(vprasanje_id)).delete()
@@ -529,11 +575,16 @@ def edit_question(request, kviz, vprasanje_id):
                 try:
                     if form['slika'] == '':
                         try:
-                            dat = DatotekaIzberiOdgovorModel.objects.get(vprasanje = IzberiOdgovorModel.objects.get(id=vprasanje_id))
-                            dat.vprasanje = el
-                            dat.save()
+                            if form['slika-clear'] == 'on':
+                                dat = DatotekaIzberiOdgovorModel.objects.get(vprasanje = IzberiOdgovorModel.objects.get(id=vprasanje_id))
+                                dat.delete()
                         except:
-                            pass
+                            try:
+                                dat = DatotekaIzberiOdgovorModel.objects.get(vprasanje = IzberiOdgovorModel.objects.get(id=vprasanje_id))
+                                dat.vprasanje = el
+                                dat.save()
+                            except:
+                                pass
                 except:
                     DatotekaIzberiOdgovorModel.objects.create(datoteka=request.FILES['slika'], vprasanje=el)
                 IzberiOdgovorModel.objects.filter(id=str(vprasanje_id)).delete()
@@ -542,7 +593,7 @@ def edit_question(request, kviz, vprasanje_id):
 
             return redirect('/quiz_manager/' + str(kviz) + '/')
 
-        else:    
+        else:
             kviz = dbQuiz.objects.filter(id=kviz)[0]
             vprasanja = []
 

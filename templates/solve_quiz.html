@@ -2,8 +2,6 @@
 
 {% block head %}
 
-
-
     <title>Novo vprašanje</title>
     <style type="text/css">
     #map {
@@ -16,9 +14,9 @@
     #rectangle {
         margin-left:{{marginLeft}}%;
         margin-right: {{marginLeft}}%;
-        width:{{width}}%;
-        height:{{height}}px;
-        border:1px solid #000;
+        width: {{width}}%;
+        height: {{height}}px;
+        border: 1px solid #000;
         float: left;
     }
     .oznakaCasTrak{
@@ -36,7 +34,7 @@
 
 {% block content %}
 
-    <div style="margin-bottom:10px">
+    <div style="margin-bottom:10px; float:right; padding-right: 20px;">
             <form action="/rezulati/{{kviz.id}}/{{username}}/" method="get">
                 {% csrf_token %}
                 <input type="submit" value="Končaj poskus">

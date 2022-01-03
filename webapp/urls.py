@@ -13,6 +13,7 @@ urlpatterns = [
     path('delete_quiz/<int:kviz>/', views.delete_quiz, name='delete_quiz'),
     path('list_quizes', views.list_quizes, name='list_quizes'),
     path('select_username/<int:kviz>', views.select_username, name='select_username'),
+    path('select_username/<int:kviz>/<str:napaka>', views.select_username, name='select_username'),
     path('solve_quiz/<int:kviz>/<int:vprasanje_index>/<str:username>/', views.solve_quiz, name='solve_quiz'),
     path('solve_question/<int:kviz>/<str:vprasanje_id>/<int:vprasanje_index>/<str:username>/', views.solve_question, name='solve_question'),
     path('rezulati/<int:kviz>/<str:username>/', views.rezultati, name='rezulati'),

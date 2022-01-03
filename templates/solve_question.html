@@ -22,7 +22,7 @@
             <h3>Odgovori: </h3>
             {% csrf_token %}
             {{formopisno|linebreaks}}
-            <input type="submit" value="Odgovori">
+            <input type="submit" value="Odgovori" style="margin-bottom: 20px;">
         </form>
     {%endif%}
 
@@ -40,7 +40,7 @@
             {{formpn.p4}}
             {{v5}}
             {{formpn.p5}}
-            <input type="submit" value="Odgovori">
+            <input type="submit" value="Odgovori" style="margin-bottom: 20px;">
         </form>
     {%endif%}
 
@@ -57,7 +57,7 @@
             5. {{vprasanje.odgovor5}}<br>
 
             {{formizbirno}}
-            <input type="submit" value="Odgovori">
+            <input type="submit" value="Odgovori" style="margin-bottom: 20px;">
         </form>
     {%endif%}
 

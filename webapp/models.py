@@ -18,8 +18,8 @@ class OpisnoModel(models.Model):
     leto = models.IntegerField(default=0)
     kviz = models.ForeignKey(dbQuiz, on_delete=CASCADE, null=True)
     opis = models.CharField(max_length=1000)
-    longitude = models.FloatField() # koordinate za leaflet (bomo spremenili na koncu)
-    latitude = models.FloatField()
+    longitude = models.FloatField(default=14.50857) # koordinate za leaflet (bomo spremenili na koncu)
+    latitude = models.FloatField(default=46.04906)
     vprasanje = models.CharField(max_length=1000) # seznam vprašanj, odvisno od tipa
     pozicijaOznake = models.CharField(max_length=1000, default="err")
     
@@ -28,8 +28,8 @@ class PravilnoNepravilnoModel(models.Model):
     leto = models.IntegerField(default=0)
     kviz = models.ForeignKey(dbQuiz, on_delete=CASCADE, null=True)   
     opis = models.CharField(max_length=1000)
-    longitude = models.FloatField() # koordinate za leaflet (bomo spremenili na koncu)
-    latitude = models.FloatField()
+    longitude = models.FloatField(default=14.50857) # koordinate za leaflet (bomo spremenili na koncu)
+    latitude = models.FloatField(default=46.04906)
     vprasanje = models.CharField(max_length=1000, default="nan") # seznam vprašanj
     pravilni_odgovor = models.CharField(max_length=1000, default="nan") # seznam pravilnih odgovorov
     pozicijaOznake = models.CharField(max_length=1000, default="err")
@@ -39,8 +39,8 @@ class IzberiOdgovorModel(models.Model):
     leto = models.IntegerField(default=0)
     kviz = models.ForeignKey(dbQuiz, on_delete=CASCADE, null=True)
     opis = models.CharField(max_length=1000)
-    longitude = models.FloatField() # koordinate za leaflet (bomo spremenili na koncu)
-    latitude = models.FloatField()
+    longitude = models.FloatField(default=14.50857) # koordinate za leaflet (bomo spremenili na koncu)
+    latitude = models.FloatField(default=46.04906)
     vprasanje = models.CharField(max_length=100)
     odgovor1 = models.CharField(max_length=100, default="nan")
     odgovor2 = models.CharField(max_length=100, default="nan")
