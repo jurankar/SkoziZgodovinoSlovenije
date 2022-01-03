@@ -43,9 +43,9 @@ Po prototipu
 - [x] Login System (učenci ne smejo imeti dostopa do urejanja vprašanj --- učenec mora imet opcijo da naredi kviz in ga potem tudi ureja (ureja lahko samo ta kviz ki ga je on kreiral) --> Maj
 - [x] Styling  --> Jan
 - [x] Vprašanja z izberi odgovoro morjo met poljubno število možnosti (preveč dodatnega dela)
-- [ ] Ne gre izbrisati slike iz vprašanja -> Maj
-- [ ] Večji text fieldi za opise -> Maj
-- [ ] Uporabniki si ne smejo izbrati istega nadimka kot že nekdo prej na istem kvizu
+- [x] Ne gre izbrisati slike iz vprašanja -> Maj
+- [x] Večji text fieldi za opise -> Maj
+- [x] Uporabniki si ne smejo izbrati istega nadimka kot že nekdo prej na istem kvizu
 
 Styling:
 - [x] pri obrazcih za vprašanja je treba skriti polji `longitude` in `latitude`, saj se samodejno izpoljenjo s pomočjo zemljevida
@@ -57,3 +57,5 @@ Styling:
 - [x] poravnava formsov ob prijavi ali registraciji
 - [x] velikost slik v vprašanjih naj bo fiksna (da prevelike slike ne zasedejo celega okna)
 - [ ] pravilno-nepravilno: ko generiramo vprašanje manjše razmike med P in N
+
+
