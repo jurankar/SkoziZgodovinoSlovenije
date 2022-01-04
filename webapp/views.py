@@ -101,11 +101,12 @@ def solve_quiz(request, kviz, vprasanje_index, username):
     
         st_vprasanj = len(vprasanja)
         razmak = 100/st_vprasanj
+        razmak_letnice = width/st_vprasanj
         pozicijeOznak = []
         for i in range(st_vprasanj):
             pozicijeOznak.append(marginLeft*(2/st_vprasanj) + ((i*razmak) * (width/100)))
             if i == 0 and st_vprasanj%2==1: setattr(vprasanja[i], "pozicijaOznake", razmak/2)
-            else: setattr(vprasanja[i], "pozicijaOznake", razmak)
+            else: setattr(vprasanja[i], "pozicijaOznake", razmak_letnice)
         return render(request, "solve_quiz.html", {'kviz': kviz[0], 'width': width, 'height': 100, 'marginLeft': marginLeft, 'stVprasanjRange': range(st_vprasanj), 'pozicijeOznak': pozicijeOznak, 'vprasanje': vprasanje, 'vprasanje_index': vprasanje_index, 'username': username, 'vprasanja': vprasanja})
 
 def solve_question(request, kviz, vprasanje_id, vprasanje_index, username):
