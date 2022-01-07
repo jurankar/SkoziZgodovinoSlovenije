@@ -53,7 +53,7 @@ Styling:
 - [x] več prostora med labeli in formsi (skoraj povsod)
 - [x] letnice vprašanj na vrh zaznamkov na časovnem traku (! POMEMBNO, je rekel Batagelj da je treba)
 - [x] `Končaj poskus` gumb padding levo
-- [ ] poravnava krogcev in odgovorov pri izbirnih vprašanjih (! POMEMBNO)
+- [x] poravnava krogcev in odgovorov pri izbirnih vprašanjih (! POMEMBNO)
 - [x] poravnava formsov ob prijavi ali registraciji
 - [x] velikost slik v vprašanjih naj bo fiksna (da prevelike slike ne zasedejo celega okna)
 - [ ] pravilno-nepravilno: ko generiramo vprašanje manjše razmike med P in N
