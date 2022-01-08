@@ -196,7 +196,7 @@
     margin-right:10px;
   }
 
-  ul {
+  .answerQuestion ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -204,6 +204,13 @@
   margin-left:48.5%;
   }
 
-  li {
+  .answerQuestion li {
     float: left;
+  }
+
+  .addQuestion ul {
+      display: flex;
+      align-items: center;
+      list-style-position: inside;
+      margin-left:46%
   }

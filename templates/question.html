@@ -6,11 +6,13 @@
 
 {% block content %}
     <h1>Novo vprašanje:</h1>
-    <form action="/add_question/{{kviz}}" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form|linebreaks }}
-        <input type="submit" value="Dodaj vprašanja">
-    </form> 
+    <div class="addQuestion">
+        <form action="/add_question/{{kviz}}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|linebreaks }}
+            <input type="submit" value="Dodaj vprašanja">
+        </form>
+    </div>
 
     <h3 style="margin-top:50px">Izberi lokacijo vprašanja na zemljevidu</h3>
     <div style="margin-top:10px">

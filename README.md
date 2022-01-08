@@ -58,4 +58,6 @@ Styling:
 - [x] velikost slik v vprašanjih naj bo fiksna (da prevelike slike ne zasedejo celega okna)
 - [ ] pravilno-nepravilno: ko generiramo vprašanje manjše razmike med P in N
 
-
+## Navodila za namestitev
+1. Zaženit ukaz 'pip install -r requirements.txt'
+2. Zaženite ukaz 'python .\manage.py runserver'

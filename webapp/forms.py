@@ -54,11 +54,11 @@ class IzberiOdgovor(forms.Form):
     longitude = forms.FloatField(widget=forms.HiddenInput()) # koordinate za leaflet (bomo spremenili na koncu)
     latitude = forms.FloatField(widget=forms.HiddenInput())
     vprasanje = forms.CharField(max_length=100)
-    odgovor1 = forms.CharField(max_length=100)
-    odgovor2 = forms.CharField(max_length=100)
-    odgovor3 = forms.CharField(max_length=100)
-    odgovor4 = forms.CharField(max_length=100)
-    odgovor5 = forms.CharField(max_length=100)
+    odgovor1 = forms.CharField(max_length=100, label='Možnost 1')
+    odgovor2 = forms.CharField(max_length=100, label='Možnost 2')
+    odgovor3 = forms.CharField(max_length=100, label='Možnost 3')
+    odgovor4 = forms.CharField(max_length=100, label='Možnost 4')
+    odgovor5 = forms.CharField(max_length=100, label='Možnost 5')
     pravilni_odgovor = forms.IntegerField(max_value=5, min_value=1,initial=1) # številka pravilnega odgovora
     form_type = forms.IntegerField(label='form type', initial=4, widget=forms.HiddenInput())
 
@@ -73,16 +73,16 @@ class OdgovorPravilnoNepravilno(forms.Form):
     p5 = forms.ChoiceField(choices=[("P","P"),("N","N")], widget=forms.RadioSelect)
 
 class OdgovorOpisno(forms.Form):
-    p = forms.CharField(max_length=1000, label= '')
+    p = forms.CharField(max_length=1000, label= '', widget=forms.TextInput(attrs={'style': 'width:500px'}))
 
 class UporabniskoIme(forms.Form):
     p = forms.CharField(max_length=30, label='Nadimek')
 
 class Prijava(forms.Form):
     username = forms.CharField(max_length=30, label='Uporabniško ime')
-    password = forms.CharField(widget=forms.PasswordInput)
+    password = forms.CharField(widget=forms.PasswordInput, label='Geslo')
 
 class Registracija(forms.Form):
     uime = forms.CharField(max_length=30, label='Uporabniško ime')
-    password1 = forms.CharField(widget=forms.PasswordInput)
-    password2 = forms.CharField(widget=forms.PasswordInput)
+    password1 = forms.CharField(widget=forms.PasswordInput, label='Geslo')
+    password2 = forms.CharField(widget=forms.PasswordInput, label='Ponovno vpišite geslo')

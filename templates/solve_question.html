@@ -15,50 +15,52 @@
     <h3>Opis: </h3>
     <p>{{vprasanje.opis}}</p>
 
-    {% if tip == 'opisno' %}
-        <form action="/solve_question/{{kviz}}/{{vprasanje.id}}/{{vprasanje_index}}/{{username}}/" method="post">
-            <h3>Vprašanje:</h3>
-            <p3>{{vprasanje.vprasanje}}</p3>
-            <h3>Odgovori: </h3>
-            {% csrf_token %}
-            {{formopisno|linebreaks}}
-            <input type="submit" value="Odgovori" style="margin-bottom: 20px;">
-        </form>
-    {%endif%}
+    <div class="answerQuestion">
+        {% if tip == 'opisno' %}
+            <form action="/solve_question/{{kviz}}/{{vprasanje.id}}/{{vprasanje_index}}/{{username}}/" method="post">
+                <h3>Vprašanje:</h3>
+                <p3>{{vprasanje.vprasanje}}</p3>
+                <h3>Odgovori: </h3>
+                {% csrf_token %}
+                {{formopisno|linebreaks}}
+                <input type="submit" value="Odgovori" style="margin-bottom: 20px;">
+            </form>
+        {%endif%}
 
-    {% if tip == 'pn' %}
-        <form action="/solve_question/{{kviz}}/{{vprasanje.id}}/{{vprasanje_index}}/{{username}}/" method="post">
-            <h3>Odgovori: </h3>
-            {% csrf_token %}
-            {{v1}}
-            {{formpn.p1}}
-            {{v2}}
-            {{formpn.p2}}
-            {{v3}}
-            {{formpn.p3}}
-            {{v4}}
-            {{formpn.p4}}
-            {{v5}}
-            {{formpn.p5}}
-            <input type="submit" value="Odgovori" style="margin-bottom: 20px;">
-        </form>
-    {%endif%}
+        {% if tip == 'pn' %}
+            <form action="/solve_question/{{kviz}}/{{vprasanje.id}}/{{vprasanje_index}}/{{username}}/" method="post">
+                <h3>Odgovori: </h3>
+                {% csrf_token %}
+                {{v1}}
+                {{formpn.p1}}
+                {{v2}}
+                {{formpn.p2}}
+                {{v3}}
+                {{formpn.p3}}
+                {{v4}}
+                {{formpn.p4}}
+                {{v5}}
+                {{formpn.p5}}
+                <input type="submit" value="Odgovori" style="margin-bottom: 20px;">
+            </form>
+        {%endif%}
 
-    {% if tip == 'izbirno' %}
-        <form action="/solve_question/{{kviz}}/{{vprasanje.id}}/{{vprasanje_index}}/{{username}}/" method="post">
-            {% csrf_token %}
-            <h3>Vprašanje:</h3>
-            <p3>{{vprasanje.vprasanje}}</p3>
-            <h3>Izberi pravilno trditev: </h3>
-            1. {{vprasanje.odgovor1}}<br>
-            2. {{vprasanje.odgovor2}}<br>
-            3. {{vprasanje.odgovor3}}<br>
-            4. {{vprasanje.odgovor4}}<br>
-            5. {{vprasanje.odgovor5}}<br>
+        {% if tip == 'izbirno' %}
+            <form action="/solve_question/{{kviz}}/{{vprasanje.id}}/{{vprasanje_index}}/{{username}}/" method="post">
+                {% csrf_token %}
+                <h3>Vprašanje:</h3>
+                <p3>{{vprasanje.vprasanje}}</p3>
+                <h3>Izberi pravilno trditev: </h3>
+                1. {{vprasanje.odgovor1}}<br>
+                2. {{vprasanje.odgovor2}}<br>
+                3. {{vprasanje.odgovor3}}<br>
+                4. {{vprasanje.odgovor4}}<br>
+                5. {{vprasanje.odgovor5}}<br>
 
-            {{formizbirno}}
-            <input type="submit" value="Odgovori" style="margin-bottom: 20px;">
-        </form>
-    {%endif%}
+                {{formizbirno}}
+                <input type="submit" value="Odgovori" style="margin-bottom: 20px;">
+            </form>
+        {%endif%}
+    </div>
 
 {% endblock content %}

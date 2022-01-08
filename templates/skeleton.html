@@ -37,14 +37,14 @@
                     <ul class="nav navbar-nav navbar-right">
                       <li><a href="/homePage#kvizi">KVIZI</a></li>
                       {% if not request.user.is_anonymous %}
-                      <li><a href="/homePage#uredi">UREJAJ KVIZE</a></li>
+                          <li><a href="/homePage#uredi">UREJAJ KVIZE</a></li>
+                          <li><a href="/homePage#dodaj">DODAJ KVIZ</a></li>
                       {% endif %}
-                      <li><a href="/homePage#dodaj">DODAJ KVIZ</a></li>
                       {% if not request.user.is_anonymous %}
-                      <li><a>uporabnik: {{request.user}}</a></li>
-                      <li><a href="/logout/">odjava</a></li>
+                          <li><a>uporabnik: {{request.user}}</a></li>
+                          <li><a href="/logout/">odjava</a></li>
                       {% else %} 
-                      <li><a href="/login/">prijava</a></li>
+                          <li><a href="/login/">prijava</a></li>
                       {% endif %}
                     </ul>
                   </div>
