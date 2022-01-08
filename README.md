@@ -56,7 +56,20 @@ Styling:
 - [x] poravnava krogcev in odgovorov pri izbirnih vprašanjih (! POMEMBNO)
 - [x] poravnava formsov ob prijavi ali registraciji
 - [x] velikost slik v vprašanjih naj bo fiksna (da prevelike slike ne zasedejo celega okna)
-- [ ] pravilno-nepravilno: ko generiramo vprašanje manjše razmike med P in N
+
+
+TODO:
+- [x] opisni odgovor: daljše okence
+- [x] izbirni odgovor: poravnane pike z odgovori
+- [x] `Get in touch` gumb remove
+- [x] labeli na prijavi (`Password` -> `Geslo`)
+- [x] pravilno-nepravilno: ko generiramo vprašanje manjše razmike med P in N
+- [ ] gumbi `Shrani` padding na dnu
+- [ ] stran `Navodila`
+- [ ] večja okenca za vprašanja
+- [ ] presledki pri odgovorih, izbirno vprašanje in p/n vprašanje
+- [x] navodila za inštalacijo 
+
 
 ## Navodila za namestitev
 1. Zaženit ukaz 'pip install -r requirements.txt'
