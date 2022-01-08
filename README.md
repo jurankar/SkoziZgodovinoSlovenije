@@ -56,6 +56,15 @@ Styling:
 - [x] poravnava krogcev in odgovorov pri izbirnih vprašanjih (! POMEMBNO)
 - [x] poravnava formsov ob prijavi ali registraciji
 - [x] velikost slik v vprašanjih naj bo fiksna (da prevelike slike ne zasedejo celega okna)
+
+TODO:
+- [ ] opisni odgovor: daljše okence
+- [ ] izbirni odgovor: poravnane pike z odgovori
+- [ ] `Get in touch` gumb remove
+- [ ] labeli na prijavi (`Password` -> `Geslo`)
 - [ ] pravilno-nepravilno: ko generiramo vprašanje manjše razmike med P in N
-
-
+- [ ] gumbi `Shrani` padding na dnu
+- [ ] stran `Navodila`
+- [ ] večja okenca za vprašanja
+- [ ] presledki pri odgovorih, izbirno vprašanje in p/n vprašanje
+- [ ] navodila za inštalacijo 
