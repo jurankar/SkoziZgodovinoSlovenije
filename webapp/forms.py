@@ -19,10 +19,10 @@ class Opisno(forms.Form):
     slika = forms.FileField(
         label='Izberi sliko', required=False
     )
-    leto = forms.IntegerField(max_value=2021, label='Leto:')
+    leto = forms.IntegerField(max_value=2022, label='Leto:')
     longitude = forms.FloatField(widget=forms.HiddenInput()) # koordinate za leaflet (bomo spremenili na koncu)
     latitude = forms.FloatField(widget=forms.HiddenInput())
-    vprasanje = forms.CharField(max_length=1000) # seznam vprašanj, odvisno od tipa
+    vprasanje = forms.CharField(widget=forms.TextInput(attrs={'size': '50'}), max_length=1000, label='Vprašanje') # seznam vprašanj, odvisno od tipa
     form_type = forms.IntegerField(label='form type', initial=2, widget=forms.HiddenInput())
 
 class PravilnoNepravilno(forms.Form):
@@ -30,19 +30,19 @@ class PravilnoNepravilno(forms.Form):
     slika = forms.FileField(
         label='Izberi sliko', required=False
     )
-    leto = forms.IntegerField(max_value=2021, label='Leto:')
+    leto = forms.IntegerField(max_value=2022, label='Leto:')
     longitude = forms.FloatField(widget=forms.HiddenInput()) # koordinate za leaflet (bomo spremenili na koncu)
     latitude = forms.FloatField(widget=forms.HiddenInput())
-    trditev1 = forms.CharField(max_length=100)
-    p1 = forms.ChoiceField(choices=[("P","P"),("N","N")], widget=forms.RadioSelect)
-    trditev2 = forms.CharField(max_length=100)
-    p2 = forms.ChoiceField(choices=[("P","P"),("N","N")], widget=forms.RadioSelect)
-    trditev3 = forms.CharField(max_length=100)
-    p3 = forms.ChoiceField(choices=[("P","P"),("N","N")], widget=forms.RadioSelect)
-    trditev4 = forms.CharField(max_length=100)
-    p4 = forms.ChoiceField(choices=[("P","P"),("N","N")], widget=forms.RadioSelect)
-    trditev5 = forms.CharField(max_length=100)
-    p5 = forms.ChoiceField(choices=[("P","P"),("N","N")], widget=forms.RadioSelect)
+    trditev1 = forms.CharField(widget=forms.TextInput(attrs={'size': '40'}), max_length=100)
+    p1 = forms.ChoiceField(choices=[("P","P"),("N","N")], widget=forms.RadioSelect, label="")
+    trditev2 = forms.CharField(widget=forms.TextInput(attrs={'size': '40'}), max_length=100)
+    p2 = forms.ChoiceField(choices=[("P","P"),("N","N")], widget=forms.RadioSelect, label="")
+    trditev3 = forms.CharField(widget=forms.TextInput(attrs={'size': '40'}), max_length=100)
+    p3 = forms.ChoiceField(choices=[("P","P"),("N","N")], widget=forms.RadioSelect, label="")
+    trditev4 = forms.CharField(widget=forms.TextInput(attrs={'size': '40'}), max_length=100)
+    p4 = forms.ChoiceField(choices=[("P","P"),("N","N")], widget=forms.RadioSelect, label="")
+    trditev5 = forms.CharField(widget=forms.TextInput(attrs={'size': '40'}), max_length=100)
+    p5 = forms.ChoiceField(choices=[("P","P"),("N","N")], widget=forms.RadioSelect, label="")
     form_type = forms.IntegerField(label='form type', initial=3, widget=forms.HiddenInput())
 
 class IzberiOdgovor(forms.Form):
@@ -50,10 +50,10 @@ class IzberiOdgovor(forms.Form):
     slika = forms.FileField(
         label='Izberi sliko', required=False
     )
-    leto = forms.IntegerField(max_value=2021, label='Leto:')
+    leto = forms.IntegerField(max_value=2022, label='Leto:')
     longitude = forms.FloatField(widget=forms.HiddenInput()) # koordinate za leaflet (bomo spremenili na koncu)
     latitude = forms.FloatField(widget=forms.HiddenInput())
-    vprasanje = forms.CharField(max_length=100)
+    vprasanje = forms.CharField(widget=forms.TextInput(attrs={'size': '50'}), max_length=100, label='Vprašanje')
     odgovor1 = forms.CharField(max_length=100, label='Možnost 1')
     odgovor2 = forms.CharField(max_length=100, label='Možnost 2')
     odgovor3 = forms.CharField(max_length=100, label='Možnost 3')

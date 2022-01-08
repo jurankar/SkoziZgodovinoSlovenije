@@ -5,11 +5,16 @@
 {% endblock head %}
 
 {% block content %}
+<style>
+  ul, ol {
+    list-style: none;
+  }
+</style>
     <h1>Novo vprašanje:</h1>
     <div class="addQuestion">
         <form action="/add_question/{{kviz}}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ form|linebreaks }}
+            {{ form.as_p }}
             <input type="submit" value="Dodaj vprašanja">
         </form>
     </div>

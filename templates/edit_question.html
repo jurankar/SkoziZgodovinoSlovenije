@@ -5,10 +5,15 @@
 {% endblock head %}
 
 {% block content %}
+<style>
+    ol, ul {
+        list-style: none
+    }
+</style>
         <h1>Uredi vprašanje</h1>
-        <form action="/edit_question/{{kviz.id}}/{{vprasanje.id}}/" method="post"  enctype="multipart/form-data">
+        <form action="/edit_question/{{kviz.id}}/{{vprasanje.id}}/" method="post"  enctype="multipart/form-data" style="padding-bottom: 15px;">
             {% csrf_token %}
-            {{form | linebreaks}}
+            {{form.as_p  }}
             <input type="submit" value="Shrani">
         </form>
 {% endblock content %}
