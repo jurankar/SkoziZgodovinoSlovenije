@@ -65,7 +65,7 @@ TODO:
 - [x] labeli na prijavi (`Password` -> `Geslo`)
 - [x] pravilno-nepravilno: ko generiramo vprašanje manjše razmike med P in N
 - [x] gumbi `Shrani` padding na dnu
-- [ ] stran `Navodila`
+- [x] stran `Navodila`
 - [x] večja okenca za vprašanja
 - [x] presledki pri odgovorih, izbirno vprašanje in p/n vprašanje
 - [x] navodila za inštalacijo 
