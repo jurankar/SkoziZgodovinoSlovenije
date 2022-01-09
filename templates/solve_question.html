@@ -44,23 +44,37 @@
                 <input type="submit" value="Odgovori" style="margin-bottom: 20px;">
             </form>
         {%endif%}
-
+    </div>
+    <style>
+        ul, ol {
+            list-style: none;
+        }
+    </style>
         {% if tip == 'izbirno' %}
             <form action="/solve_question/{{kviz}}/{{vprasanje.id}}/{{vprasanje_index}}/{{username}}/" method="post">
                 {% csrf_token %}
                 <h3>Vprašanje:</h3>
                 <p3>{{vprasanje.vprasanje}}</p3>
                 <h3>Izberi pravilno trditev: </h3>
-                1. {{vprasanje.odgovor1}}<br>
-                2. {{vprasanje.odgovor2}}<br>
-                3. {{vprasanje.odgovor3}}<br>
-                4. {{vprasanje.odgovor4}}<br>
-                5. {{vprasanje.odgovor5}}<br>
-
-                {{formizbirno}}
+                <table>
+                <tr>
+                <td>
+                {{formizbirno.as_p}}
+                </td>
+                <td>
+                    <ul>
+                        <li style="padding-top: 5.5px; text-align: left;">{{vprasanje.odgovor1}}</li>
+                        <li style="padding-top: 5.5px; text-align: left;">{{vprasanje.odgovor2}}</li>
+                        <li style="padding-top: 5.5px; text-align: left;">{{vprasanje.odgovor3}}</li>
+                        <li style="padding-top: 5.5px; text-align: left;">{{vprasanje.odgovor4}}</li>
+                        <li style="padding-top: 5.5px; text-align: left;">{{vprasanje.odgovor5}}</li>
+                    </ul>                
+                </td>
+                </tr>
+                </table>
                 <input type="submit" value="Odgovori" style="margin-bottom: 20px;">
             </form>
         {%endif%}
-    </div>
+   
 
 {% endblock content %}
