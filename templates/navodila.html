@@ -1,0 +1,84 @@
+{% extends "skeleton.html" %}
+
+{% block head %}
+    <title>navodila</title>
+{% endblock head %}
+
+
+{% block content %}
+<style>
+    ul, ol {
+        align-items: center;
+    }
+
+    li {
+        padding-top: 3px;
+        padding-bottom: 3px;
+    }
+
+    table, th, tr, td {
+        text-align: left;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-bottom: 10px;
+    }
+
+</style>
+
+<table>
+<tr><td>
+<h1>Skozi zgodovino Slovenije</h1>
+<p><i>Spletna stran, ki omogoča preprosto dodajanje kvizov za učitelje in reševanje za učence. </i></p>
+<h2>Reševanje kvizov</h2>
+    <p>Če želite rešiti že objavljen kviz, potem prijava ali registracije nista potrebni. Postopek:</p>
+    <ol>
+    <li>Preprosto pojdite na <a href='/homePage'>domačo stran</a> in izberite kviz, ki ga hočete rešiti. </li>
+    <li>Izbrati morate še vaš nadimek, da bo tisti, ki je kviz objavil, lahko videl vaše rezultate.</li>
+    <li>Ko vstopite v kviz, boste pred vami zagledali zemljevid Slovenije. </li>
+    <li>Vsako vprašanje je namreč postavljeno na določeno lokacijo (kjer je zgodovniski dogodek iz vprašanja potekal).</li>
+    <li>Kliknite na bucko in preusmerjeni boste na vprašanje. Odgovorite na vprašanje po svojih najboljših močeh.</li>
+    <li>Na kvizu imate zgoraj časovni trak, na katerem so modri zaznamki. Vsak zaznamek predstavlja kronološko urejeno vprašanje. </li>
+    <li>Med vprašanji lahko preklapljate tako da kliknete na posamezne zaznamke. </li>
+    <li>Odgovor na vprašanje lahko spremenite, dokler ste na kvizu, tako da še enkrat odgovorite nanj. Veljal bo novi odgovor. </li>
+    <li>Ko ste pripravljeni na oddajo, na kvizu kliknite na okence <kbd style="opacity: 40%;">Končaj poskus</kbd>. </li>
+    <li>Dobili boste vaše rezultate. Vaših odgovorov nato ne morete več popravljati, če niste prijavljeni. </li>
+    {% if request.user.is_anonymous %}
+    <li>Vnovično reševanje pod istim nadimkom je na voljo prijavljenim uporabnikom. Če želite to možnost se brezplačno lahko <a href='/login/'>registrirate.</a> </li>
+    {%endif%}    
+    </ol></p>
+</td></tr>
+<tr><td>
+<h2>Dodajanje kvizov</h2>
+    <p>
+        <ol>
+        <li>{%if request.user.is_anonymous%}<a href='/login/'>Prijavljeni uporabniki</a>{%else%}Prijavljeni uporabniki{%endif%} imajo možnost, da ustvarijo nov kviz. </li>
+        <li>Ko se prijavite ali registrirate, na <a href='/homePage'>domači strani</a> poiščite okence <kbd style="opacity: 40%;">Dodaj nov kviz.</kbd></li>
+        <li>Vpišite željeno ime kviza in dodajte naslovno sliko (naslovna slika za kviz je obvezna, zato da kvizi izgledajo lepo za vsakogar). </li>
+        <li>Preusmerjeni boste na <b>Urejevalnik kviza</b>. Kviz še nima dodanih vprašanj, zato je tabela aktivnih vprašanj prazna. </li>
+        <li>Dodajte vprašanje vašemu kvizu, tako da kliknete na gumb <kbd style="opacity: 40%;">Dodaj novo vprašanje</kbd>. </li>
+        <li>Izberite tip novega vprašanja. Zaenkrat stran podpira tri vrste vprašanj: 
+        <ul>
+            <li><b>opisno vprašanje</b>: Uporabnik bo moral nanj odgovoriti s stavkom ali besedo. <br>
+                Samodejno preverjanje pravilnosti ni podprto za opisno vprašanje, da je lahko vaše vprašanje tudi na primer: <i>Opiši bitko pri Mrzli reki.</i></li>
+            <li><b>pravilno-nepravilno vprašanje</b>: Dodali boste vprašanje, ki bo imelo pet trditev. Uporabnik bo moral izbrati, ali je trditev pravilna ali nepravilna <br>
+                Vsak pravilno izbran odgovor bo vreden eno točko.</li>
+            <li><b>izbirno vprašanje</b>: Uporabnik bo moral nanj odgovoriti tako, da bo izbral pravilno izmed petih možnosti. Pravilen odgovor mu bo prinesel tri točke.</li>
+        </ul></li>
+        <li>Izberite željen tip vprašanja in izpolnite obrazec za dodajanje vprašanj. Če želite, da ima vaše vprašanje zraven tudi sliko, jo lahko dodate, ni pa obvezno. </li>
+        <li>Vprašanje dodate na zemljevid tako, da kliknete na lokacijo, kjer želite da bo vaše vprašanje. Če želite hitro najti mesto ali kraj, ga lahko poiščete z iskalno vrstico. </li>
+        <li>Kliknite <kbd style="opacity: 40%;">Dodaj vprašanje</kbd> in vaše vprašanje bo dodano na vaš kviz. </li>
+        <li>Sedaj lahko to vprašanje tudi urejate in izbrišete, lahko pa dodate še eno novo vprašanje. </li>
+        </ol><div style="color: red"><b>POZOR: če boste spreminjali vaše vprašanje, se bodo izbrisali vsi obsoječi odgovori nanj.</b></div>
+    </p>
+</tr></td>
+<tr><td>
+<h2>Ogled lestvice rezulatov kviza in brisanje kviza</h2>
+    <p><ol>
+        <li>Rezultate vašega kviza lahko vidite samo vi, če ste prijavljeni. </li>
+        <li>Pojdite na domači strani pod <b>Urejaj kvize</b> in kliknite na <kbd style="opacity: 40%;">Rezultat</kbd>, pod tistim kvizom, katerega rezultate želite videti. </li>
+        <li>Kviz lahko izbrišete tako, da kliknete na <kbd style="opacity: 40%;">Izbriši kviz</kbd> pod željenim kvizom. </li>
+        </ol><div style="color: red"><b>POZOR: ko kviz ali vprašanje enkrat izbrišete, ga izbrišete za vedno (zelo dolgo časa). S kvizom so izbrisana tudi vsa vprašanja znotraj kviza in vsi odgovori nanj. </b></div>
+    </ol></p>
+</td></tr>
+</table>
+{% endblock content %}

@@ -23,5 +23,6 @@ urlpatterns = [
     path('login/<str:napaka>', views.prijava, name='prijava'),
     path('registracija', views.registracija, name='registracija'),
     path('logout/', views.izpis, name='izpis'),
-    path('rezultati_kviza/<int:kviz>/', views.rezultati_kviza, name='rezultati_kviza')
+    path('rezultati_kviza/<int:kviz>/', views.rezultati_kviza, name='rezultati_kviza'),
+    path('navodila', views.navodila, name='navodila')
 ]

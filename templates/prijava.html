@@ -5,20 +5,43 @@
 {% endblock head %}
 
 {% block content %}
+    <style>
+        td, tr {
+            align-items: right;
+            padding-top: 3px;
+            padding-bottom: 3px;
+        }
+        th {
+            align-items: center;
+            padding-top: 3px;
+            padding-bottom: 3px;           
+        }
+    </style>
+
     {% if napaka %}
         <p style="color: red;">{{napaka}}</p>
     {% endif %}
         <h3>Prijavite se:</h3>
         <form action="/login/" method="post">
+        <table>
+            <tr><td>
             {% csrf_token %}
-            {{form_prijava | linebreaks}}
+            {{form_prijava.as_table}}
+        </td></tr><th><td>
             <input type="submit" value="Prijava">
+        </th></td>
+        </table>
         </form>
         <h3> Registriraj se:</h3>
+        <table>
+            <tr><td>
         <form action="/registracija" method="post">
             {% csrf_token %}
-            {{form_reg | linebreaks}}
+            {{form_reg.as_table}}
+        </td></tr><th><td>
             <input type="submit" value="Registracija">
         </form>
+            </td></th>
+        </table>
 
 {% endblock content %}

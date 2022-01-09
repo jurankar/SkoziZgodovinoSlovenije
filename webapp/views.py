@@ -861,3 +861,6 @@ def rezultati_kviza(request, kviz):
         sort = sorted(rezultati, key=lambda x: -x[2])
       
         return render(request, "rezultati_kviza.html", {'naslov': kviz.name, 'rezultat': sort})
+
+def navodila(request):
+    return render(request, 'navodila.html', {'user': request.user})
