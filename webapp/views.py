@@ -241,7 +241,7 @@ def add_question(request, kviz):
             longitude = form['longitude']
             latitude = form['latitude']
 
-            if type(longitude)==str or type(latitude)==str: # Če ne izbere lokacije damo privzeto na Ljubljanski grad
+            if longitude=='' or latitude=='': # Če ne izbere lokacije damo privzeto na Ljubljanski grad
                 longitude = 14.50837
                 latitude = 46.04901
 
@@ -464,10 +464,11 @@ def rezultati(request, kviz, username):
             c.append(i.vprasanje)
             b.append('')
             try:
-                d.append(i.pravilni_odgovor)
+                d.append(str(i.pravilni_odgovor))
             except:
                 d.append('')
                 e.append('0/0')
+                continue
             try:
                 z = i.odgovor1
                 e.append('0/3')
